@@ -6,13 +6,24 @@ import { HomeOutlined, MailOutlined, UserOutlined, HistoryOutlined, UsergroupAdd
     InsertRowAboveOutlined,DollarCircleOutlined,PercentageOutlined
 
 } from '@ant-design/icons';
-
+import { useHistory } from "react-router-dom";
 const { SubMenu } = Menu;
 
 export const Navbar = ({})=> {
+    const history = useHistory();
 
     const handleClick = e => {
-        console.log('click ', e);
+        console.log('click ', e.key);
+        switch (e.key) {
+            case "3":
+                history.push("/lich-hen");
+                break;
+            case "4":
+                history.push("/lich-hen/lich-su");
+                break;
+            default:
+                break;
+        }
     };
 
     return (<>

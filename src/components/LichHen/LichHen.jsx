@@ -1,6 +1,7 @@
 import React from "react";
 import { Table, Space, Button } from "antd";
-import "./Home.scss";
+import "./LichHen.scss";
+import { Link } from "react-router-dom";
 const columns = [
   {
     title: "No",
@@ -8,7 +9,11 @@ const columns = [
   },
   {
     title: "Tên Khách Hàng",
-    dataIndex: "name",
+    render: (text, record) => (
+      <Space size="middle">
+        <Link to={`/lich-hen/${record.key}`}>  {record.name} </Link>
+      </Space>
+    ),
   },
   {
     title: "Số Điện Thoại",
@@ -158,7 +163,7 @@ const data = [
   },
 ];
 
-export const Home = () => {
+export const LichHen = () => {
   return (
     <>
       <div className="title-table">Danh sách lịch hẹn</div>
