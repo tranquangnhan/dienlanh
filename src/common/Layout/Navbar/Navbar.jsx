@@ -33,6 +33,9 @@ export const Navbar = ({})=> {
             case "9":
                 history.push("/lich-lam-viec/add");
                 break;
+            case "12":
+                history.push("/dich-vu");
+                break;
             default:
                 break;
         }

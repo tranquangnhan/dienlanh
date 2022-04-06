@@ -11,4 +11,6 @@ export const ROUTE = {
     LICH_LAM_VIEC_ADD: "/lich-lam-viec/add",
     LICH_LAM_VIEC_DETAIL: "/lich-lam-viec/:id",
     LICH_LAM_VIEC_EDIT: "/lich-lam-viec/:id/edit",
+    DICH_VU: "/dich-vu",
+    DICH_VU_DETAIL: "/dich-vu/:id",
 };

@@ -1,169 +1,112 @@
-import React from "react";
+import React, { useEffect,useState } from "react";
 import { Table, Space, Button } from "antd";
 import "./LichHen.scss";
 import { Link } from "react-router-dom";
-const columns = [
-  {
-    title: "No",
-    dataIndex: "no",
-  },
-  {
-    title: "Tên Khách Hàng",
-    render: (text, record) => (
-      <Space size="middle">
-        <Link to={`/lich-hen/${record.key}`}>  {record.name} </Link>
-      </Space>
-    ),
-  },
-  {
-    title: "Số Điện Thoại",
-    dataIndex: "phone",
-  },
-  {
-    title: "Địa Chỉ",
-    dataIndex: "address",
-  },
-  {
-    title: "Loại Dịch Vụ",
-    dataIndex: "kind",
-  },
-  {
-    title: "Số Lượng",
-    dataIndex: "quantity",
-  },
-  {
-    title: "Action",
-    key: "action",
-    render: (text, record) => (
-      <Space size="middle">
-        <a href={record.key}>
-          <Button type="primary" shape="round" size="large ">
-            Xét
-          </Button>
-        </a>
-        <a>
-          <Button type="danger" shape="round" size="large ">
-            Từ Chối
-          </Button>
-        </a>
-      </Space>
-    ),
-  },
-];
+import axios from 'axios';
 
-const data = [
-  {
-    key: "1",
-    name: "John Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-  },
-  {
-    key: "3",
-    name: "Joe Black",
-    age: 32,
-    address: "Sidney No. 1 Lake Park",
-  },
-  {
-    key: "4",
-    name: "John Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-  },
-  {
-    key: "5",
-    name: "test1",
-    age: 42,
-    address: "London No. 1 Lake Park",
-  },
-  {
-    key: "6",
-    name: "Joe Black",
-    age: 32,
-    address: "Sidney No. 1 Lake Park",
-  },
-  {
-    key: "7",
-    name: "John Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-  },
-  {
-    key: "8",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-  },
-  {
-    key: "9",
-    name: "Joe Black",
-    age: 32,
-    address: "Sidney No. 1 Lake Park",
-  },
-
-  {
-    key: "10",
-    name: "John Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-  },
-  {
-    key: "11",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-  },
-  {
-    key: "12",
-    name: "Joe Black",
-    age: 32,
-    address: "Sidney No. 1 Lake Park",
-  },
-  {
-    key: "13",
-    name: "John Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-  },
-  {
-    key: "14",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-  },
-  {
-    key: "15",
-    name: "Joe Black",
-    age: 32,
-    address: "Sidney No. 1 Lake Park",
-  },
-  {
-    key: "16",
-    name: "John Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-  },
-  {
-    key: "17",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-  },
-  {
-    key: "18",
-    name: "test 2",
-    age: 32,
-    address: "Sidney No. 1 Lake Park",
-  },
-];
 
 export const LichHen = () => {
+  const [data,setData] = useState();
+
+  function xet(id,staff_id){
+    // alert(staff_id)
+    axios.get(`https://acsproject.azurewebsites.net/appointment/accept/${id}`,{
+      data: {
+        staff_id: staff_id,
+      }
+    })
+    .then(res => {
+      console.log(res);
+    })
+    .catch(error => console.log(error));
+  }
+
+  useEffect(()=>{
+
+    axios.get(`https://acsproject.azurewebsites.net/appointment/all`)
+      .then(res => {
+        if(res.status === 200){
+          setData(res.data.data)
+        }
+      })
+      .catch(error => console.log(error));
+
+  },[]);
+
+  const columns = [
+    {
+      title: "No",
+      dataIndex: "id",
+    },
+    {
+      title: "Tên Khách Hàng",
+      render: (text, record) => (
+        <Space size="middle">
+          <Link to={`/lich-hen/${record.id}`}>  {record.full_name} </Link>
+        </Space>
+      ),
+    },
+    {
+      title: "Số Điện Thoại",
+      dataIndex: "phone",
+    },
+    {
+      title: "Địa Chỉ",
+      dataIndex: "address",
+    },
+    {
+      title: "Loại Dịch Vụ",
+      dataIndex: "description",
+    },
+    {
+      title: "Số Lượng",
+      dataIndex: "quantity",
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (text, record) => 
+    {
+          console.log(record)
+  
+          if(record.status === 1) {
+            return (
+            <Button key={record.id} type="disable" style={{ background: "#c82333", color: "white", margin:"0 auto" }} shape="round" size="large ">
+                Đã huỷ
+            </Button>
+            ) 
+          }
+          if(record.status === 2) {
+            return (
+            <Button key={record.id} type="disable" style={{ background: "#28a745", color: "white", margin:"0 auto" }} shape="round" size="large ">
+                Đã xác nhận
+            </Button>
+            ) 
+          
+          }
+          if(record.status === 3) {
+            
+            return (
+              <Space size="middle" key={record.id}>
+                  <a href={record.key}>
+                  <Button onClick={() => xet(record.id,record.staff_id)} type="primary" shape="round" size="large ">
+                      Xét
+                    </Button>
+                  </a>
+                  <a>
+                    <Button type="danger" shape="round" size="large ">
+                      Từ Chối
+                    </Button>
+                  </a>
+              </Space>
+            )
+          }
+    }
+      ,
+    },
+  ];
+
+
   return (
     <>
       <div className="title-table">Danh sách lịch hẹn</div>
