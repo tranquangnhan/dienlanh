@@ -9,17 +9,14 @@ export const LichHen = () => {
   const [data,setData] = useState();
 
   function xet(id,staff_id){
-    // alert(staff_id)
-    axios.get(`https://acsproject.azurewebsites.net/appointment/accept/${id}`,{
-      data: {
-        staff_id: staff_id,
-      }
-    })
+    axios.put(`https://acsproject.azurewebsites.net/appointment/accept/${id}`,staff_id)
     .then(res => {
       console.log(res);
     })
     .catch(error => console.log(error));
+   
   }
+
 
   useEffect(()=>{
 
@@ -82,10 +79,8 @@ export const LichHen = () => {
                 Đã xác nhận
             </Button>
             ) 
-          
           }
           if(record.status === 3) {
-            
             return (
               <Space size="middle" key={record.id}>
                   <a href={record.key}>
@@ -100,6 +95,13 @@ export const LichHen = () => {
                   </a>
               </Space>
             )
+          }
+          if(record.status === 4) {
+            return (
+            <Button key={record.id} type="disable" style={{ background: "#f7941d", color: "white", margin:"0 auto" }} shape="round" size="large ">
+                Xong
+            </Button>
+            ) 
           }
     }
       ,

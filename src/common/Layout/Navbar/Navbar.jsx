@@ -2,6 +2,8 @@
 import React from 'react';
 import { Logo } from '../../Logo/Logo';
 import { Menu } from 'antd';
+import "./Navbar.scss";
+
 import { HomeOutlined, UserOutlined, HistoryOutlined, UsergroupAddOutlined,
     InsertRowAboveOutlined,DollarCircleOutlined,PercentageOutlined
 

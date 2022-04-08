@@ -1,14 +1,15 @@
-import React from "react";
 import { Table, Space, Button } from "antd";
+import React, { useEffect,useState } from "react";
+import axios from 'axios';
 
 const columns = [
     {
       title: "No",
-      dataIndex: "key",
+      dataIndex: "id",
     },
     {
       title: "Loại dịch vụ",
-      dataIndex: "kind",
+      dataIndex: "description",
     },
     {
       title: "Ngày sửa chữa",
@@ -19,15 +20,15 @@ const columns = [
       dataIndex: "time",
     },
     {
-      title: "Đánh giá",
-      dataIndex: "rate",
+      title: "Địa chỉ",
+      dataIndex: "address",
     },
     {
       title: "Trạng Thái",
       dataIndex: "status",
       render: (text, record) => (
         <Space size="middle">
-              {record.status === 0  ? <div style={{color:"#0E9713"}}>Completed </div>: <div style={{color:"#FD1515"}} >Canceled </div>} 
+              {record.status === 1  ? <div style={{color:"#0E9713"}}>Cancel </div>: <div style={{color:"#FD1515"}} >Completed </div>} 
         </Space>
       ),
     }
@@ -182,6 +183,20 @@ const columns = [
     },
   ];
 export const LichHenLichSu = () => {
+  const [data,setData] = useState();
+
+  useEffect(()=>{
+
+    axios.get(`https://acsproject.azurewebsites.net/appointment/all`)
+      .then(res => {
+        if(res.status === 200){
+          const item = res.data.data.filter(item=>item.status === 1 || item.status === 4)
+          setData(item)
+        }
+      })
+      .catch(error => console.log(error));
+
+  },[]);
     return (
       <>
            <div className="title-table">Lịch sử lịch hẹn</div>
