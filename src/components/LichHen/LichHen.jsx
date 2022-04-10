@@ -22,7 +22,7 @@ export const LichHen = () => {
   }
   
   function cancel(id){
-    axios.put(`${ROUTE.MAIN_URL}/appointment/cancel/${id}`,)
+    axios.patch(`${ROUTE.MAIN_URL}/appointment/cancel/${id}`,)
     .then(res => {
       if(res.status === 200){
         setRefreshKey(oldKey => oldKey +1)
@@ -77,9 +77,7 @@ export const LichHen = () => {
       title: "Action",
       key: "action",
       render: (text, record) => 
-    {
-          console.log(record)
-  
+    {  
           if(record.status === 1) {
             return (
             <Button key={record.id} type="disable" style={{ background: "#c82333", color: "white", margin:"0 auto" }} shape="round" size="large ">
