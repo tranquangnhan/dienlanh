@@ -13,4 +13,5 @@ export const ROUTE = {
     LICH_LAM_VIEC_EDIT: "/lich-lam-viec/:id/edit",
     DICH_VU: "/dich-vu",
     DICH_VU_DETAIL: "/dich-vu/:id",
+    MAIN_URL:"https://acsproject.azurewebsites.net"
 };

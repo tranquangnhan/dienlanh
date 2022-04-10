@@ -3,24 +3,38 @@ import { Table, Space, Button } from "antd";
 import "./LichHen.scss";
 import { Link } from "react-router-dom";
 import axios from 'axios';
+import { ROUTE } from "../../utils/constant";
 
 
 export const LichHen = () => {
   const [data,setData] = useState();
+  const [refreshKey, setRefreshKey] = useState(0);
 
   function xet(id,staff_id){
-    axios.put(`https://acsproject.azurewebsites.net/appointment/accept/${id}`,staff_id)
+    axios.put(`${ROUTE.MAIN_URL}/appointment/accept/${id}/2`,)
     .then(res => {
-      console.log(res);
+      if(res.status === 200){
+        setRefreshKey(oldKey => oldKey +1)
+      }
     })
     .catch(error => console.log(error));
    
+  }
+  
+  function cancel(id){
+    axios.put(`${ROUTE.MAIN_URL}/appointment/cancel/${id}`,)
+    .then(res => {
+      if(res.status === 200){
+        setRefreshKey(oldKey => oldKey +1)
+      }
+    })
+    .catch(error => console.log(error));
   }
 
 
   useEffect(()=>{
 
-    axios.get(`https://acsproject.azurewebsites.net/appointment/all`)
+    axios.get(`${ROUTE.MAIN_URL}/appointment/all`)
       .then(res => {
         if(res.status === 200){
           setData(res.data.data)
@@ -28,7 +42,7 @@ export const LichHen = () => {
       })
       .catch(error => console.log(error));
 
-  },[]);
+  },[refreshKey]);
 
   const columns = [
     {
@@ -89,7 +103,7 @@ export const LichHen = () => {
                     </Button>
                   </a>
                   <a>
-                    <Button type="danger" shape="round" size="large ">
+                    <Button onClick={() => cancel(record.id)} type="danger" shape="round" size="large ">
                       Từ Chối
                     </Button>
                   </a>
