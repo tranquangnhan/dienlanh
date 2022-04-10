@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import { Layout } from './common/Layout/Layout';
-import { LichHen,LichHenEdit,LichHenLichSu,NhanVien,NhanVienEdit,NhanVienAdd, LichLamViec, LichLamViecAdd,LichLamViecEdit,LichLamViecChiTiet,DichVu, DichVuChiTiet } from './components';
+import { LichHen,LichHenEdit,LichHenLichSu,NhanVien,NhanVienEdit,NhanVienAdd, LichLamViec, LichLamViecAdd,LichLamViecEdit,LichLamViecChiTiet,DichVu, DichVuChiTiet,DichVuAdd } from './components';
 import { ROUTE } from './utils/constant';
 
 function App() {
@@ -20,7 +20,9 @@ function App() {
             <Route exact path={ROUTE.LICH_LAM_VIEC_EDIT} component={LichLamViecEdit} />
             <Route exact path={ROUTE.LICH_LAM_VIEC_DETAIL} component={LichLamViecChiTiet} />
             <Route exact path={ROUTE.DICH_VU} component={DichVu} />
+            <Route exact path={ROUTE.DICH_VU_ADD} component={DichVuAdd} />
             <Route exact path={ROUTE.DICH_VU_DETAIL} component={DichVuChiTiet} />
+            
           </Switch>
     </Layout>
   );

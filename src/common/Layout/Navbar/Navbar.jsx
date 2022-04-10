@@ -38,6 +38,9 @@ export const Navbar = ({})=> {
             case "12":
                 history.push("/dich-vu");
                 break;
+            case "15":
+                history.push("/dich-vu/add");
+                break;
             default:
                 break;
         }

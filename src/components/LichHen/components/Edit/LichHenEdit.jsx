@@ -121,11 +121,11 @@ export const LichHenEdit = () => {
                     <LichHenItem name="Kiểm tra máy" value="Empty"/>
                </tbody>
            </table>
-            {/* <div className="btn-addtho">
+            <div className="btn-addtho">
                 <Button type="primary" onClick={showModal}>
                     Thêm Thợ Máy
                 </Button>
-            </div> */}
+            </div>
 
             <div className="btn-xacnhan">
                 <Button type="primary" onClick={sua}>

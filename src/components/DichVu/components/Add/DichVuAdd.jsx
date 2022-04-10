@@ -1,6 +1,6 @@
-import { Button, Modal, Select,Input  } from 'antd';
+import { Button, Modal, Select,Input,DatePicker  } from 'antd';
 import React, { useState } from "react";
-import "./DichVuChiTiet.scss";
+import "./DichVuAdd.scss";
 import img1 from './img/midu.jpg';
 
 const { Option } = Select;
@@ -14,11 +14,12 @@ function handleChange(value) {
     console.log(`Selected: ${value}`);
 }
 
-export const DichVuChiTiet = () => {
+export const DichVuAdd = () => {
+
   
     return (
       <>
-       <div className="title-table">Sửa Lịch Hẹn Khách Hàng</div>
+        <div className="title-table">Thêm Dịch Vụ</div>
         <div className='boxEdit'>
             <div className="img">
               <img src={img1} />
@@ -28,35 +29,35 @@ export const DichVuChiTiet = () => {
                     <tbody>
                         <tr>
                             <td width="20%">Tên tài khoản</td>
-                            <td >abcxyz102 </td>
+                            <td ><Input placeholder='Nhập tên tài khoản' /> </td>
                         </tr>
                         <tr>
-                            <td width="20%">Họ và tên</td>
-                            <td > <Input value="Nguyễn Văn B" /></td>
+                            <td width="20%">Mật Khẩu</td>
+                            <td > <Input placeholder='Nhập mật khẩu' /></td>
                         </tr>
                         <tr>
                             <td width="20%">Ngày sinh</td>
-                            <td ><Input value="01/02/1990" /></td>
+                            <td > <DatePicker style={{ width: '100%' }} /></td>
                         </tr>
                         <tr>
-                            <td width="20%">Số điên thoại</td>
-                            <td ><Input value="0123456789" /></td>
+                            <td width="20%">Số điện thoại</td>
+                            <td ><Input placeholder='Nhập số điện thoại' /></td>
                         </tr>
                         <tr>
                             <td width="20%">Địa chỉ</td>
-                            <td ><Input value="Số 123 đường abc, phường 11, Quận 12, TP. Hồ Chí Minh"/></td>
+                            <td ><Input placeholder="Địa chỉ"/></td>
                         </tr>
                         <tr>
                             <td width="20%">Mail</td>
-                            <td ><Input value="abc@gmai.com"/></td>
+                            <td ><Input placeholder="Nhập Email"/></td>
                         </tr>
                         <tr>
                             <td width="20%">Chi nhánh</td>
-                            <td ><Input value="Quận 4"/></td>
+                            <td ><Input placeholder="Nhập chi nhánh"/></td>
                         </tr>
                         <tr>
                             <td width="20%">Chức vụ</td>
-                            <td ><Input value="Nhân viên kỹ thuật"/></td>
+                            <td ><Input placeholder="Nhập chức vụ"/></td>
                         </tr>
                         <tr>
                             <td width="20%">Trạng thái</td>
@@ -80,9 +81,7 @@ export const DichVuChiTiet = () => {
                      
                   </div>
               </table>
-              
-
-              
+ 
           </div>
         </div>
  
