@@ -36,10 +36,22 @@ export const Navbar = ({})=> {
                 history.push("/lich-lam-viec/add");
                 break;
             case "12":
+                history.push("/loai-dich-vu");
+                break;
+            case "13":
+                history.push("/loai-dich-vu/add");
+                break;
+            case "14":
                 history.push("/dich-vu");
                 break;
             case "15":
                 history.push("/dich-vu/add");
+                break;
+            case "16":
+                history.push("/khuyen-mai");
+                break;
+            case "17":
+                history.push("/khuyen-mai/add");
                 break;
             default:
                 break;

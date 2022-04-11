@@ -13,6 +13,12 @@ export const ROUTE = {
     LICH_LAM_VIEC_EDIT: "/lich-lam-viec/:id/edit",
     DICH_VU: "/dich-vu",
     DICH_VU_DETAIL: "/dich-vu/:id",
-    MAIN_URL:"https://acsproject.azurewebsites.net",
     DICH_VU_ADD: "/dich-vu/add",
+    MAIN_URL:"https://acsproject.azurewebsites.net",
+    LOAI_DICH_VU: "/loai-dich-vu",
+    LOAI_DICH_VU_DETAIL: "/loai-dich-vu/:id",
+    LOAI_DICH_VU_ADD: "/loai-dich-vu/add",
+    KHUYEN_MAI: "/khuyen-mai",
+    KHUYEN_MAI_DETAIL: "/khuyen-mai/:id",
+    KHUYEN_MAI_ADD: "/khuyen-mai/add",
 };

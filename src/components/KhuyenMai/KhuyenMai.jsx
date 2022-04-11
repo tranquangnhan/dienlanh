@@ -1,6 +1,6 @@
 import React from "react";
 import { Table, Space, Button } from "antd";
-import "./DichVu.scss";
+import "./KhuyenMai.scss";
 import { Link } from "react-router-dom";
 const columns = [
   {
@@ -11,7 +11,7 @@ const columns = [
     title: "Dịch vụ",
     render: (text, record) => (
       <Space size="middle">
-        <Link to={`/dich-vu/${record.key}`}>  {record.name} </Link>
+        <Link to={`/khuyen-mai/${record.key}`}>  {record.name} </Link>
       </Space>
     ),
   },
@@ -24,7 +24,7 @@ const columns = [
     key: "action",
     render: (text, record) => (
       <Space size="middle">
-        <Link to={`/dich-vu/${record.key}`}>
+        <Link to={`/khuyen-mai/${record.key}`}>
           <Button type="primary" shape="round" size="large ">
             Chi Tiết
           </Button>
@@ -146,10 +146,10 @@ const data = [
   },
 ];
 
-export const DichVu = () => {
+export const KhuyenMai = () => {
   return (
     <>
-      <div className="title-table">Danh sách dịch vụ</div>
+      <div className="title-table">Danh sách khuyến mãi</div>
       <div className="table">
         <Table columns={columns} dataSource={data} />
       </div>

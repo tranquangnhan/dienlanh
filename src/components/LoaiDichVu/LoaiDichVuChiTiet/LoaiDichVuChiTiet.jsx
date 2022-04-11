@@ -1,6 +1,6 @@
-import { Button, Modal, Select,Input,DatePicker  } from 'antd';
+import { Button, Modal, Select,Input  } from 'antd';
 import React, { useState } from "react";
-import "./DichVuAdd.scss";
+import "./LoaiDichVuChiTiet.scss";
 import img1 from './img/midu.jpg';
 
 const { Option } = Select;
@@ -14,40 +14,26 @@ function handleChange(value) {
     console.log(`Selected: ${value}`);
 }
 
-export const DichVuAdd = () => {
-
+export const LoaiDichVuChiTiet = () => {
   
     return (
       <>
-        <div className="title-table">Thêm dịch vụ</div>
+       <div className="title-table">Chi tiết loại dịch vụ</div>
         <div className='boxEdit'>
+        <div className="img">
+              <img src={img1} />
+            </div>
             <div className="table">
               <table>
                     <tbody>
-                        <tr>
-                            <td width="20%">Loại dịch vụ</td>
-                            <td >
-                                <Select  style={{ width: 200 }} onChange={handleChange}>
-                                  <Option value="jack">Vệ sinh máy lạnh</Option>
-                                  <Option value="lucy">Bảo trì máy lạnh</Option>
-                                  <Option value="lucy">Sửa chữa máy lạnh</Option>
-                                </Select>
-                              
-                              </td>
-                        </tr>
-                        <tr>
-                            <td width="20%">Tên dịch vụ</td>
-                            <td > <Input value="" /></td>
+                    <tr>
+                            <td width="20%">Tên loại dịch vụ</td>
+                            <td > <Input value="Vệ sinh máy lạnh" /></td>
                         </tr>
                         <tr>
                             <td width="20%">Mô tả</td>
-                            <td ><Input value=" " /></td>
+                            <td ><Input value="Vệ sinh ..." /></td>
                         </tr>
-                        <tr>
-                            <td width="20%">Phí (đồng)</td>
-                            <td ><Input value="" /></td>
-                        </tr>
-                        
                         <tr>
                             <td width="20%">Trạng thái</td>
                             <td >
@@ -65,12 +51,14 @@ export const DichVuAdd = () => {
                         Đóng
                       </Button>
                       <Button type="primary">
-                        Thêm
+                        Lưu
                       </Button>
                      
                   </div>
               </table>
- 
+              
+
+              
           </div>
         </div>
  
