@@ -19,6 +19,8 @@ function handleChange(value) {
 
 export const LichHenEdit = () => {
     const [detail,setDetail] = useState();
+    const [detailOrder,setDetailOrder] = useState();
+
 
     const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -43,6 +45,7 @@ export const LichHenEdit = () => {
 
     
     let { id } = useParams();
+   
     useEffect(()=>{
 
       axios.get(`https://acsproject.azurewebsites.net/appointment/${id}`)
@@ -55,6 +58,21 @@ export const LichHenEdit = () => {
 
     },[]);
 
+
+    useEffect(()=>{
+
+      axios.get(`https://acsproject.azurewebsites.net/orderDetail/${id}/orderId`)
+      .then(res => {
+        if(res.status === 200){
+          setDetailOrder(res.data.data)
+        }
+      })
+      .catch(error => console.log(error));
+
+    },[]);
+
+    
+
     const [fullName,setfullName] = useState();
     const [phone,setPhone] = useState();
     const [address,setAddress] = useState();
@@ -63,7 +81,7 @@ export const LichHenEdit = () => {
     const [quantity,setQuantity] = useState();
     const [time,setTime] = useState();
 
-    console.log(fullName)
+  
     function sua(){
       axios.put(`https://acsproject.azurewebsites.net/appointment/update/${id}`,{
           full_name: fullName ?? detail?.full_name,
@@ -79,6 +97,7 @@ export const LichHenEdit = () => {
       })
       .catch(error => console.log(error));
     }
+    console.log(detailOrder);
  
     return (
       <>
@@ -117,8 +136,9 @@ export const LichHenEdit = () => {
                     <tr>
                         <td width="100%" colSpan={2}> <hr /></td>
                     </tr>
-                    <LichHenItem name="Nội dung" value="Nhân viên"/>
-                    <LichHenItem name="Kiểm tra máy" value="Empty"/>
+
+                    <LichHenItem name="Nội dung" value={detailOrder?.[0]?.description}/>
+         
                </tbody>
            </table>
             <div className="btn-addtho">
@@ -137,16 +157,10 @@ export const LichHenEdit = () => {
             </div>
          
         </div>
-        <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-            <Select
-                mode="multiple"
-                size={size}
-                placeholder="Please select"
-                defaultValue={['a10', 'c12']}
-                onChange={handleChange}
-                style={{ width: '100%' }}
-            >
-                {children}
+        <Modal title="Chọn Nhân Viên" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+            <Select defaultValue="lucy" style={{ width: 120 }} onChange={handleChange}>
+                <Option value="jack">Jack</Option>
+                <Option value="lucy">Lucy</Option>
             </Select>
         </Modal>
       </>

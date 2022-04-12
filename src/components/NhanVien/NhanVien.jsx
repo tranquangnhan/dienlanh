@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useEffect,useState } from "react";
 import { Table, Space, Button } from "antd";
 import "./NhanVien.scss";
 import { Link } from "react-router-dom";
+import axios from 'axios';
+import { ROUTE } from "../../utils/constant";
 const columns = [
   {
     title: "No",
-    dataIndex: "key",
+    dataIndex: "id",
   },
   {
     title: "Tên Nhân Viên",
     render: (text, record) => (
       <Space size="middle">
-        <Link to={`/nhan-vien/${record.key}`}>  {record.name} </Link>
+        <Link to={`/nhan-vien/${record.key}`}>  {record.fullName} </Link>
       </Space>
     ),
   },
@@ -21,13 +23,13 @@ const columns = [
   },
   {
     title: "Chi Nhánh",
-    dataIndex: "branch",
+    dataIndex: "nameAgency",
   },
   {
     title: "Action",
     key: "action",
     render: (text, record) => (
-      <Space size="middle">
+      <Space size="middle" key={record.id}>
         <a href={record.key}>
           <Button type="primary" shape="round" size="large ">
             Xoá
@@ -43,122 +45,71 @@ const columns = [
   },
 ];
 
-const data = [
-  {
-    key: "1",
-    name: "John Brown",
-    position: "Chăm sóc khách hàng",
-    branch: "New York No. 1 Lake Park",
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    position: "Chăm sóc khách hàng",
-    branch: "London No. 1 Lake Park",
-  },
-  {
-    key: "3",
-    name: "Joe Black",
-    position: "Nhân viên kỹ thuật",
-    branch: "Sidney No. 1 Lake Park",
-  },
-  {
-    key: "4",
-    name: "John Brown",
-    position: "Chăm sóc khách hàng",
-    branch: "New York No. 1 Lake Park",
-  },
-  {
-    key: "5",
-    name: "test1",
-    position: "Nhân viên kỹ thuật",
-    branch: "London No. 1 Lake Park",
-  },
-  {
-    key: "6",
-    name: "Joe Black",
-    position: "Nhân viên kỹ thuật",
-    branch: "Sidney No. 1 Lake Park",
-  },
-  {
-    key: "7",
-    name: "John Brown",
-    position: "Chăm sóc khách hàng",
-    branch: "New York No. 1 Lake Park",
-  },
-  {
-    key: "8",
-    name: "Jim Green",
-    position: "Chăm sóc khách hàng",
-    branch: "London No. 1 Lake Park",
-  },
-  {
-    key: "9",
-    name: "Joe Black",
-    position: "Nhân viên kỹ thuật",
-    branch: "Sidney No. 1 Lake Park",
-  },
-
-  {
-    key: "10",
-    name: "John Brown",
-    position: "Chăm sóc khách hàng",
-    branch: "New York No. 1 Lake Park",
-  },
-  {
-    key: "11",
-    name: "Jim Green",
-    position: "Chăm sóc khách hàng",
-    branch: "London No. 1 Lake Park",
-  },
-  {
-    key: "12",
-    name: "Joe Black",
-    position: "Chăm sóc khách hàng",
-    branch: "Sidney No. 1 Lake Park",
-  },
-  {
-    key: "13",
-    name: "John Brown",
-    position: "Chăm sóc khách hàng",
-    branch: "New York No. 1 Lake Park",
-  },
-  {
-    key: "14",
-    name: "Jim Green",
-    position: "Chăm sóc khách hàng",
-    branch: "London No. 1 Lake Park",
-  },
-  {
-    key: "15",
-    name: "Joe Black",
-    position: "Chăm sóc khách hàng",
-    branch: "Sidney No. 1 Lake Park",
-  },
-  {
-    key: "16",
-    name: "John Brown",
-    position: "Chăm sóc khách hàng",
-    branch: "New York No. 1 Lake Park",
-  },
-  {
-    key: "17",
-    name: "Jim Green",
-    position: "Chăm sóc khách hàng",
-    branch: "London No. 1 Lake Park",
-  },
-  {
-    key: "18",
-    name: "test 2",
-    position: "Chăm sóc khách hàng",
-    branch: "Sidney No. 1 Lake Park",
-  },
-];
 
 export const NhanVien = () => {
+  const [data,setData] = useState();
+  const [dataAgency,setDataAgency] = useState();
+
+  // hàm lấy tất cả cơ sở
+  useEffect(()=>{
+
+    axios.get(`${ROUTE.MAIN_URL}/agency/all`)
+      .then(res => {
+        if(res.status === 200){
+          setDataAgency(res.data.data)
+        }
+      })
+      .catch(error => console.log(error));
+
+  },[]);
+
+  // hàm lấy cở sở By id
+  function getAgencyById(ids){
+
+    return new Promise(function(resolve){
+      const result = dataAgency?.filter(user=>{
+        return ids.includes(user.id);
+      });
+      resolve(result)
+    });
+  }
+
+             
+
+
+  // hàm lấy ra nhân viên
+  useEffect(()=>{
+
+    axios.get(`${ROUTE.MAIN_URL}/staff/all`)
+      .then(res => {
+        if(res.status === 200){
+          // lấy agencyIds
+          const agencyIds = res.data.data.map(item=>item.agencyId);
+
+          getAgencyById(agencyIds)
+            .then(staff=>{
+              const final = res.data.data?.map(item=>{
+                let agency = staff?.find(u=>u.id === item.agencyId);
+                var nameAgency = agency?.name;
+                console.log(staff)
+
+                return {nameAgency,...item};
+              })
+
+              setData(final);
+            });
+
+        }
+      })
+    
+      .catch(error => console.log(error));
+
+  },[]);
+
+
   return (
     <>
-      <div className="title-table">Danh sách lịch hẹn</div>
+      <div className="title-table">Danh sách nhân viên</div>
       <div className="table">
         <Table columns={columns} dataSource={data} />
       </div>
