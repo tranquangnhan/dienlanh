@@ -1,7 +1,10 @@
 import { Button, Modal, Select,Input  } from 'antd';
-import React, { useState } from "react";
+import React, { useEffect,useState } from "react";
+import { Link } from "react-router-dom";
+import axios from 'axios';
+import { useParams } from "react-router-dom";
+import { ROUTE } from '../../../../utils/constant';
 import "./DichVuChiTiet.scss";
-import img1 from './img/midu.jpg';
 
 const { Option } = Select;
 const children = [];
@@ -15,6 +18,23 @@ function handleChange(value) {
 }
 
 export const DichVuChiTiet = () => {
+  const [data,setData] = useState();
+  const [refreshKey, setRefreshKey] = useState(0);
+  
+
+  
+  useEffect(()=>{
+
+    axios.get(`${ROUTE.MAIN_URL}/service/all`)
+      .then(res => {
+        if(res.status === 200){
+          setData(res.data.data)
+        }
+      })
+      .catch(error => console.log(error));
+
+  },[refreshKey]);
+
   
     return (
       <>

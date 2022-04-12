@@ -28,7 +28,7 @@ const columns = [
       dataIndex: "status",
       render: (text, record) => (
         <Space size="middle">
-              {record.status === 1  ? <div style={{color:"#0E9713"}}>Cancel </div>: <div style={{color:"#FD1515"}} >Completed </div>} 
+              {record.status === 1  ? <div style={{color:"#FD1515"}}>Cancel </div>: <div style={{color:"#0E9713"}} >Completed </div>} 
         </Space>
       ),
     }

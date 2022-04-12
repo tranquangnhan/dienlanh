@@ -1,152 +1,94 @@
-import React from "react";
+import React, { useEffect,useState } from "react";
 import { Table, Space, Button } from "antd";
 import "./KhuyenMai.scss";
 import { Link } from "react-router-dom";
-const columns = [
-  {
-    title: "No",
-    dataIndex: "key",
-  },
-  {
-    title: "Dịch vụ",
-    render: (text, record) => (
-      <Space size="middle">
-        <Link to={`/khuyen-mai/${record.key}`}>  {record.name} </Link>
-      </Space>
-    ),
-  },
-  {
-    title: "Trạng thái",
-    dataIndex: "status",
-  },
-  {
-    title: "Action",
-    key: "action",
-    render: (text, record) => (
-      <Space size="middle">
-        <Link to={`/khuyen-mai/${record.key}`}>
-          <Button type="primary" shape="round" size="large ">
-            Chi Tiết
-          </Button>
-        </Link>
-      </Space>
-    ),
-  },
-];
-
-const data = [
-  {
-    key: "1",
-    name: "John Brown",
-    status: "Hoạt động",
-    address: "New York No. 1 Lake Park",
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    status:  "Hoạt động",
-    address: "London No. 1 Lake Park",
-  },
-  {
-    key: "3",
-    name: "Joe Black",
-    status:  "Hoạt động",
-    address: "Sidney No. 1 Lake Park",
-  },
-  {
-    key: "4",
-    name: "John Brown",
-    status:  "Hoạt động",
-    address: "New York No. 1 Lake Park",
-  },
-  {
-    key: "5",
-    name: "test1",
-    status:  "Hoạt động",
-    address: "London No. 1 Lake Park",
-  },
-  {
-    key: "6",
-    name: "Joe Black",
-    status:  "Hoạt động",
-    address: "Sidney No. 1 Lake Park",
-  },
-  {
-    key: "7",
-    name: "John Brown",
-    status:  "Hoạt động",
-    address: "New York No. 1 Lake Park",
-  },
-  {
-    key: "8",
-    name: "Jim Green",
-    status: "Hoạt động",
-    address: "London No. 1 Lake Park",
-  },
-  {
-    key: "9",
-    name: "Joe Black",
-    status:  "Hoạt động",
-    address: "Sidney No. 1 Lake Park",
-  },
-
-  {
-    key: "10",
-    name: "John Brown",
-    status: "Hoạt động",
-    address: "New York No. 1 Lake Park",
-  },
-  {
-    key: "11",
-    name: "Jim Green",
-    status:  "Hoạt động",
-    address: "London No. 1 Lake Park",
-  },
-  {
-    key: "12",
-    name: "Joe Black",
-    status:  "Hoạt động",
-    address: "Sidney No. 1 Lake Park",
-  },
-  {
-    key: "13",
-    name: "John Brown",
-    status:  "Hoạt động",
-    address: "New York No. 1 Lake Park",
-  },
-  {
-    key: "14",
-    name: "Jim Green",
-    status:  "Hoạt động",
-    address: "London No. 1 Lake Park",
-  },
-  {
-    key: "15",
-    name: "Joe Black",
-    status:  "Hoạt động",
-    address: "Sidney No. 1 Lake Park",
-  },
-  {
-    key: "16",
-    name: "John Brown",
-    status:  "Hoạt động",
-    address: "New York No. 1 Lake Park",
-  },
-  {
-    key: "17",
-    name: "Jim Green",
-    status: "Hoạt động",
-    address: "London No. 1 Lake Park",
-  },
-  {
-    key: "18",
-    name: "test 2",
-    status:  "Hoạt động",
-    address: "Sidney No. 1 Lake Park",
-  },
-];
+import { ROUTE } from "../../utils/constant";
+import axios from 'axios';
 
 export const KhuyenMai = () => {
+  const [data,setData] = useState();
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  
+
+  useEffect(()=>{
+
+    axios.get(`${ROUTE.MAIN_URL}/promotion/all`)
+      .then(res => {
+        if(res.status === 200){
+          setData(res.data.data)
+        }
+      })
+      .catch(error => console.log(error));
+
+  },[refreshKey]);
+
+  const columns = [
+    {
+      title: "No",
+      dataIndex: "id",
+    },
+    {
+      title: "Tiêu đề",
+      render: (text, record) => (
+         <p> {record.title} </p>
+        
+      ),
+    },
+    {
+      title: "Giảm giá (%)",
+      render: (text, record) => (
+         <p> {record.discount} </p>
+        
+      ),
+    },
+    {
+      title: "Ngày tạo",
+      render: (text, record) => (
+         <p> {record.start_date} </p>
+        
+      ),
+    },
+    {
+      title: "Ngày hết hạn",
+      render: (text, record) => (
+         <p> {record.end_date} </p>
+        
+      ),
+    },
+    {
+      title: "Trạng thái",
+      key: "status",
+      render: (text, record) => 
+    {  
+          if(record.status === 1) {
+            return (
+            <p key={record.id} style={{color: "red", margin:"0 auto" }}>
+                Dừng hoạt động
+            </p>
+            ) 
+          }
+          if(record.status === 2) {
+            return (
+            <p key={record.id} style={{color: "green", margin:"0 auto" }}>
+                Hoạt động
+            </p>
+            ) 
+          }
+          
+    }
+      ,
+    },
+    {
+      title: "Chi tiết",
+      render: (text, record) => (
+        <Space size="middle">
+          <Button type="disable" style={{ background: "#5899BA", color: "white", margin:"0 auto" }} shape="round" size="large "><Link to={`/khuyen-mai/${record.id}`}>  Chi tiết </Link></Button>
+        </Space>
+      ),
+    },
+  ];
+
   return (
     <>
       <div className="title-table">Danh sách khuyến mãi</div>
@@ -156,3 +98,4 @@ export const KhuyenMai = () => {
     </>
   );
 };
+
