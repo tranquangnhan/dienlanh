@@ -1,7 +1,13 @@
 import { Button, Modal, Select,Input  } from 'antd';
-import React, { useState } from "react";
+import React, { useState ,useEffect  } from "react";
 import "./LoaiDichVuChiTiet.scss";
 import img1 from './img/midu.jpg';
+import {
+  useParams
+} from "react-router-dom";
+import { ROUTE } from "../../../utils/constant";
+import axios from 'axios';
+import { useHistory } from "react-router-dom";
 
 const { Option } = Select;
 const children = [];
@@ -14,8 +20,47 @@ function handleChange(value) {
     console.log(`Selected: ${value}`);
 }
 
+
+
 export const LoaiDichVuChiTiet = () => {
+  const [detail,setDetail] = useState();
+  const [name,setName] = useState();
+  const [content,setContent] = useState();
+  const [status,setStatus] = useState();
+  const history = useHistory();
+
+  // lấy id của chi tiết loại dịch vụ
+    let { id } = useParams();
   
+    useEffect(()=>{
+
+      axios.get(`${ROUTE.MAIN_URL}/service-type/${id}`)
+      .then(res => {
+        if(res.status === 200){
+          setDetail(res.data.data)
+        }
+      })
+      .catch(error => console.log(error));
+
+    },[]);
+  
+    function sua(){
+     axios.patch(`${ROUTE.MAIN_URL}/service-type/${id}?content=${content?? detail?.content}&name=${name ?? detail?.name}`)
+      .then(res => {
+        console.log(res?.data?.success)
+        if(res?.status === 200 && res?.data?.success === true){
+          history.push("/loai-dich-vu");
+        }
+      })
+      .catch(error => console.log(error));
+    }
+    function isActiveLDV(dom){
+      alert(dom)
+      
+    }
+
+
+
     return (
       <>
        <div className="title-table">Chi tiết loại dịch vụ</div>
@@ -28,18 +73,18 @@ export const LoaiDichVuChiTiet = () => {
                     <tbody>
                     <tr>
                             <td width="20%">Tên loại dịch vụ</td>
-                            <td > <Input value="Vệ sinh máy lạnh" /></td>
+                            <td > <Input value={name ?? detail?.name} onChange={(dom)=>setName(dom?.target.value)}/></td>
                         </tr>
                         <tr>
                             <td width="20%">Mô tả</td>
-                            <td ><Input value="Vệ sinh ..." /></td>
+                            <td ><Input  value={content ?? detail?.content} onChange={(dom)=>setContent(dom?.target.value)}/></td>
                         </tr>
                         <tr>
                             <td width="20%">Trạng thái</td>
                             <td >
-                                <Select  style={{ width: 120 }} onChange={handleChange}>
-                                  <Option value="jack">Đang hoạt động</Option>
-                                  <Option value="lucy">Không hoạt động</Option>
+                                <Select defaultValue="Đang Hoạt Động" style={{ width: 120 }} onChange={(dom)=>isActiveLDV(dom)}>
+                                  <Option value="1">Không hoạt động</Option>
+                                  <Option value="2">Đang hoạt động </Option>
                                 </Select>
                               
                               </td>
@@ -50,7 +95,7 @@ export const LoaiDichVuChiTiet = () => {
                       <Button type="danger">
                         Đóng
                       </Button>
-                      <Button type="primary">
+                      <Button type="primary" onClick={()=>sua()}>
                         Lưu
                       </Button>
                      
