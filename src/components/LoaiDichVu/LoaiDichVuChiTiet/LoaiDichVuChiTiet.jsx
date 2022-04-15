@@ -54,8 +54,23 @@ export const LoaiDichVuChiTiet = () => {
       })
       .catch(error => console.log(error));
     }
+
+
     function isActiveLDV(dom){
-      alert(dom)
+    
+      if(dom == 1){ // dừng hoạt động
+        axios.patch(`${ROUTE.MAIN_URL}/service-type/${id}/de-active`)
+          .then(res => {
+         
+          })
+          .catch(error => console.log(error));
+      }else{
+        axios.patch(`${ROUTE.MAIN_URL}/service-type/${id}/active`)
+          .then(res => {
+ 
+          })
+          .catch(error => console.log(error));
+      }
       
     }
 

@@ -37,7 +37,7 @@ export const LichHen = () => {
     axios.get(`${ROUTE.MAIN_URL}/appointment/all`)
       .then(res => {
         if(res.status === 200){
-          setData(res.data.data)
+          setData(res.data.data.sort((a,b)=>b.id-a.id))
         }
       })
       .catch(error => console.log(error));
