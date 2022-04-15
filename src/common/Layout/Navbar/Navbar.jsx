@@ -53,6 +53,9 @@ export const Navbar = ({})=> {
             case "17":
                 history.push("/khuyen-mai/add");
                 break;
+            case "18":
+                history.push("/hoa-don");
+                break;
             default:
                 break;
         }
@@ -78,6 +81,10 @@ export const Navbar = ({})=> {
                     <Menu.Item key="3">Danh sách lịch hẹn</Menu.Item>
                     <Menu.Item key="4">Lịch sử</Menu.Item>
                 </SubMenu>
+                <SubMenu key="sub6" icon={<PercentageOutlined />} title="Hoá Đơn">
+                    <Menu.Item key="18">Danh Sách Hoá Đơn</Menu.Item>
+                    <Menu.Item key="19">Thêm khuyến mãi</Menu.Item>
+                </SubMenu>
                 <SubMenu key="sub2" icon={<UsergroupAddOutlined />} title="Nhân Viên">
                     <Menu.Item key="5">Danh sách nhân viên</Menu.Item>
                     <Menu.Item key="6">Thêm nhân viên</Menu.Item>
@@ -99,6 +106,7 @@ export const Navbar = ({})=> {
                     <Menu.Item key="16">Danh sách khuyến mãi</Menu.Item>
                     <Menu.Item key="17">Thêm khuyến mãi</Menu.Item>
                 </SubMenu>
+
             </Menu>
 
 
