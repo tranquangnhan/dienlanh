@@ -64,7 +64,7 @@ export const HoaDon = () => {
     {
       title: "Ngày tạo",
       render: (text, record) => (
-        <p>{record?.created_date.split(" ")[0]}</p>
+        <>{record?.created_date.split(" ")[0]}</>
       ),
     },
    

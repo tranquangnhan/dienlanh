@@ -96,7 +96,7 @@ export const Navbar = ({})=> {
                     <Menu.Item key="6">Thêm nhân viên</Menu.Item>
                     <Menu.Item key="7">Lịch làm việc</Menu.Item>
                     <Menu.Item key="8">Danh sách lịch làm việc</Menu.Item>
-                    <Menu.Item key="9">Thêm lịch Làm Việc</Menu.Item>
+                    {/* <Menu.Item key="9">Thêm lịch Làm Việc</Menu.Item> */}
                 </SubMenu>
                 <SubMenu key="sub3" icon={<InsertRowAboveOutlined />} title="Chi Nhánh">
                     <Menu.Item key="10">Danh sách chi nhánh</Menu.Item>

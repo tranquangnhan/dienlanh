@@ -167,8 +167,10 @@ export const LichHenEdit = () => {
           return <p style={{color: "#28a745"}}>Đã xác nhận</p>;
         case 3:
           return <p style={{color: "#f7941d"}}>Chưa xác nhận</p>;
-        default:
+        case 4:
           return <p style={{color: "#28a745"}}>Đã hoàn tất</p>;
+        default:
+          break;
       }
     }
 

@@ -16,7 +16,7 @@ export const Header = ()=> {
                 <img src={avt} alt="" />
                 <div className='text'>
                     Nguyễn Ngọc 
-                    <span>ADMIN</span>
+                    <span>MANAGER</span>
                 </div>
             </div>
         </div>
