@@ -3,6 +3,8 @@ import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import { Layout } from './common/Layout/Layout';
 import { LichHen,LichHenEdit,LichHenLichSu,NhanVien,NhanVienEdit,NhanVienAdd, LichLamViec, LichLamViecAdd,LichLamViecEdit,LichLamViecChiTiet,DichVu, DichVuChiTiet,DichVuAdd, HoaDon, HoaDonEdit  } from './components';
+import { HoaDonLichSu } from './components/HoaDon/components/Edit/History/HoaDonLichSu';
+import { KhachHang } from './components/KhachHang/KhachHang';
 import { KhuyenMaiAdd } from './components/KhuyenMai/Add/KhuyenMaiAdd';
 import { KhuyenMai } from './components/KhuyenMai/KhuyenMai';
 import { KhuyenMaiChiTiet } from './components/KhuyenMai/KhuyenMaiChiTiet/KhuyenMaiChiTiet';
@@ -35,8 +37,9 @@ function App() {
             <Route exact path={ROUTE.KHUYEN_MAI_ADD} component={KhuyenMaiAdd} />
             <Route exact path={ROUTE.KHUYEN_MAI_DETAIL} component={KhuyenMaiChiTiet} />
             <Route exact path={ROUTE.HOA_DON} component={HoaDon} />
+            <Route exact path={ROUTE.HOA_DON_LICH_SU} component={HoaDonLichSu} />
             <Route exact path={ROUTE.HOA_DON_EDIT} component={HoaDonEdit} />
-
+            <Route exact path={ROUTE.KHACH_HANG} component={KhachHang} />
 
           </Switch>
     </Layout>

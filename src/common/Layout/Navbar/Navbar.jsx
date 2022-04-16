@@ -17,6 +17,9 @@ export const Navbar = ({})=> {
     const handleClick = e => {
         console.log('click ', e.key);
         switch (e.key) {
+            case "2":
+                history.push("/khach-hang");
+                break;
             case "3":
                 history.push("/lich-hen");
                 break;
@@ -56,6 +59,9 @@ export const Navbar = ({})=> {
             case "18":
                 history.push("/hoa-don");
                 break;
+            case "19":
+                history.push("/hoa-don/lich-su");
+                break;
             default:
                 break;
         }
@@ -66,7 +72,7 @@ export const Navbar = ({})=> {
             <Logo/>
             <Menu
                 onClick={handleClick}
-                style={{ width: 256 }}
+                style={{ width: "100%" }}
                 defaultSelectedKeys={['1']}
                 defaultOpenKeys={['sub1']}
                 mode="inline"
@@ -83,7 +89,7 @@ export const Navbar = ({})=> {
                 </SubMenu>
                 <SubMenu key="sub6" icon={<PercentageOutlined />} title="Hoá Đơn">
                     <Menu.Item key="18">Danh Sách Hoá Đơn</Menu.Item>
-                    <Menu.Item key="19">Thêm khuyến mãi</Menu.Item>
+                    <Menu.Item key="19">Lịch sử</Menu.Item>
                 </SubMenu>
                 <SubMenu key="sub2" icon={<UsergroupAddOutlined />} title="Nhân Viên">
                     <Menu.Item key="5">Danh sách nhân viên</Menu.Item>

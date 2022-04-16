@@ -8,7 +8,7 @@ export const LichHenItem = ({name,value = "",changeValue}) => {
     <>
           <tr>
               <td width="15%">{name}</td>
-              <td ><Input value={value} onChange={(data)=>changeValue(data.target.value)}/></td>
+              <td >{value}</td>
           </tr>
     </>
   );

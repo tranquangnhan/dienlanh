@@ -14,6 +14,7 @@ export const LichHen = () => {
     axios.put(`${ROUTE.MAIN_URL}/appointment/accept/${id}/2`,)
     .then(res => {
       if(res.status === 200){
+        setData(res)
         setRefreshKey(oldKey => oldKey +1)
       }
     })
@@ -37,7 +38,8 @@ export const LichHen = () => {
     axios.get(`${ROUTE.MAIN_URL}/appointment/all`)
       .then(res => {
         if(res.status === 200){
-          setData(res.data.data.sort((a,b)=>b.id-a.id))
+          const item = res.data.data.filter(item => item.status === 3)
+          setData(item.sort((a,b)=>b.id-a.id))
         }
       })
       .catch(error => console.log(error));
@@ -74,7 +76,7 @@ export const LichHen = () => {
       dataIndex: "quantity",
     },
     {
-      title: "Action",
+      title: "Trạng thái",
       key: "action",
       render: (text, record) => 
     {  
@@ -97,7 +99,7 @@ export const LichHen = () => {
               <Space size="middle" key={record.id}>
                   <a href={record.key}>
                   <Button onClick={() => xet(record.id,record.staff_id)} type="primary" shape="round" size="large ">
-                      Xét
+                      Chấp nhận
                     </Button>
                   </a>
                   <a>

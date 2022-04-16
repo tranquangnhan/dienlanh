@@ -146,9 +146,22 @@ export const HoaDonEdit = () => {
       setTime(time)
     }
 
+    function tuChoi(id){
+      axios.patch(`${ROUTE.MAIN_URL}/orderDetail/deny/${id}`)
+      .then(res => {
+        if(res.status === 200){
+          setReload(1);
+        }
+      })
+      .catch(error => console.log(error));
+    }
+
   
  
+    
+
     return (
+      
       <>
         <div className="title-table">Xem Chi Tiết Hoá Đơn</div>
         <div className="table">
@@ -183,50 +196,64 @@ export const HoaDonEdit = () => {
                      value={detail?.time}
                     />
                     <tr>
-                        <td width="100%" colSpan={2}> <hr /></td>
+                        <td width="100%" colSpan={2}> <hr/></td>
                     </tr>
                     <tr className='mb-2 color-red'>
-                      <td width="15%">Nội dung</td>
+                      <td></td>
+                      <td>Tên dịch vụ</td>
+                      <td>Giá tiền</td>
+                      <td>Mô tả</td>
+                      <td>Trạng thái</td>
                     </tr>
                     {detailOrder?.map(res=>(
                         <>
                           
                             <tr>
                               <td ><img width="50" height="50" src={res?.image_url ?? ""}></img></td>
-                              <td className='pr-1'>{res?.service_name ?? ""}</td> 
+                              <td width="20%">{res?.service_name ?? ""}</td> 
                               <td >{res?.service_price ?? ""}</td>
                               <td >{res?.description ?? ""}</td>
                               {/* show chi tiết ở đây */}
                               {
+                                (res?.status === 1) && ( <td>  
+                                    <Button type="disable" style={{ background: "#c82333", color: "white", margin:"0 auto" }} shape="round" size="small" >
+                                      Từ chối
+                                  </Button>
+                                </td>)
+                              }
+                              {
                                 (res?.status === 2) && ( <td>  
-                                    <Button type="primary" >
-                                      Chấp Nhận
+                                    <Button type="disable" style={{ background: "#f7941d", color: "white", margin:"0 auto" }} shape="round" size="small" >
+                                      Đã duyệt
                                   </Button>
                                 </td>)
                               }
                               {(res?.status === 3) && (
                               <> 
                               <td>
-                                <Button type="primary" onClick={()=>chapNhan(res?.id)}>
-                                    Chấp Nhận
+                                <a >
+                                <Button type="primary" style={{ background: "#f7941d", color: "white",  }} shape="round" size="small" onClick={()=>chapNhan(res?.id)}>
+                                    Duyệt
                                 </Button>
-                              </td>
-                              <td className='pl-2'> 
-                                <Button type="danger" >
+                                </a>
+                                &nbsp;&nbsp;
+                                <a>
+                                <Button type="danger" style={{ background: "#c82333", color: "white",  }} shape="round" size="small" onClick={()=>tuChoi(res?.id)}>
                                 Từ Chối
                               </Button>
+                              </a>
                               </td>
                               </>)
                               }
                               {
                                 (res?.status === 5) && ( <td>  
-                                    <Button type="primary" >
+                                    <Button type="disable" style={{ background: "#28a745", color: "white", margin:"0 auto" }} shape="round" size="small" >
                                      Hoàn Thành
                                   </Button>
                                 </td>)
                               }
                               <td>
-                              <Button type="primary" onClick={()=>showModal(res?.id)}>
+                              <Button type="primary" style={{ background: "#5899BA", color: "white", margin:"0 auto" }} shape="round" size="small" onClick={()=>showModal(res?.id)}>
                                 Thêm Thợ Máy
                               </Button>
                               </td>
@@ -238,14 +265,26 @@ export const HoaDonEdit = () => {
                </tbody>
            </table>
           
-
-            <div className="btn-xacnhan">
-                <Link to="/lich-hen">
+            
+            {
+              (detail?.status === 2 || detail?.status === 3)
+              ?
+              <div className="btn-xacnhan">
+                <Link to="/hoa-don">
                   <Button type="primary">
                     Đóng
                   </Button>
                 </Link>
-            </div>
+              </div>
+              : 
+              <div className="btn-xacnhan">
+                <Link to="/hoa-don/lich-su">
+                  <Button type="primary">
+                    Đóng
+                  </Button>
+                </Link>
+              </div>
+            }
          
         </div>
         <Modal title="Chọn Nhân Viên" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>

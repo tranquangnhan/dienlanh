@@ -10,6 +10,7 @@ export const HoaDon = () => {
   const [data,setData] = useState();
   const [refreshKey, setRefreshKey] = useState(0);
 
+
   function xet(id,staff_id){
     axios.put(`${ROUTE.MAIN_URL}/appointment/accept/${id}/2`,)
     .then(res => {
@@ -37,13 +38,16 @@ export const HoaDon = () => {
     axios.get(`${ROUTE.MAIN_URL}/order/all`)
       .then(res => {
         if(res.status === 200){
-          setData(res.data.data.sort((a,b)=>b.id-a.id));
+          const item = res.data.data.filter(item=>item.status === 2 || item.status === 3)
+          setData(item.sort((a,b)=>b.id-a.id))
+          // setData(res.data.data.sort((a,b)=>b.id-a.id));
         }
       })
       .catch(error => console.log(error));
 
   },[refreshKey]);
 
+  
   const columns = [
     {
       title: "No",
@@ -59,11 +63,13 @@ export const HoaDon = () => {
     },
     {
       title: "Ngày tạo",
-      dataIndex: "created_date",
+      render: (text, record) => (
+        <p>{record?.created_date.split(" ")[0]}</p>
+      ),
     },
    
     {
-      title: "Action",
+      title: "Trạng thái",
       key: "action",
       render: (text, record) => 
     {  
@@ -74,24 +80,17 @@ export const HoaDon = () => {
             </Button>
             ) 
           }
-          if(record.status === 2) {
+          if(record.status === 2 || record.status === 3) {
             return (
-            <Button key={record.id} type="disable" style={{ background: "#28a745", color: "white", margin:"0 auto" }} shape="round" size="large ">
-                Đã xác nhận
+            <Button key={record.id} type="disable" style={{ background: "#f7941d", color: "white", margin:"0 auto" }} shape="round" size="large ">
+                Đang tiến hành
             </Button>
             ) 
           }
-          if(record.status === 3) {
-            return (
-              <Button key={record.id} type="disable" style={{ background: "#f7941d", color: "white", margin:"0 auto" }} shape="round" size="large ">
-                Đang tiến hành
-              </Button>
-            )
-          }
           if(record.status === 4) {
             return (
-            <Button key={record.id} type="disable" style={{ background: "#f7941d", color: "white", margin:"0 auto" }} shape="round" size="large ">
-                Xong
+            <Button key={record.id} type="disable" style={{ background: "#28a745", color: "white", margin:"0 auto" }} shape="round" size="large ">
+                Hoàn tất
             </Button>
             ) 
           }
@@ -103,7 +102,7 @@ export const HoaDon = () => {
 
   return (
     <>
-      <div className="title-table">Danh sách lịch hẹn</div>
+      <div className="title-table">Danh sách hóa đơn</div>
       <div className="table">
         <Table columns={columns} dataSource={data} />
       </div>

@@ -1,4 +1,4 @@
-import { Button, Modal, Select } from 'antd';
+import { Button, Modal, Select, Space } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from "react";
 import {
@@ -19,15 +19,17 @@ for (let i = 10; i < 36; i++) {
 
 export const LichHenEdit = () => {
 
-  const [fullName,setfullName] = useState();
-  const [phone,setPhone] = useState();
-  const [address,setAddress] = useState();
-  const [date,setDate] = useState();
-  const [description,setDescription] = useState();
-  const [quantity,setQuantity] = useState();
-  const [time,setTime] = useState();
+  // const [fullName,setfullName] = useState();
+  // const [phone,setPhone] = useState();
+  // const [address,setAddress] = useState();
+  // const [date,setDate] = useState();
+  // const [description,setDescription] = useState();
+  // const [quantity,setQuantity] = useState();
+  // const [time,setTime] = useState();
 
   const [detail,setDetail] = useState();
+  const [refreshKey, setRefreshKey] = useState(0);
+  const [reload,setReload] = useState(0);
   const [detailOrder,setDetailOrder] = useState();
   const [staffWorkSlot,setStaffWorkSlot] = useState();
   const [idStaffWorkSlot,setIdStaffWorkSlot] = useState();
@@ -93,7 +95,7 @@ export const LichHenEdit = () => {
       })
       .catch(error => console.log(error));
 
-    },[]);
+    },[reload]);
 
 
     // hàm lấy order detail
@@ -134,74 +136,130 @@ export const LichHenEdit = () => {
     //   .catch(error => console.log(error));
     // }
 
+    function xet(id){
+      axios.put(`${ROUTE.MAIN_URL}/appointment/accept/${id}/2`,)
+      .then(res => {
+        if(res.status === 200){
+          setRefreshKey(oldKey => oldKey +1)
+          setReload(1);
+        }
+      })
+      .catch(error => console.log(error));
+     
+    }
 
+    function cancel(id){
+      axios.patch(`${ROUTE.MAIN_URL}/appointment/cancel/${id}`,)
+      .then(res => {
+        if(res.status === 200){
+          setRefreshKey(oldKey => oldKey +1)
+          setReload(1);
+        }
+      })
+      .catch(error => console.log(error));
+    }
+    
+    function getStatusName(status) {
+      switch (status) {
+        case 1:
+          return <p style={{color: "#c82333"}}>Đã hủy</p>;
+        case 2:
+          return <p style={{color: "#28a745"}}>Đã xác nhận</p>;
+        case 3:
+          return <p style={{color: "#f7941d"}}>Chưa xác nhận</p>;
+        default:
+          return <p style={{color: "#28a745"}}>Đã hoàn tất</p>;
+      }
+    }
 
     
  
     return (
       <>
-        <div className="title-table">Sửa Lịch Hẹn Khách Hàng</div>
+        <div className="title-table">Chi tiết lịch hẹn</div>
         <div className="table">
            <table>
                 <tbody>
                     <LichHenItem name="Tên khách hàng" 
-                      value={fullName ?? detail?.full_name} 
-                      changeValue={(item)=> setfullName(item)}
+                      value={detail?.full_name} 
                     />
 
                     <LichHenItem name="Điện thoại" 
-                      value={phone ?? detail?.phone}
-                      changeValue={(item)=> setPhone(item)}
+                      value={detail?.phone}
                     />
                     <LichHenItem name="Địa chỉ"   
-                      value={address ?? detail?.address}
-                      changeValue={(item)=> setAddress(item)}
+                      value={detail?.address}
                     />
                     <LichHenItem name="Ngày dự kiến" 
-                       value={date ?? detail?.date}
-                       changeValue={(item)=> setDate(item)}
+                       value={detail?.date.split(" ")[0]}
                     />
                     <LichHenItem name="Mô tả" 
-                       value={description ?? detail?.description}
-                       changeValue={(item)=> setDescription(item)}
+                       value={detail?.description}
                     />
                     <LichHenItem name="Số lượng (máy)" 
-                     value={quantity ?? detail?.quantity}
-                     changeValue={(item)=> setQuantity(item)}/>
+                     value={detail?.quantity}
+                     />
 
                     <LichHenItem name="Thời gian" 
-                     value={time ?? detail?.time}
-                     changeValue={(item)=> setTime(item)}/>
-                    <tr>
-                        <td width="100%" colSpan={2}> <hr /></td>
-                    </tr>
-
-                    <LichHenItem name="Nội dung" value={detailOrder?.[0]?.description ?? ""}/>
-         
+                     value={detail?.time}
+                     />
+                     
+                    <LichHenItem name="Trạng thái" 
+                      value={getStatusName(detail?.status)}
+                     />
+                     
                </tbody>
            </table>
-            <div className="btn-addtho">
+            {/* <div className="btn-addtho">
                 <Button type="primary" onClick={showModal}>
                     Thêm Thợ Máy
                 </Button>
-            </div>
+            </div> */}
 
-            <div className="btn-xacnhan">
+            {
+              detail?.status === 3 
+              ? 
+              <div className="btn-xacnhan">
+                  <Button type="primary" onClick={() => xet(detail.id)}>
+                     Chấp nhận
+                  </Button>
+                  <Button onClick={() => cancel(detail.id)} type="danger">
+                      Từ Chối
+                    </Button>
                 <Link to="/lich-hen">
                   <Button type="primary">
                     Đóng
                   </Button>
                 </Link>
             </div>
+            :
+            <div className="btn-xacnhan">
+                <Link to="/lich-hen/lich-su">
+                  <Button type="primary">
+                    Đóng
+                  </Button>
+                </Link>
+            </div>
+            }
+            {/* <div className="btn-xacnhan">
+                  <Button type="primary" onClick={() => xet(detail.id)}>
+                     Chấp nhận
+                  </Button>
+                <Link to="/lich-hen">
+                  <Button type="primary">
+                    Đóng
+                  </Button>
+                </Link>
+            </div> */}
          
         </div>
-        <Modal title="Chọn Nhân Viên" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+        {/* <Modal title="Chọn Nhân Viên" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
             <Select defaultValue={staffWorkSlot?.[0]?.full_name} style={{ width: 120 }} onChange={handleChange}>
                 {staffWorkSlot?.map(item=>(
                   <Option value={item?.id}>{item?.full_name}</Option>
                 ))}
             </Select>
-        </Modal>
+        </Modal> */}
       </>
     );
   };
