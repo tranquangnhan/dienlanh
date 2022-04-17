@@ -181,7 +181,7 @@ export const HoaDonEdit = () => {
                   
                     />
                     <HoaDonItem name="Ngày dự kiến" 
-                       value={ detail?.date}
+                       value={ detail?.date.split(" ")[0]}
  
                     />
                     <HoaDonItem name="Mô tả" 
@@ -290,11 +290,11 @@ export const HoaDonEdit = () => {
         <Modal title="Chọn Nhân Viên" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
                           
           <div>Chọn Thời Gian </div>
-          <Select defaultValue="07:30" style={{ width: 120 }} onChange={changeTime}>
-            <Option value="07:30">	07:30</Option>
-            <Option value="09:30">	09:30</Option>
-            <Option value="13:30">	13:30</Option>
-            <Option value="15:30">	15:30</Option>
+          <Select defaultValue="07h30" style={{ width: 120 }} onChange={changeTime}>
+            <Option value="07h30">	07h30</Option>
+            <Option value="09h30">	09h30</Option>
+            <Option value="13h30">	13h30</Option>
+            <Option value="15h30">	15h30</Option>
           </Select>
             <br></br>
             <br></br>

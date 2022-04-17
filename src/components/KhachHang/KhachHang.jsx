@@ -51,32 +51,10 @@ export const KhachHang = () => {
     },
     {
       title: "Trạng thái",
-      key: "status",
       render: (text, record) => 
-    {  
-          if(record.status === 1) {
-            return (
-            <p key={record.id} style={{color: "red", margin:"0 auto" }}>
-                Đã huỷ
-            </p>
-            ) 
-          }
-          if(record.status === 2) {
-            return (
-            <p key={record.id} style={{color: "orange", margin:"0 auto" }}>
-                Dừng hoạt động
-            </p>
-            ) 
-          }
-          if(record.status === 3) {
-            return (
-            <p key={record.id} style={{color: "green", margin:"0 auto" }}>
-                Hoạt động
-            </p>
-            ) 
-          }
-          
-    }
+    (
+      <Space style={{color: "green"}}>Hoạt động</Space>
+    )
       ,
     },
     {

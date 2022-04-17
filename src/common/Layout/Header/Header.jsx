@@ -7,7 +7,7 @@ export const Header = ()=> {
     return (
         <div className='headerWrapper'>
             <div className='title'>
-                Lịch Hẹn
+                
             </div>
             <div className='searchBox'>
                 <input type="text" placeholder='Tìm Kiếm'/>    

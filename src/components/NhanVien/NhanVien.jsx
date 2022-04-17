@@ -50,7 +50,7 @@ export const NhanVien = () => {
       title: "Tên Nhân Viên",
       render: (text, record) => (
         <Space size="middle">
-          <Link to={`/nhan-vien/${record.key}`}>  {record.fullName} </Link>
+          <Link to={`/nhan-vien/${record.id}`}>  {record.fullName} </Link>
         </Space>
       ),
     },
@@ -71,12 +71,12 @@ export const NhanVien = () => {
         <Space size="middle" key={record.id}>
           <a href={record.key}>
             <Button type="primary" shape="round" size="large ">
-              Xoá
+              Chi tiết
             </Button>
           </a>
           <a>
             <Button type="danger" shape="round" size="large ">
-              Sửa
+              Xóa
             </Button>
           </a>
         </Space>
