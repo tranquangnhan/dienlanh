@@ -23,6 +23,21 @@ export const KhachHang = () => {
 
   },[refreshKey]);
 
+  function getStatusName(status) {
+    switch (status) {
+      case "1":
+        return <Space style={{color: "red"}}>Đã xóa</Space>;
+      case "2":
+        return <Space style={{color: "red"}}>Dừng hoạt động</Space>;
+      case "3":
+        return <Space style={{color: "green"}}>Hoạt động</Space>;
+      default:
+          break;
+    }
+  }
+
+  console.log(data);
+
   const columns = [
     {
       title: "No",
@@ -31,39 +46,60 @@ export const KhachHang = () => {
     {
       title: "Tên khách hàng",
       render: (text, record) => (
-         <p> {record.fullName} </p>
+        <Space size="middle">
+        <Link to={`/khach-hang/${record.id}`}> {record.fullName} </Link>
+      </Space>
         
       ),
     },
     {
       title: "Số điện thoại",
       render: (text, record) => (
-         <p> {record.phone} </p>
+         <> {record.phone} </>
         
       ),
     },
     {
       title: "Địa chỉ",
       render: (text, record) => (
-         <p> {record.address} </p>
+         <> {record.address} </>
+        
+      ),
+    },
+    {
+      title: "Mail",
+      render: (text, record) => (
+         <> {record.email} </>
         
       ),
     },
     {
       title: "Trạng thái",
-      render: (text, record) => 
-    (
-      <Space style={{color: "green"}}>Hoạt động</Space>
-    )
+      render: (text, record) => (
+        <>{getStatusName(record.status)}</>
+      )
       ,
     },
     {
-      title: "Chi tiết",
-      render: (text, record) => (
-        <Space size="middle">
-          <Button type="disable" style={{ background: "#5899BA", color: "white", margin:"0 auto" }} shape="round" size="large "><Link to={`/loai-dich-vu/${record.id}`}>  Chi tiết </Link></Button>
-        </Space>
-      ),
+      title: "",
+      render: (text, record) => {
+
+        if (record.status === "2") {
+          return (
+            <Button key={record.id} style={{background: "green", color: "white", margin:"0 auto"}} shape="round" size="large " >
+              Hoạt Động
+            </Button>
+          )
+        }
+        if (record.status === "3") {
+          return (
+            <Button key={record.id} style={{background: "red", color: "white", margin:"0 auto"}} shape="round" size="large " >
+              Dừng hoạt Động
+            </Button>
+          )
+        }
+
+      },
     },
   ];
 

@@ -1,6 +1,6 @@
 import { Button, Modal, Select,Input  } from 'antd';
 import React, { useState ,useEffect  } from "react";
-import "./LoaiDichVuChiTiet.scss";
+import "./KhachHangChiTiet.scss";
 import img1 from './img/midu.jpg';
 import {
   useParams
@@ -22,7 +22,7 @@ function handleChange(value) {
 
 
 
-export const LoaiDichVuChiTiet = () => {
+export const KhachHangChiTiet = () => {
   const [detail,setDetail] = useState();
   const [name,setName] = useState();
   const [content,setContent] = useState();

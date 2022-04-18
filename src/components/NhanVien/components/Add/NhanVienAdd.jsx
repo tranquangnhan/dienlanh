@@ -73,7 +73,7 @@ export const NhanVienAdd = () => {
 
     return (
       <>
-        <div className="title-table">Thêm Lịch Hẹn Khách Hàng</div>
+        <div className="title-table">Thêm nhân viên</div>
         <div className='boxEdit'>
             <div className="img">
                 <img src={img1} name='img'/>

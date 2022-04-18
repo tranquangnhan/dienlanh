@@ -31,14 +31,16 @@ export const DichVu = () => {
     {
       title: "Tên dịch vụ",
       render: (text, record) => (
-         <p> {record.name} </p>
+        <Space size="middle">
+          <Link to={`/dich-vu/${record.id}`}>  {record.name} </Link>
+        </Space>
         
       ),
     },
     {
       title: "Loại dịch vụ",
       render: (text, record) => (
-         <p> {record.type_id} </p>
+         <p> {record.type_name} </p>
         
       ),
     },

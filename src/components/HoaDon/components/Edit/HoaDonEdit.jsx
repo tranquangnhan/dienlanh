@@ -117,7 +117,7 @@ export const HoaDonEdit = () => {
             }
           })
           .then(res=>{
-            axios.get(`${ROUTE.MAIN_URL}/orderDetail/${res}/orderId`)
+            axios.get(`${ROUTE.MAIN_URL}/orderDetail/${res}/manager`)
             .then(res => {
               if(res.status === 200){
                 setDetailOrder(res.data.data);

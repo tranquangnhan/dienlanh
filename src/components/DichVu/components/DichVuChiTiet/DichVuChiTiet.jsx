@@ -1,10 +1,13 @@
-import { Button, Modal, Select,Input  } from 'antd';
-import React, { useEffect,useState } from "react";
-import { Link } from "react-router-dom";
-import axios from 'axios';
-import { useParams } from "react-router-dom";
-import { ROUTE } from '../../../../utils/constant';
+import { Button, Modal, Select,Input, Space  } from 'antd';
+import React, { useState ,useEffect  } from "react";
 import "./DichVuChiTiet.scss";
+import img1 from './img/midu.jpg';
+import {
+  useParams
+} from "react-router-dom";
+import { ROUTE } from '../../../../utils/constant';
+import axios from 'axios';
+import { useHistory } from "react-router-dom";
 
 const { Option } = Select;
 const children = [];
@@ -17,74 +20,119 @@ function handleChange(value) {
     console.log(`Selected: ${value}`);
 }
 
+
+
 export const DichVuChiTiet = () => {
-  const [data,setData] = useState();
-  const [refreshKey, setRefreshKey] = useState(0);
-  
+  const [detail,setDetail] = useState();
+  const [name,setName] = useState();
+  const [description,setDescription] = useState();
+  const [price,setPrice] = useState();
+  const [serviceId ,setServiceId ] = useState();
+  const [status,setStatus] = useState();
+  const history = useHistory();
+  const [currentStatus,setCurrentStatus] = useState("3");
+  const [reload, setReload] = useState(0);
 
+  // lấy id của chi tiết loại dịch vụ
+    let { id } = useParams();
   
-  useEffect(()=>{
+    useEffect(()=>{
 
-    axios.get(`${ROUTE.MAIN_URL}/service/all`)
+      axios.get(`${ROUTE.MAIN_URL}/service/${id}`)
       .then(res => {
         if(res.status === 200){
-          setData(res.data.data)
+          setDetail(res.data.data)
         }
       })
       .catch(error => console.log(error));
 
-  },[refreshKey]);
-
+    },[detail,reload]);
   
+    function sua(){
+     axios.put(`${ROUTE.MAIN_URL}/service/update/${id}?description=${description ?? detail?.description}&name=${name ?? detail?.name}&price=${price ?? detail?.price}&status=${status ?? detail?.status}`)
+      .then(res => {
+        console.log(res?.data?.success)
+        if(res?.status === 200 && res?.data?.success === true){
+          history.push("/dich-vu");
+        }
+      })
+      .catch(error => console.log(error));
+    }
+
+
+    // function isActiveLDV(dom){
+    
+    //   if(dom == 2){ // dừng hoạt động
+    //     axios.patch(`${ROUTE.MAIN_URL}/service-type/${id}/de-active`)
+    //       .then(res => {
+    //        setCurrentStatus(dom)
+    //        setReload(1);
+    //       })
+    //       .catch(error => console.log(error));
+    //   }else{
+    //     axios.patch(`${ROUTE.MAIN_URL}/service-type/${id}/active`)
+    //       .then(res => {
+    //         setCurrentStatus(dom)
+    //         setReload(1);
+    //       })
+    //       .catch(error => console.log(error));
+    //   }
+      
+    // }
+
+    function getStatusName(status) {
+      switch (status) {
+        case 1:
+          return "Dừng hoạt động";
+        case 2:
+          return "Hoạt động"
+        // case 1:
+        //   return <Space style={{color: "red"}}>Đã xóa</Space>;
+        // case 2:
+        //   return <Space style={{color: "red"}}>Dừng hoạt động</Space>;
+        // case 3:
+        //   return <Space style={{color: "green"}}>Hoạt động</Space>;
+        default:
+            break;
+      }
+    }
+
+    console.log(currentStatus);
+    // const num = (detail?.status);
+    // const str = num.toString(); //> type string "123"
     return (
       <>
        <div className="title-table">Chi tiết dịch vụ</div>
         <div className='boxEdit'>
-            
+        
             <div className="table">
               <table>
                     <tbody>
-                        <tr>
-                            <td width="20%">Loại dịch vụ</td>
-                            <td >
-                                <Select  style={{ width: 200 }} onChange={handleChange}>
-                                  <Option value="jack">Vệ sinh máy lạnh</Option>
-                                  <Option value="lucy">Bảo trì máy lạnh</Option>
-                                  <Option value="lucy">Sửa chữa máy lạnh</Option>
-                                </Select>
-                              
-                              </td>
-                        </tr>
-                        <tr>
+                    <tr>
                             <td width="20%">Tên dịch vụ</td>
-                            <td > <Input value="Bơm ga" /></td>
+                            <td > <Input value={name ?? detail?.name} onChange={(dom)=>setName(dom?.target.value)}/></td>
                         </tr>
                         <tr>
                             <td width="20%">Mô tả</td>
-                            <td ><Input value="Bơm ga ..." /></td>
+                            <td ><Input  value={description ?? detail?.description} onChange={(dom)=>setDescription(dom?.target.value)}/></td>
                         </tr>
-                        <tr>
-                            <td width="20%">Phí (đồng)</td>
-                            <td ><Input value="500.000" /></td>
-                        </tr>
-                        
                         <tr>
                             <td width="20%">Trạng thái</td>
                             <td >
-                                <Select  style={{ width: 120 }} onChange={handleChange}>
-                                  <Option value="jack">Đang hoạt động</Option>
-                                  <Option value="lucy">Không hoạt động</Option>
+                                <Select value={getStatusName(status ?? detail?.status) ?? getStatusName(currentStatus)} style={{ width: 160 }} onChange={(dom)=>setStatus(dom)}>
+                                  <Option value="1">Dừng hoạt động</Option>
+                                  <Option value="2">Hoạt động </Option>
                                 </Select>
-                              
                               </td>
+
                         </tr>
-                      
+                        
                   </tbody>
                   <div className="btn-xacnhan">
                       <Button type="danger">
                         Đóng
                       </Button>
-                      <Button type="primary">
+                      <Button type="primary" onClick={()=>sua()}>
                         Lưu
                       </Button>
                      

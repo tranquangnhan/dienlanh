@@ -26,7 +26,7 @@ export const LichHenEdit = () => {
   // const [description,setDescription] = useState();
   // const [quantity,setQuantity] = useState();
   // const [time,setTime] = useState();
-
+  const [data,setData] = useState();
   const [detail,setDetail] = useState();
   const [refreshKey, setRefreshKey] = useState(0);
   const [reload,setReload] = useState(0);
@@ -117,8 +117,11 @@ export const LichHenEdit = () => {
       })
       .catch(error => console.log(error));
 
+      
+
     },[]);
 
+   
 
     // function sua(){
     //   axios.put(`${ROUTE.MAIN_URL}/appointment/update/${id}`,{

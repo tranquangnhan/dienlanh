@@ -1,4 +1,4 @@
-import { Button, Modal, Select,Input  } from 'antd';
+import { Button, Modal, Select,Input, Space  } from 'antd';
 import React, { useState ,useEffect  } from "react";
 import "./LoaiDichVuChiTiet.scss";
 import img1 from './img/midu.jpg';
@@ -28,6 +28,8 @@ export const LoaiDichVuChiTiet = () => {
   const [content,setContent] = useState();
   const [status,setStatus] = useState();
   const history = useHistory();
+  const [currentStatus,setCurrentStatus] = useState("3");
+  const [reload, setReload] = useState(0);
 
   // lấy id của chi tiết loại dịch vụ
     let { id } = useParams();
@@ -42,7 +44,7 @@ export const LoaiDichVuChiTiet = () => {
       })
       .catch(error => console.log(error));
 
-    },[]);
+    },[detail,reload]);
   
     function sua(){
      axios.patch(`${ROUTE.MAIN_URL}/service-type/${id}?content=${content?? detail?.content}&name=${name ?? detail?.name}`)
@@ -58,30 +60,52 @@ export const LoaiDichVuChiTiet = () => {
 
     function isActiveLDV(dom){
     
-      if(dom == 1){ // dừng hoạt động
+      if(dom == 2){ // dừng hoạt động
         axios.patch(`${ROUTE.MAIN_URL}/service-type/${id}/de-active`)
           .then(res => {
-         
+           setCurrentStatus(dom)
+           setReload(1);
           })
           .catch(error => console.log(error));
       }else{
         axios.patch(`${ROUTE.MAIN_URL}/service-type/${id}/active`)
           .then(res => {
- 
+            setCurrentStatus(dom)
+            setReload(1);
           })
           .catch(error => console.log(error));
       }
       
     }
 
+    function getStatusName(status) {
+      switch (status) {
+        case 1:
+          return "Đã xóa";
+        case 2:
+          return "Dừng hoạt động";
+        case 3:
+          return "Hoạt động"
+        // case 1:
+        //   return <Space style={{color: "red"}}>Đã xóa</Space>;
+        // case 2:
+        //   return <Space style={{color: "red"}}>Dừng hoạt động</Space>;
+        // case 3:
+        //   return <Space style={{color: "green"}}>Hoạt động</Space>;
+        default:
+            break;
+      }
+    }
 
-
+    console.log(currentStatus);
+    // const num = (detail?.status);
+    // const str = num.toString(); //> type string "123"
     return (
       <>
        <div className="title-table">Chi tiết loại dịch vụ</div>
         <div className='boxEdit'>
         <div className="img">
-              <img src={img1} />
+        <img width="300" height="300" src={detail?.imageUrl ?? "No image"}></img>
             </div>
             <div className="table">
               <table>
@@ -97,14 +121,14 @@ export const LoaiDichVuChiTiet = () => {
                         <tr>
                             <td width="20%">Trạng thái</td>
                             <td >
-                                <Select defaultValue="Đang Hoạt Động" style={{ width: 120 }} onChange={(dom)=>isActiveLDV(dom)}>
-                                  <Option value="1">Không hoạt động</Option>
-                                  <Option value="2">Đang hoạt động </Option>
+                                <Select value={getStatusName(detail?.status) ?? getStatusName(currentStatus)} style={{ width: 160 }} onChange={(dom)=>isActiveLDV(dom)}>
+                                  <Option value="2">Dừng hoạt động</Option>
+                                  <Option value="3">Hoạt động </Option>
                                 </Select>
-                              
                               </td>
+
                         </tr>
-                      
+                        
                   </tbody>
                   <div className="btn-xacnhan">
                       <Button type="danger">

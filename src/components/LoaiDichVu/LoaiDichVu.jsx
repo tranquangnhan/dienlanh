@@ -31,7 +31,9 @@ export const LoaiDichVu = () => {
     {
       title: "Loại dịch vụ",
       render: (text, record) => (
-         <p> {record.name} </p>
+        <Space size="middle">
+          <Link to={`/loai-dich-vu/${record.id}`}>  {record.name} </Link>
+        </Space>
         
       ),
     },

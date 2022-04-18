@@ -31,7 +31,9 @@ export const KhuyenMai = () => {
     {
       title: "Tiêu đề",
       render: (text, record) => (
-         <p> {record.title} </p>
+        <Space size="middle">
+          <Link to={`/khuyen-mai/${record.id}`}>  {record.title} </Link>
+        </Space>
         
       ),
     },

@@ -9,8 +9,6 @@ export * from './NhanVien/components/LichLamViecAdd/LichLamViecAdd'
 export * from './NhanVien/components/LichLamViecEdit/LichLamViecEdit'
 export * from './NhanVien/components/LichLamViecChiTiet/LichLamViecChiTiet'
 export * from './DichVu/DichVu'
-export * from './DichVu/components/DichVuChiTiet/DichVuChiTiet'
-export * from './DichVu/components/Add/DichVuAdd'
 export * from './HoaDon/HoaDon'
 export * from './HoaDon/components/Edit/HoaDonEdit'
 
