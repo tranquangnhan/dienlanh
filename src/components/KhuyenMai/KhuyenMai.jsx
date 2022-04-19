@@ -40,21 +40,21 @@ export const KhuyenMai = () => {
     {
       title: "Giảm giá (%)",
       render: (text, record) => (
-         <p> {record.discount} </p>
+         <> {record.discount} </>
         
       ),
     },
     {
       title: "Ngày tạo",
       render: (text, record) => (
-         <p> {record.start_date} </p>
+         <> {record.start_date.split(" ")[0]} </>
         
       ),
     },
     {
       title: "Ngày hết hạn",
       render: (text, record) => (
-         <p> {record.end_date} </p>
+         <> {record.end_date.split(" ")[0]} </>
         
       ),
     },
@@ -65,16 +65,16 @@ export const KhuyenMai = () => {
     {  
           if(record.status === 1) {
             return (
-            <p key={record.id} style={{color: "red", margin:"0 auto" }}>
+            <Space key={record.id} style={{color: "red", margin:"0 auto" }}>
                 Dừng hoạt động
-            </p>
+            </Space>
             ) 
           }
           if(record.status === 2) {
             return (
-            <p key={record.id} style={{color: "green", margin:"0 auto" }}>
+            <Space key={record.id} style={{color: "green", margin:"0 auto" }}>
                 Hoạt động
-            </p>
+            </Space>
             ) 
           }
           
@@ -93,7 +93,10 @@ export const KhuyenMai = () => {
 
   return (
     <>
-      <div className="title-table">Danh sách khuyến mãi</div>
+      <div className="title-table">
+        <div>Danh sách khuyến mãi &nbsp; &nbsp;<Button style={{ background: "#5899BA", color: "white", margin:"0 auto" }} shape="round" size="large "><Link to={`/khuyen-mai/add`}>Thêm khuyến mãi</Link></Button></div>
+        
+        </div>
       <div className="table">
         <Table columns={columns} dataSource={data} />
       </div>

@@ -32,6 +32,7 @@ export const LichHen = () => {
     .catch(error => console.log(error));
   }
 
+ 
 
   useEffect(()=>{
 
@@ -45,6 +46,21 @@ export const LichHen = () => {
       .catch(error => console.log(error));
 
   },[refreshKey]);
+
+  function getStatusName(status) {
+    switch (status) {
+      case 1:
+        return <Space style={{color: "red"}}>Đã hủy</Space>;
+      case 2:
+        return <Space style={{color: "green"}}>Đã xác nhận</Space>;
+      case 3:
+        return <Space style={{color: "orange"}}>Đang chờ</Space>;
+      case 4:
+        return <Space style={{color: "green"}}>Đã hoàn tất</Space>;
+      default:
+          break;
+    }
+  }
 
   const columns = [
     {
@@ -77,6 +93,14 @@ export const LichHen = () => {
     },
     {
       title: "Trạng thái",
+      render: (text, record) => (
+
+        <>{getStatusName(record.status)}</>
+
+      ),
+    },
+    {
+      title: "",
       key: "action",
       render: (text, record) => 
     {  
@@ -99,7 +123,7 @@ export const LichHen = () => {
               <Space size="middle" key={record.id}>
                   <a href={record.key}>
                   <Button onClick={() => xet(record.id,record.staff_id)} type="primary" shape="round" size="large ">
-                      Chấp nhận
+                      <Link to={`/hoa-don/:id`}>Chấp nhận</Link>
                     </Button>
                   </a>
                   <a>
@@ -125,7 +149,11 @@ export const LichHen = () => {
 
   return (
     <>
-      <div className="title-table">Danh sách lịch hẹn</div>
+      <div className="title-table">
+        Danh sách lịch hẹn &nbsp;&nbsp;
+      <Button style={{ background: "orange", color: "white", margin:"0 auto" }} shape="round" size="large "><Link to={`/lich-hen`}>Đang chờ</Link></Button>&nbsp;&nbsp;
+      <Button style={{ background: "green", color: "white", margin:"0 auto" }} shape="round" size="large "><Link to={`/lich-hen/lich-su`}>Đã xác nhận</Link></Button>
+      </div>
       <div className="table">
         <Table columns={columns} dataSource={data} />
       </div>

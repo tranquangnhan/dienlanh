@@ -135,7 +135,18 @@ export const NhanVien = () => {
 
   return (
     <>
-      <div className="title-table">Danh sách nhân viên</div>
+      <div className="title-table">
+        Danh sách nhân viên &nbsp; &nbsp;
+        <Button 
+        style={{ background: "#5899BA", color: "white", margin:"0 auto" }} 
+        shape="round" size="large ">
+          <Link to={`/nhan-vien/add`}>
+            Thêm nhân viên
+            </Link>
+        </Button>
+      </div>
+        
+        
       <div className="table">
         <Table columns={columns} dataSource={data} />
       </div>

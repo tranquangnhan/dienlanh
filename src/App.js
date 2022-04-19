@@ -8,9 +8,10 @@ import { DichVuChiTiet } from './components/DichVu/components/DichVuChiTiet/Dich
 import { HoaDonLichSu } from './components/HoaDon/components/Edit/History/HoaDonLichSu';
 import { KhachHang } from './components/KhachHang/KhachHang';
 import { KhachHangChiTiet } from './components/KhachHang/KhachHangChiTiet/KhachHangChiTiet';
-import { KhuyenMaiAdd } from './components/KhuyenMai/Add/KhuyenMaiAdd';
+import { KhuyenMaiAdd } from './components/KhuyenMai/components/KhuyenMaiAdd/KhuyenMaiAdd';
+
+import { KhuyenMaiChiTiet } from './components/KhuyenMai/components/KhuyenMaiChiTiet/KhuyenMaiChiTiet';
 import { KhuyenMai } from './components/KhuyenMai/KhuyenMai';
-import { KhuyenMaiChiTiet } from './components/KhuyenMai/KhuyenMaiChiTiet/KhuyenMaiChiTiet';
 import { LoaiDichVu } from './components/LoaiDichVu/LoaiDichVu';
 import { LoaiDichVuAdd } from './components/LoaiDichVu/LoaiDichVuChiTiet/components/Add/LoaiDichVuAdd';
 import { LoaiDichVuChiTiet } from './components/LoaiDichVu/LoaiDichVuChiTiet/LoaiDichVuChiTiet';

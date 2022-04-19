@@ -85,15 +85,15 @@ export const Navbar = ({})=> {
                 </Menu.Item>
                 <SubMenu key="sub1" icon={<HistoryOutlined />} title="Lịch Hẹn">
                     <Menu.Item key="3">Danh sách lịch hẹn</Menu.Item>
-                    <Menu.Item key="4">Lịch sử</Menu.Item>
+                    {/* <Menu.Item key="4">Lịch sử</Menu.Item> */}
                 </SubMenu>
                 <SubMenu key="sub6" icon={<PercentageOutlined />} title="Hoá Đơn">
                     <Menu.Item key="18">Danh Sách Hoá Đơn</Menu.Item>
-                    <Menu.Item key="19">Lịch sử</Menu.Item>
+                    {/* <Menu.Item key="19">Lịch sử</Menu.Item> */}
                 </SubMenu>
                 <SubMenu key="sub2" icon={<UsergroupAddOutlined />} title="Nhân Viên">
                     <Menu.Item key="5">Danh sách nhân viên</Menu.Item>
-                    <Menu.Item key="6">Thêm nhân viên</Menu.Item>
+                    {/* <Menu.Item key="6">Thêm nhân viên</Menu.Item> */}
                     <Menu.Item key="7">Lịch làm việc</Menu.Item>
                     <Menu.Item key="8">Danh sách lịch làm việc</Menu.Item>
                     {/* <Menu.Item key="9">Thêm lịch Làm Việc</Menu.Item> */}
@@ -110,7 +110,7 @@ export const Navbar = ({})=> {
                 </SubMenu>
                 <SubMenu key="sub5" icon={<PercentageOutlined />} title="Khuyến mãi">
                     <Menu.Item key="16">Danh sách khuyến mãi</Menu.Item>
-                    <Menu.Item key="17">Thêm khuyến mãi</Menu.Item>
+                    {/* <Menu.Item key="17">Thêm khuyến mãi</Menu.Item> */}
                 </SubMenu>
 
             </Menu>

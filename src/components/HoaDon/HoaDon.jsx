@@ -47,6 +47,21 @@ export const HoaDon = () => {
 
   },[refreshKey]);
 
+ 
+  function getStatusName(status) {
+    switch (status) {
+      case 1:
+        return <Space style={{color: "red"}}>Đã hủy</Space>;
+      case 2:
+        return <Space style={{color: "orange"}}>Đang tiến hành</Space>;
+      case 3:
+        return <Space style={{color: "orange"}}>Đang tiến hành</Space>;
+      case 4:
+        return <Space style={{color: "green"}}>Đã hoàn thành</Space>;
+      default:
+          break;
+    }
+  }
   
   const columns = [
     {
@@ -72,29 +87,9 @@ export const HoaDon = () => {
       title: "Trạng thái",
       key: "action",
       render: (text, record) => 
-    {  
-          if(record.status === 1) {
-            return (
-            <Button key={record.id} type="disable" style={{ background: "#c82333", color: "white", margin:"0 auto" }} shape="round" size="large ">
-                Đã huỷ
-            </Button>
-            ) 
-          }
-          if(record.status === 2 || record.status === 3) {
-            return (
-            <Button key={record.id} type="disable" style={{ background: "#f7941d", color: "white", margin:"0 auto" }} shape="round" size="large ">
-                Đang tiến hành
-            </Button>
-            ) 
-          }
-          if(record.status === 4) {
-            return (
-            <Button key={record.id} type="disable" style={{ background: "#28a745", color: "white", margin:"0 auto" }} shape="round" size="large ">
-                Hoàn tất
-            </Button>
-            ) 
-          }
-    }
+    (
+      <>{getStatusName(record.status)}</>
+    )
       ,
     },
   ];
@@ -102,7 +97,11 @@ export const HoaDon = () => {
 
   return (
     <>
-      <div className="title-table">Danh sách hóa đơn</div>
+      <div className="title-table">
+        Danh sách hóa đơn &nbsp;&nbsp;
+      <Button style={{ background: "orange", color: "white", margin:"0 auto" }} shape="round" size="large "><Link to={`/hoa-don`}>Đang tiến hành</Link></Button>&nbsp;&nbsp;
+      <Button style={{ background: "green", color: "white", margin:"0 auto" }} shape="round" size="large "><Link to={`/hoa-don/lich-su`}>Đã hoàn thành</Link></Button>
+      </div>
       <div className="table">
         <Table columns={columns} dataSource={data} />
       </div>

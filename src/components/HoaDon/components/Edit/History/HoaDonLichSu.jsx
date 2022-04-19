@@ -69,14 +69,18 @@ export const HoaDonLichSu = () => {
   
   
 
-    return (
-      <>
-           <div className="title-table">Lịch sử hóa đơn</div>
-            <div className="table">
-                <Table columns={columns} dataSource={data} />
-            </div>
-      </>
-    );
+  return (
+    <>
+      <div className="title-table">
+        Danh sách hóa đơn &nbsp;&nbsp;
+      <Button style={{ background: "orange", color: "white", margin:"0 auto" }} shape="round" size="large "><Link to={`/hoa-don`}>Đang tiến hành</Link></Button>&nbsp;&nbsp;
+      <Button style={{ background: "green", color: "white", margin:"0 auto" }} shape="round" size="large "><Link to={`/hoa-don/lich-su`}>Đã hoàn thành</Link></Button>
+      </div>
+      <div className="table">
+        <Table columns={columns} dataSource={data} />
+      </div>
+    </>
+  );
   };
 
 // function getStatusName(status) {

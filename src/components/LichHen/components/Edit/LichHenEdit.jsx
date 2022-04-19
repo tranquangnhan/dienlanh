@@ -169,7 +169,7 @@ export const LichHenEdit = () => {
         case 2:
           return <Space style={{color: "#28a745"}}>Đã xác nhận</Space>;
         case 3:
-          return <Space style={{color: "#f7941d"}}>Chưa xác nhận</Space>;
+          return <Space style={{color: "#f7941d"}}>Đang chờ</Space>;
         case 4:
           return <Space style={{color: "#28a745"}}>Đã hoàn tất</Space>;
         default:
