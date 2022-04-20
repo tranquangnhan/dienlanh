@@ -102,10 +102,7 @@ export const NhanVienAdd = () => {
                             <td width="20%">Tên tài khoản</td>
                             <td ><Input onChange={(dom)=>setUsername(dom.target.value)}  placeholder='Nhập tên tài khoản' /> </td>
                         </tr>
-                        <tr>
-                            <td width="20%">Mật Khẩu</td>
-                            <td > <Input onChange={(dom)=>setPassword(dom.target.value)} placeholder='Nhập mật khẩu' /></td>
-                        </tr>
+                        
                         <tr>
                             <td width="20%">Ngày Sinh</td>
                             <td ><Input onChange={(dom)=>setBirthday(dom.target.value)} placeholder='Nhập ngày sinh' /></td>
@@ -140,9 +137,9 @@ export const NhanVienAdd = () => {
                         <tr>
                             <td width="20%">Trạng thái</td>
                             <td >
-                                <Select  style={{ width: 120 }} value="Đang hoạt động" onChange={(dom)=>setStatus(dom)}>
-                                  <Option value="true">Đang hoạt động</Option>
-                                  <Option value="false">Không hoạt động</Option>
+                                <Select  style={{ width: 160 }} defaultValue="Hoạt động" onChange={(dom)=>setStatus(dom)}>
+                                  <Option value="true">Hoạt động</Option>
+                                  <Option value="false">Dừng hoạt động</Option>
                                 </Select>
                               </td>
                         </tr>

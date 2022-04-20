@@ -48,8 +48,9 @@ function App() {
             <Route exact path={ROUTE.KHACH_HANG} component={KhachHang} />
             <Route exact path={ROUTE.KHACH_HANG_DETAIL} component={KhachHangChiTiet} />
             <Route exact path={ROUTE.CHI_NHANH} component={ChiNhanh} />
-            <Route exact path={ROUTE.CHI_NHANH_DETAIL} component={ChiNhanhChiTiet} />
             <Route exact path={ROUTE.CHI_NHANH_ADD} component={ChiNhanhAdd} />
+            <Route exact path={ROUTE.CHI_NHANH_DETAIL} component={ChiNhanhChiTiet} />
+            
 
           </Switch>
     </Layout>

@@ -41,6 +41,23 @@ export const NhanVien = () => {
     }
   }
 
+  function getStatusName(status) {
+    switch (status) {
+      case 1:
+        return "Quản trị viên";
+      case 2:
+        return "Quản lý";
+      case 3:
+        return "Nhân viên kỹ thuật";
+      case 4:
+        return "Thu ngân";
+      case 5:
+        return "Khách hàng";  
+      default:
+          break;
+    }
+  }
+
   const columns = [
     {
       title: "No",
@@ -50,7 +67,7 @@ export const NhanVien = () => {
       title: "Tên Nhân Viên",
       render: (text, record) => (
         <Space size="middle">
-          <Link to={`/nhan-vien/${record.id}`}>  {record.fullName} </Link>
+          <Link to={`/nhan-vien/${record.userId}`}>  {record.fullName} </Link>
         </Space>
       ),
     },
@@ -65,7 +82,13 @@ export const NhanVien = () => {
       dataIndex: "agencyName",
     },
     {
-      title: "Action",
+      title: "Trạng thái",
+      render: (text, record) => (
+        <Space style={{color: "green"}}>Hoạt động</Space>
+      ),
+    },
+    {
+      title: "",
       key: "action",
       render: (text, record) => (
         <Space size="middle" key={record.id}>

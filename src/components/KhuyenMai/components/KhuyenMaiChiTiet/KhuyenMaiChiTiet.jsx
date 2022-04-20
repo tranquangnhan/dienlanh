@@ -125,12 +125,12 @@ export const KhuyenMaiChiTiet = () => {
 
                         <tr>
                             <td width="20%">Ngày bắt đầu</td>
-                            <td ><Input  value={start_date ?? detail?.start_date} onChange={(dom)=>setStart_date(dom?.target.value)}/></td>
+                            <td ><Input  value={start_date ?? detail?.start_date.split(" ")[0]} onChange={(dom)=>setStart_date(dom?.target.value)}/></td>
                         </tr>
 
                         <tr>
                             <td width="20%">Ngày kết thúc</td>
-                            <td ><Input  value={end_date ?? detail?.end_date} onChange={(dom)=>setEnd_date(dom?.target.value)}/></td>
+                            <td ><Input  value={end_date ?? detail?.end_date.split(" ")[0]} onChange={(dom)=>setEnd_date(dom?.target.value)}/></td>
                         </tr>
 
                         <tr>
