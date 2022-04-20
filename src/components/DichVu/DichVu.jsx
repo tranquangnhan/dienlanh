@@ -86,7 +86,18 @@ export const DichVu = () => {
 
   return (
     <>
-      <div className="title-table">Danh sách dịch vụ</div>
+      <div className="title-table">
+        Danh sách dịch vụ &nbsp; &nbsp;
+        <Button 
+        style={{ background: "#5899BA", color: "white", margin:"0 auto" }} 
+        shape="round" size="large ">
+          <Link to={`/dich-vu/add`}>
+            Thêm dịch vụ
+            </Link>
+        </Button>
+      </div>
+        
+        
       <div className="table">
         <Table columns={columns} dataSource={data} />
       </div>

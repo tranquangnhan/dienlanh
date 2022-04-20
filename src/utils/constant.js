@@ -26,4 +26,7 @@ export const ROUTE = {
     HOA_DON_LICH_SU: "/hoa-don/lich-su",
     KHACH_HANG: "/khach-hang",
     KHACH_HANG_DETAIL: "/khach-hang/:id",
+    CHI_NHANH: "/chi-nhanh",
+    CHI_NHANH_DETAIL: "/chi-nhanh/:id",
+    CHI_NHANH_ADD: "/chi-nhanh/add",
 };

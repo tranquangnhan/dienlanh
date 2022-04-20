@@ -3,8 +3,7 @@ import axios from 'axios';
 import React, { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ROUTE } from '../../../../utils/constant';
-import img1 from './img/midu.jpg';
-import "./DichVuAdd.scss";
+import "./ChiNhanhAdd.scss";
 import { useHistory } from "react-router-dom";
 const { Option } = Select;
 const children = [];
@@ -14,7 +13,7 @@ for (let i = 10; i < 36; i++) {
 }
 
 
-export const DichVuAdd = () => {
+export const ChiNhanhAdd = () => {
     const [name,setName] = useState();
     const [description,setDescription] = useState();
     const [price,setPrice] = useState();
@@ -53,7 +52,7 @@ export const DichVuAdd = () => {
 
     return (
       <>
-        <div className="title-table">Thêm dịch vụ</div>
+        <div className="title-table">Thêm chi nhánh</div>
         <div className='boxEdit'>
             <div className="table">
               <table>
@@ -100,7 +99,7 @@ export const DichVuAdd = () => {
                       
                   </tbody>
                   <div className="btn-xacnhan">
-                      <Link to="/dich-vu">
+                      <Link to="/loai-dich-vu">
                         <Button type="danger">
                           Đóng
                         </Button>

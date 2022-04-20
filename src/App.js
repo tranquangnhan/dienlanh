@@ -3,13 +3,15 @@ import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import { Layout } from './common/Layout/Layout';
 import { LichHen,LichHenEdit,LichHenLichSu,NhanVien,NhanVienEdit,NhanVienAdd, LichLamViec, LichLamViecAdd,LichLamViecEdit,LichLamViecChiTiet,DichVu,  HoaDon, HoaDonEdit,   } from './components';
+import { ChiNhanh } from './components/ChiNhanh/ChiNhanh';
+import { ChiNhanhAdd } from './components/ChiNhanh/components/ChiNhanhAdd/ChiNhanhAdd';
+import { ChiNhanhChiTiet } from './components/ChiNhanh/components/ChiNhanhChiTiet/ChiNhanhChiTiet';
 import { DichVuAdd } from './components/DichVu/components/DichVuAdd/DichVuAdd';
 import { DichVuChiTiet } from './components/DichVu/components/DichVuChiTiet/DichVuChiTiet';
 import { HoaDonLichSu } from './components/HoaDon/components/Edit/History/HoaDonLichSu';
 import { KhachHang } from './components/KhachHang/KhachHang';
 import { KhachHangChiTiet } from './components/KhachHang/KhachHangChiTiet/KhachHangChiTiet';
 import { KhuyenMaiAdd } from './components/KhuyenMai/components/KhuyenMaiAdd/KhuyenMaiAdd';
-
 import { KhuyenMaiChiTiet } from './components/KhuyenMai/components/KhuyenMaiChiTiet/KhuyenMaiChiTiet';
 import { KhuyenMai } from './components/KhuyenMai/KhuyenMai';
 import { LoaiDichVu } from './components/LoaiDichVu/LoaiDichVu';
@@ -45,6 +47,9 @@ function App() {
             <Route exact path={ROUTE.HOA_DON_EDIT} component={HoaDonEdit} />
             <Route exact path={ROUTE.KHACH_HANG} component={KhachHang} />
             <Route exact path={ROUTE.KHACH_HANG_DETAIL} component={KhachHangChiTiet} />
+            <Route exact path={ROUTE.CHI_NHANH} component={ChiNhanh} />
+            <Route exact path={ROUTE.CHI_NHANH_DETAIL} component={ChiNhanhChiTiet} />
+            <Route exact path={ROUTE.CHI_NHANH_ADD} component={ChiNhanhAdd} />
 
           </Switch>
     </Layout>

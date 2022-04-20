@@ -38,6 +38,9 @@ export const Navbar = ({})=> {
             case "9":
                 history.push("/lich-lam-viec/add");
                 break;
+            case "10":
+                history.push("/chi-nhanh");
+                break;
             case "12":
                 history.push("/loai-dich-vu");
                 break;
@@ -104,9 +107,9 @@ export const Navbar = ({})=> {
                 </SubMenu>
                 <SubMenu key="sub4" icon={<DollarCircleOutlined />} title="Dịch Vụ">
                     <Menu.Item key="12">Danh sách loại dịch vụ</Menu.Item>
-                    <Menu.Item key="13">Thêm loại dịch vụ</Menu.Item>
+                    {/* <Menu.Item key="13">Thêm loại dịch vụ</Menu.Item> */}
                     <Menu.Item key="14">Danh sách dịch vụ</Menu.Item>
-                    <Menu.Item key="15">Thêm dịch vụ</Menu.Item>
+                    {/* <Menu.Item key="15">Thêm dịch vụ</Menu.Item> */}
                 </SubMenu>
                 <SubMenu key="sub5" icon={<PercentageOutlined />} title="Khuyến mãi">
                     <Menu.Item key="16">Danh sách khuyến mãi</Menu.Item>

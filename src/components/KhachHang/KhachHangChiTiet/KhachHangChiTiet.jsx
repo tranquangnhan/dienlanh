@@ -78,7 +78,7 @@ export const KhachHangChiTiet = () => {
 
     return (
       <>
-       <div className="title-table">Chi tiết loại dịch vụ</div>
+       <div className="title-table">Chi tiết khách hàng</div>
         <div className='boxEdit'>
         <div className="img">
               <img src={img1} />
