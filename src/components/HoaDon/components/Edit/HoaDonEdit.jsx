@@ -24,7 +24,7 @@ export const HoaDonEdit = () => {
   const [detailOrder,setDetailOrder] = useState();
   const [staffWorkSlot,setStaffWorkSlot] = useState();
   const [idStaffWorkSlot,setIdStaffWorkSlot] = useState();
-
+  
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [reload,setReload] = useState(0);
   const [time,setTime] = useState();
@@ -47,7 +47,7 @@ export const HoaDonEdit = () => {
     // lấy nhân viên đang rảnh 
     function getFreeStaff(){
         let date = detail?.date.split(" ")[0] ;
-        axios.get(`${ROUTE.MAIN_URL}/workSlot/staff?register_date=${date}&slot_start=${time ?? detail?.time}`)
+        axios.get(`${ROUTE.MAIN_URL}/workSlot/staff/agency?agency_name=${detail?.agency_name}&register_date=${date}&slot_start=${time ?? detail?.time}`)
         .then(res => {
           if(res.status === 200){
             setStaffWorkSlot(res.data.data)
@@ -195,6 +195,11 @@ export const HoaDonEdit = () => {
                     <HoaDonItem name="Thời gian" 
                      value={detail?.time}
                     />
+
+                    <HoaDonItem name="Chi Nhánh" 
+                     value={detail?.agency_name}
+                    />
+
                     <tr>
                         <td width="100%" colSpan={2}> <hr/></td>
                     </tr>
