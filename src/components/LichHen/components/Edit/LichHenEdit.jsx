@@ -208,6 +208,10 @@ export const LichHenEdit = () => {
                     <LichHenItem name="Thời gian" 
                      value={detail?.time}
                      />
+
+                    <LichHenItem name="Chi nhánh" 
+                     value={detail?.agency_name}
+                     />
                      
                     <LichHenItem name="Trạng thái" 
                       value={getStatusName(detail?.status)}
