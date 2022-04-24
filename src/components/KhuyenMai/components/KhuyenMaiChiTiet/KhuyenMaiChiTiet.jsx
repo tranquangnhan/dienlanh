@@ -8,6 +8,7 @@ import {
 import { ROUTE } from '../../../../utils/constant';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const { Option } = Select;
 const children = [];
@@ -120,7 +121,7 @@ export const KhuyenMaiChiTiet = () => {
 
                         <tr>
                             <td width="20%">Giảm giá (%)</td>
-                            <td ><Input  value={discount ?? detail?.discount} onChange={(dom)=>setDiscount(dom?.target.value)}/></td>
+                            <td ><Input  value={discount ?? (parseFloat(detail?.discount)*100)} onChange={(dom)=>setDiscount(dom?.target.value)}/></td>
                         </tr>
 
                         <tr>
@@ -147,7 +148,7 @@ export const KhuyenMaiChiTiet = () => {
                   </tbody>
                   <div className="btn-xacnhan">
                       <Button type="danger">
-                        Đóng
+                        <Link to={`/khuyen-mai`}>Đóng</Link> 
                       </Button>
                       <Button type="primary" onClick={()=>sua()}>
                         Lưu

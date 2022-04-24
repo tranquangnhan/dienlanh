@@ -8,6 +8,7 @@ import {
 import { ROUTE } from '../../../../utils/constant';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const { Option } = Select;
 const children = [];
@@ -136,7 +137,7 @@ export const DichVuChiTiet = () => {
                   </tbody>
                   <div className="btn-xacnhan">
                       <Button type="danger">
-                        Đóng
+                        <Link to={`/dich-vu`}>Đóng</Link>
                       </Button>
                       <Button type="primary" onClick={()=>sua()}>
                         Lưu

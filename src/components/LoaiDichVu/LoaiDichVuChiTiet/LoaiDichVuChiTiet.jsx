@@ -1,13 +1,12 @@
-import { Button, Modal, Select,Input, Space  } from 'antd';
-import React, { useState ,useEffect  } from "react";
+import { Button, Modal, Select, Input, Space } from "antd";
+import React, { useState, useEffect } from "react";
 import "./LoaiDichVuChiTiet.scss";
-import img1 from './img/midu.jpg';
-import {
-  useParams
-} from "react-router-dom";
+import img1 from "./img/midu.jpg";
+import { useParams } from "react-router-dom";
 import { ROUTE } from "../../../utils/constant";
-import axios from 'axios';
+import axios from "axios";
 import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const { Option } = Select;
 const children = [];
@@ -17,136 +16,157 @@ for (let i = 10; i < 36; i++) {
 }
 
 function handleChange(value) {
-    console.log(`Selected: ${value}`);
+  console.log(`Selected: ${value}`);
 }
 
-
-
 export const LoaiDichVuChiTiet = () => {
-  const [detail,setDetail] = useState();
-  const [name,setName] = useState();
-  const [content,setContent] = useState();
-  const [status,setStatus] = useState();
+  const [detail, setDetail] = useState();
+  const [name, setName] = useState();
+  const [content, setContent] = useState();
+  const [status, setStatus] = useState();
   const history = useHistory();
-  const [currentStatus,setCurrentStatus] = useState("3");
+  const [currentStatus, setCurrentStatus] = useState("3");
   const [reload, setReload] = useState(0);
 
   // lấy id của chi tiết loại dịch vụ
-    let { id } = useParams();
-  
-    useEffect(()=>{
+  let { id } = useParams();
 
-      axios.get(`${ROUTE.MAIN_URL}/service-type/${id}`)
-      .then(res => {
-        if(res.status === 200){
-          setDetail(res.data.data)
+  useEffect(() => {
+    axios
+      .get(`${ROUTE.MAIN_URL}/service-type/${id}`)
+      .then((res) => {
+        if (res.status === 200) {
+          setDetail(res.data.data);
         }
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
+  }, [detail, reload]);
 
-    },[detail,reload]);
-  
-    function sua(){
-     axios.patch(`${ROUTE.MAIN_URL}/service-type/${id}?content=${content?? detail?.content}&name=${name ?? detail?.name}`)
-      .then(res => {
-        console.log(res?.data?.success)
-        if(res?.status === 200 && res?.data?.success === true){
+  function sua() {
+    axios
+      .patch(
+        `${ROUTE.MAIN_URL}/service-type/${id}?content=${
+          content ?? detail?.content
+        }&name=${name ?? detail?.name}`
+      )
+      .then((res) => {
+        console.log(res?.data?.success);
+        if (res?.status === 200 && res?.data?.success === true) {
           history.push("/loai-dich-vu");
         }
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
+  }
+
+  function isActiveLDV(dom) {
+    if (dom == 2) {
+      // dừng hoạt động
+      axios
+        .patch(`${ROUTE.MAIN_URL}/service-type/${id}/de-active`)
+        .then((res) => {
+          setCurrentStatus(dom);
+          setReload(1);
+        })
+        .catch((error) => console.log(error));
+    } else {
+      axios
+        .patch(`${ROUTE.MAIN_URL}/service-type/${id}/active`)
+        .then((res) => {
+          setCurrentStatus(dom);
+          setReload(1);
+        })
+        .catch((error) => console.log(error));
     }
+  }
 
-
-    function isActiveLDV(dom){
-    
-      if(dom == 2){ // dừng hoạt động
-        axios.patch(`${ROUTE.MAIN_URL}/service-type/${id}/de-active`)
-          .then(res => {
-           setCurrentStatus(dom)
-           setReload(1);
-          })
-          .catch(error => console.log(error));
-      }else{
-        axios.patch(`${ROUTE.MAIN_URL}/service-type/${id}/active`)
-          .then(res => {
-            setCurrentStatus(dom)
-            setReload(1);
-          })
-          .catch(error => console.log(error));
-      }
-      
+  function getStatusName(status) {
+    switch (status) {
+      case 1:
+        return "Đã xóa";
+      case 2:
+        return "Dừng hoạt động";
+      case 3:
+        return "Hoạt động";
+      // case 1:
+      //   return <Space style={{color: "red"}}>Đã xóa</Space>;
+      // case 2:
+      //   return <Space style={{color: "red"}}>Dừng hoạt động</Space>;
+      // case 3:
+      //   return <Space style={{color: "green"}}>Hoạt động</Space>;
+      default:
+        break;
     }
+  }
 
-    function getStatusName(status) {
-      switch (status) {
-        case 1:
-          return "Đã xóa";
-        case 2:
-          return "Dừng hoạt động";
-        case 3:
-          return "Hoạt động"
-        // case 1:
-        //   return <Space style={{color: "red"}}>Đã xóa</Space>;
-        // case 2:
-        //   return <Space style={{color: "red"}}>Dừng hoạt động</Space>;
-        // case 3:
-        //   return <Space style={{color: "green"}}>Hoạt động</Space>;
-        default:
-            break;
-      }
-    }
-
-    console.log(currentStatus);
-    // const num = (detail?.status);
-    // const str = num.toString(); //> type string "123"
-    return (
-      <>
-       <div className="title-table">Chi tiết loại dịch vụ</div>
-        <div className='boxEdit'>
-        <div className="img">
-        <img width="300" height="300" src={detail?.imageUrl ?? "No image"}></img>
-            </div>
-            <div className="table">
-              <table>
-                    <tbody>
-                    <tr>
-                            <td width="20%">Tên loại dịch vụ</td>
-                            <td > <Input value={name ?? detail?.name} onChange={(dom)=>setName(dom?.target.value)}/></td>
-                        </tr>
-                        <tr>
-                            <td width="20%">Mô tả</td>
-                            <td ><Input  value={content ?? detail?.content} onChange={(dom)=>setContent(dom?.target.value)}/></td>
-                        </tr>
-                        <tr>
-                            <td width="20%">Trạng thái</td>
-                            <td >
-                                <Select value={getStatusName(detail?.status) ?? getStatusName(currentStatus)} style={{ width: 160 }} onChange={(dom)=>isActiveLDV(dom)}>
-                                  <Option value="2">Dừng hoạt động</Option>
-                                  <Option value="3">Hoạt động </Option>
-                                </Select>
-                              </td>
-
-                        </tr>
-                        
-                  </tbody>
-                  <div className="btn-xacnhan">
-                      <Button type="danger">
-                        Đóng
-                      </Button>
-                      <Button type="primary" onClick={()=>sua()}>
-                        Lưu
-                      </Button>
-                     
-                  </div>
-              </table>
-              
-
-              
+  console.log(currentStatus);
+  // const num = (detail?.status);
+  // const str = num.toString(); //> type string "123"
+  return (
+    <>
+      <div className="title-table">Chi tiết loại dịch vụ</div>
+      <div className="boxEdit">
+        {detail?.imageUrl == null ? (
+          ""
+        ) : (
+          <div className="img">
+            <img
+              width="300"
+              height="300"
+              src={detail?.imageUrl ?? "No image"}
+            ></img>
           </div>
+        )}
+
+        <div className="table">
+          <table>
+            <tbody>
+              <tr>
+                <td width="20%">Tên loại dịch vụ</td>
+                <td>
+                  {" "}
+                  <Input
+                    value={name ?? detail?.name}
+                    onChange={(dom) => setName(dom?.target.value)}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td width="20%">Mô tả</td>
+                <td>
+                  <Input
+                    value={content ?? detail?.content}
+                    onChange={(dom) => setContent(dom?.target.value)}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td width="20%">Trạng thái</td>
+                <td>
+                  <Select
+                    value={
+                      getStatusName(detail?.status) ??
+                      getStatusName(currentStatus)
+                    }
+                    style={{ width: 160 }}
+                    onChange={(dom) => isActiveLDV(dom)}
+                  >
+                    <Option value="2">Dừng hoạt động</Option>
+                    <Option value="3">Hoạt động </Option>
+                  </Select>
+                </td>
+              </tr>
+            </tbody>
+            <div className="btn-xacnhan">
+              <Button type="danger">
+                <Link to={`/loai-dich-vu`}>Đóng</Link>
+              </Button>
+              <Button type="primary" onClick={() => sua()}>
+                Lưu
+              </Button>
+            </div>
+          </table>
         </div>
- 
-      </>
-    );
-  };
-  
+      </div>
+    </>
+  );
+};

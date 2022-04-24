@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import { Layout } from './common/Layout/Layout';
-import { LichHen,LichHenEdit,LichHenLichSu,NhanVien,NhanVienEdit,NhanVienAdd, LichLamViec, LichLamViecAdd,LichLamViecEdit,LichLamViecChiTiet,DichVu,  HoaDon, HoaDonEdit,   } from './components';
+import { LichHen,LichHenEdit,LichHenLichSu,NhanVien,NhanVienEdit,NhanVienAdd, LichLamViecAdd,LichLamViecEdit,LichLamViecChiTiet,DichVu,  HoaDon, HoaDonEdit,   } from './components';
 import { ChiNhanh } from './components/ChiNhanh/ChiNhanh';
 import { ChiNhanhAdd } from './components/ChiNhanh/components/ChiNhanhAdd/ChiNhanhAdd';
 import { ChiNhanhChiTiet } from './components/ChiNhanh/components/ChiNhanhChiTiet/ChiNhanhChiTiet';
@@ -18,6 +18,7 @@ import { LichHenHuy } from './components/LichHen/components/Huy/LichHenLichSu';
 import { LoaiDichVu } from './components/LoaiDichVu/LoaiDichVu';
 import { LoaiDichVuAdd } from './components/LoaiDichVu/LoaiDichVuChiTiet/components/Add/LoaiDichVuAdd';
 import { LoaiDichVuChiTiet } from './components/LoaiDichVu/LoaiDichVuChiTiet/LoaiDichVuChiTiet';
+import { LichLamViet } from './components/NhanVien/components/LichLamViec/LichLamViec';
 import { ROUTE } from './utils/constant';
 
 function App() {
@@ -31,7 +32,7 @@ function App() {
             <Route exact path={ROUTE.NHAN_VIEN} component={NhanVien} />
             <Route exact path={ROUTE.NHAN_VIEN_ADD} component={NhanVienAdd} />
             <Route exact path={ROUTE.NHAN_VIEN_EDIT} component={NhanVienEdit} />
-            <Route exact path={ROUTE.LICH_LAM_VIEC} component={LichLamViec} />
+            <Route exact path={ROUTE.LICH_LAM_VIEC} component={LichLamViet} />
             <Route exact path={ROUTE.LICH_LAM_VIEC_ADD} component={LichLamViecAdd} />
             <Route exact path={ROUTE.LICH_LAM_VIEC_EDIT} component={LichLamViecEdit} />
             <Route exact path={ROUTE.LICH_LAM_VIEC_DETAIL} component={LichLamViecChiTiet} />

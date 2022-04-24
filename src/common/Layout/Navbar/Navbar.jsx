@@ -97,7 +97,7 @@ export const Navbar = ({})=> {
                 <SubMenu key="sub2" icon={<UsergroupAddOutlined />} title="Nhân Viên">
                     <Menu.Item key="5">Danh sách nhân viên</Menu.Item>
                     {/* <Menu.Item key="6">Thêm nhân viên</Menu.Item> */}
-                    <Menu.Item key="7">Lịch làm việc</Menu.Item>
+                    {/* <Menu.Item key="7">Lịch làm việc</Menu.Item> */}
                     <Menu.Item key="8">Danh sách lịch làm việc</Menu.Item>
                     {/* <Menu.Item key="9">Thêm lịch Làm Việc</Menu.Item> */}
                 </SubMenu>

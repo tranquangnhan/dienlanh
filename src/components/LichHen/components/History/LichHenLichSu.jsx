@@ -14,7 +14,7 @@ export const LichHenLichSu = () => {
     axios.get(`https://acsproject.azurewebsites.net/appointment/all`)
       .then(res => {
         if(res.status === 200){
-          const item = res.data.data.filter(item=>item.status === 1 || item.status === 2 || item.status === 4)
+          const item = res.data.data.filter(item=> item.status === 2 || item.status === 4)
           setData(item.sort((a,b)=>b.id-a.id))
         }
       })
