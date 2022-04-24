@@ -31,7 +31,7 @@ export const KhuyenMaiAdd = () => {
       .then(res => {
         console.log(res?.data?.success)
         if(res?.status === 200 && res?.data?.success === true){
-          history.push("/dich-vu");
+          history.push("/khuyen-mai");
         }
       })
       .catch(error => console.log(error));

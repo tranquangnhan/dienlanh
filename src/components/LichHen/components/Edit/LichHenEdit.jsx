@@ -165,7 +165,7 @@ export const LichHenEdit = () => {
     function getStatusName(status) {
       switch (status) {
         case 1:
-          return <Space style={{color: "#c82333"}}>Đã hủy</Space>;
+          return <Space style={{color: "#c82333"}}>Từ chối</Space>;
         case 2:
           return <Space style={{color: "#28a745"}}>Đã xác nhận</Space>;
         case 3:

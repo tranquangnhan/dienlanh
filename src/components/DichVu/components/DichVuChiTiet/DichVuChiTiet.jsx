@@ -116,6 +116,12 @@ export const DichVuChiTiet = () => {
                             <td width="20%">Mô tả</td>
                             <td ><Input  value={description ?? detail?.description} onChange={(dom)=>setDescription(dom?.target.value)}/></td>
                         </tr>
+
+                        <tr>
+                            <td width="20%">Giá (đồng)</td>
+                            <td ><Input  value={price ?? detail?.price} onChange={(dom)=>setPrice(dom?.target.value)}/></td>
+                        </tr>
+
                         <tr>
                             <td width="20%">Trạng thái</td>
                             <td >

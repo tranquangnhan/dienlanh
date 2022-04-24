@@ -123,7 +123,7 @@ export const LichHen = () => {
               <Space size="middle" key={record.id}>
                   <a href={record.key}>
                   <Button onClick={() => xet(record.id,record.staff_id)} type="primary" shape="round" size="large ">
-                      <Link to={`/hoa-don/:id`}>Chấp nhận</Link>
+                      <Link >Chấp nhận</Link>
                     </Button>
                   </a>
                   <a>
@@ -151,8 +151,9 @@ export const LichHen = () => {
     <>
       <div className="title-table">
         Danh sách lịch hẹn &nbsp;&nbsp;
-      <Button style={{ background: "orange", color: "white", margin:"0 auto" }} shape="round" size="large "><Link to={`/lich-hen`}>Đang chờ</Link></Button>&nbsp;&nbsp;
-      <Button style={{ background: "green", color: "white", margin:"0 auto" }} shape="round" size="large "><Link to={`/lich-hen/lich-su`}>Đã xác nhận</Link></Button>
+        <Button style={{ background: "orange", color: "white", margin:"0 auto" }} shape="round" size="large "><Link to={`/lich-hen`}>Đang chờ</Link></Button>&nbsp;&nbsp;
+      <Button style={{ background: "green", color: "white", margin:"0 auto" }} shape="round" size="large "><Link to={`/lich-hen/lich-su`}>Đã xác nhận</Link></Button>&nbsp;&nbsp;
+      <Button style={{ background: "red", color: "white", margin:"0 auto" }} shape="round" size="large "><Link to={`/lich-hen/huy`}>Từ chối</Link></Button>&nbsp;&nbsp;
       </div>
       <div className="table">
         <Table columns={columns} dataSource={data} />

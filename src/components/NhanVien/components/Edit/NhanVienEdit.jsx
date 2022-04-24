@@ -46,16 +46,7 @@ export const NhanVienEdit = () => {
 
     },[detail,reload]);
   
-    function sua(){
-     axios.patch(`${ROUTE.MAIN_URL}/service-type/${id}?content=${content?? detail?.content}&name=${name ?? detail?.name}`)
-      .then(res => {
-        console.log(res?.data?.success)
-        if(res?.status === 200 && res?.data?.success === true){
-          history.push("/loai-dich-vu");
-        }
-      })
-      .catch(error => console.log(error));
-    }
+   
 
 
     function isActiveLDV(dom){

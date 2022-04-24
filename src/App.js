@@ -14,6 +14,7 @@ import { KhachHangChiTiet } from './components/KhachHang/KhachHangChiTiet/KhachH
 import { KhuyenMaiAdd } from './components/KhuyenMai/components/KhuyenMaiAdd/KhuyenMaiAdd';
 import { KhuyenMaiChiTiet } from './components/KhuyenMai/components/KhuyenMaiChiTiet/KhuyenMaiChiTiet';
 import { KhuyenMai } from './components/KhuyenMai/KhuyenMai';
+import { LichHenHuy } from './components/LichHen/components/Huy/LichHenLichSu';
 import { LoaiDichVu } from './components/LoaiDichVu/LoaiDichVu';
 import { LoaiDichVuAdd } from './components/LoaiDichVu/LoaiDichVuChiTiet/components/Add/LoaiDichVuAdd';
 import { LoaiDichVuChiTiet } from './components/LoaiDichVu/LoaiDichVuChiTiet/LoaiDichVuChiTiet';
@@ -25,6 +26,7 @@ function App() {
          <Switch>
             <Route exact path={ROUTE.LICH_HEN} component={LichHen} />
             <Route exact path={ROUTE.LICH_HEN_LICH_SU} component={LichHenLichSu} />
+            <Route exact path={ROUTE.LICH_HEN_HUY} component={LichHenHuy} />
             <Route exact path={ROUTE.LICH_HEN_EDIT} component={LichHenEdit} />
             <Route exact path={ROUTE.NHAN_VIEN} component={NhanVien} />
             <Route exact path={ROUTE.NHAN_VIEN_ADD} component={NhanVienAdd} />

@@ -28,7 +28,7 @@ export const HoaDonLichSu = () => {
       case 1:
         return <p style={{color: "#c82333"}}>Đã hủy</p>;
       case 4:
-        return <p style={{color: "#28a745"}}>Đã hoàn tất</p>;
+        return <p style={{color: "#28a745"}}>Đã hoàn thành</p>;
       default:
         break;
     }

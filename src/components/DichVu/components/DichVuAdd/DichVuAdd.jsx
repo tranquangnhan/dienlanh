@@ -38,7 +38,7 @@ export const DichVuAdd = () => {
 
     useEffect(()=>{
 
-      axios.get(`${ROUTE.MAIN_URL}/service-type/all`)
+      axios.get(`${ROUTE.MAIN_URL}/service-type/all/active`)
       .then(res => {
         if(res.status === 200){
         

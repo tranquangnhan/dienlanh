@@ -22,6 +22,7 @@ export const HoaDonEdit = () => {
 
   const [detail,setDetail] = useState();
   const [detailOrder,setDetailOrder] = useState();
+  const [order,setOrder] = useState();
   const [staffWorkSlot,setStaffWorkSlot] = useState();
   const [idStaffWorkSlot,setIdStaffWorkSlot] = useState();
   
@@ -42,6 +43,18 @@ export const HoaDonEdit = () => {
       getFreeStaff();
       }
     },[time]);
+
+    useEffect(()=>{
+
+      axios.get(`${ROUTE.MAIN_URL}/order/${id}`)
+        .then(res => {
+          if(res.status === 200){
+            setOrder(res.data.data)
+          }
+        })
+        .catch(error => console.log(error));
+  
+    },[]);
 
 
     // lấy nhân viên đang rảnh 
@@ -198,6 +211,10 @@ export const HoaDonEdit = () => {
 
                     <HoaDonItem name="Chi Nhánh" 
                      value={detail?.agency_name}
+                    />
+
+                    <HoaDonItem name="Tổng phí sửa chữa (đồng)" 
+                     value={order?.total_price}
                     />
 
                     <tr>

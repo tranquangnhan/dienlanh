@@ -62,10 +62,7 @@ export const LoaiDichVuAdd = () => {
       <>
         <div className="title-table">Thêm loại dịch vụ</div>
         <div className='boxEdit'>
-            <div className="img">
-                <img src={img1} name='img'/>
-                <input type="file" name='img' id="img" onChange={(dom)=>setFile(dom.target.files[0])} className='inputfile'/>
-            </div>
+            
             <div className="table">
               <table>
                     <tbody>
@@ -77,6 +74,13 @@ export const LoaiDichVuAdd = () => {
                         <tr>
                             <td width="20%">Nội dung</td>
                             <td ><Input onChange={(dom)=>setContent(dom.target.value)}  placeholder='Nhập nội dung' /> </td>
+                        </tr>
+                        <tr>
+                          <td>Hình ảnh</td>
+                          <td>
+                          <input type="file" name='img' id="img" onChange={(dom)=>setFile(dom.target.files[0])} className='inputfile'/>
+                          </td>
+                        
                         </tr>
                         
                         

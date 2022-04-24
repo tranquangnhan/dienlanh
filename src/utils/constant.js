@@ -4,6 +4,7 @@ export const ROUTE = {
     LICH_HEN: "/lich-hen",
     LICH_HEN_EDIT: "/lich-hen/:id",
     LICH_HEN_LICH_SU:"/lich-hen/lich-su",
+    LICH_HEN_HUY:"/lich-hen/huy",
     NHAN_VIEN: "/nhan-vien",
     NHAN_VIEN_EDIT: "/nhan-vien/:id",
     NHAN_VIEN_ADD: "/nhan-vien/add",

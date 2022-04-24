@@ -140,21 +140,10 @@ export const ChiNhanhChiTiet = () => {
 
                         <tr>
                             <td width="20%">Ngày tạo</td>
-                            <td ><Input  value={created_date ?? detail?.created_date} onChange={(dom)=>setCreated_date(dom?.target.value)}/></td>
+                            <td ><Input  value={created_date ?? detail?.created_date.split(" ")[0]} onChange={(dom)=>setCreated_date(dom?.target.value)}/></td>
                         </tr>
 
-                        <tr>
-                            <td width="20%">Khu vực</td>
-                            <td >
-                              <Select defaultValue={``} style={{ width: 200 }} onChange={(dom) => setWardNameSelected(dom)}>
-                                    {
-                                      wardName?.map(item=>(
-                                        <Option value={item?.id}>{item?.name}</Option>
-                                      ))
-                                    }
-                              </Select> 
-                            </td>
-                        </tr>
+                        
 
                         <tr>
                             <td width="20%">Trạng thái</td>
