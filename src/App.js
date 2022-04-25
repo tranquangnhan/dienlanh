@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import { Layout } from './common/Layout/Layout';
@@ -20,6 +20,7 @@ import { LoaiDichVuChiTiet } from './components/LoaiDichVu/LoaiDichVuChiTiet/Loa
 import { ROUTE } from './utils/constant';
 
 function App() {
+  const [token, setToken] = useState();
   return (
     <Layout>
          <Switch>

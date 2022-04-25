@@ -1,7 +1,7 @@
 import React, { useEffect,useState } from "react";
 import { Table, Space, Button } from "antd";
 import "./LichHen.scss";
-import { Link } from "react-router-dom";
+import { Link, useHistory  } from "react-router-dom";
 import axios from 'axios';
 import { ROUTE } from "../../utils/constant";
 
@@ -9,13 +9,15 @@ import { ROUTE } from "../../utils/constant";
 export const LichHen = () => {
   const [data,setData] = useState();
   const [refreshKey, setRefreshKey] = useState(0);
+  const history = useHistory();
+
 
   function xet(id,staff_id){
     axios.put(`${ROUTE.MAIN_URL}/appointment/accept/${id}/2`,)
     .then(res => {
       if(res.status === 200){
-        setData(res)
-        setRefreshKey(oldKey => oldKey +1)
+        setRefreshKey(oldKey => oldKey +1);
+        history.push(`/lich-hen/${id}`);
       }
     })
     .catch(error => console.log(error));
@@ -123,7 +125,7 @@ export const LichHen = () => {
               <Space size="middle" key={record.id}>
                   <a href={record.key}>
                   <Button onClick={() => xet(record.id,record.staff_id)} type="primary" shape="round" size="large ">
-                      <Link to={`/hoa-don/:id`}>Chấp nhận</Link>
+                      <Link >Chấp nhận</Link>
                     </Button>
                   </a>
                   <a>
