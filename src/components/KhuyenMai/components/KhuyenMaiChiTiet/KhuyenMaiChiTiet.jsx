@@ -7,6 +7,7 @@ import { ROUTE } from "../../../../utils/constant";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
+import useToken from "../../../../useToken";
 
 const { Option } = Select;
 const children = [];
@@ -30,6 +31,7 @@ export const KhuyenMaiChiTiet = () => {
   const history = useHistory();
   const [currentStatus, setCurrentStatus] = useState("3");
   const [reload, setReload] = useState(0);
+  const { agencyId } = useToken();
 
   // lấy id của chi tiết loại dịch vụ
   let { id } = useParams();
@@ -117,6 +119,7 @@ export const KhuyenMaiChiTiet = () => {
                 <td>
                   {" "}
                   <Input
+                   disabled={agencyId() !== null}
                     value={title ?? detail?.title}
                     onChange={(dom) => setTitle(dom?.target.value)}
                   />
@@ -126,6 +129,7 @@ export const KhuyenMaiChiTiet = () => {
                 <td width="20%">Nội dung</td>
                 <td>
                   <Input
+                   disabled={agencyId() !== null}
                     value={description ?? detail?.description}
                     onChange={(dom) => setDescription(dom?.target.value)}
                   />
@@ -136,6 +140,7 @@ export const KhuyenMaiChiTiet = () => {
                 <td width="20%">Giảm giá (%)</td>
                 <td>
                   <Input
+                    disabled={agencyId() !== null}
                     type="number"
                     value={discount ?? parseFloat(detail?.discount) * 100}
                     onChange={(dom) => setDiscount(dom?.target.value)}
@@ -147,6 +152,7 @@ export const KhuyenMaiChiTiet = () => {
                 <td width="20%">Ngày bắt đầu</td>
                 <td>
                   <Input
+                    disabled={agencyId() !== null}
                     type="date"
                     value={start_date ?? detail?.start_date.split(" ")[0]}
                     onChange={(dom) => setStart_date(dom?.target.value)}
@@ -158,6 +164,7 @@ export const KhuyenMaiChiTiet = () => {
                 <td width="20%">Ngày kết thúc</td>
                 <td>
                   <Input
+                     disabled={agencyId() !== null}
                     type="date"
                     value={end_date ?? detail?.end_date.split(" ")[0]}
                     onChange={(dom) => setEnd_date(dom?.target.value)}
@@ -169,6 +176,7 @@ export const KhuyenMaiChiTiet = () => {
                 <td width="20%">Trạng thái</td>
                 <td>
                   <Select
+                    disabled={agencyId() !== null}
                     placeholder={getStatusName(detail?.status)}
                     // value={getStatusName(status ?? detail?.status)}
                     style={{ width: 160 }}
@@ -184,9 +192,12 @@ export const KhuyenMaiChiTiet = () => {
               <Button type="danger">
                 <Link to={`/khuyen-mai`}>Đóng</Link>
               </Button>
-              <Button type="primary" onClick={() => sua()}>
+              {
+                agencyId() === null ?  
+                <Button  type="primary" onClick={() => sua()}>
                 Lưu
-              </Button>
+              </Button> : ''
+              }
             </div>
           </table>
         </div>

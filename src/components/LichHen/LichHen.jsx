@@ -4,12 +4,15 @@ import "./LichHen.scss";
 import { Link, useHistory  } from "react-router-dom";
 import axios from 'axios';
 import { ROUTE } from "../../utils/constant";
-
+import useToken from "../../useToken";
 
 export const LichHen = () => {
   const [data,setData] = useState();
   const [refreshKey, setRefreshKey] = useState(0);
   const history = useHistory();
+  const { agencyId } = useToken();
+
+
 
 
   function xet(id,staff_id){
@@ -37,8 +40,14 @@ export const LichHen = () => {
  
 
   useEffect(()=>{
+    let url = ``;
+    if(agencyId()){
+      url = `${ROUTE.MAIN_URL}/appointment/${agencyId()}/agency`;
+    }else{
+      url = `https://acsproject.azurewebsites.net/appointment/all`;
+    }
 
-    axios.get(`${ROUTE.MAIN_URL}/appointment/all`)
+    axios.get(url)
       .then(res => {
         if(res.status === 200){
           const item = res.data.data.filter(item => item.status === 3)

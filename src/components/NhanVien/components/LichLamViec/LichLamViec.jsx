@@ -3,9 +3,11 @@ import { Table, Space, Button, Select } from "antd";
 import "./LichLamViec.scss";
 import { Link } from "react-router-dom";
 import { ROUTE } from "../../../../utils/constant";
+import useToken from "../../../../useToken";
 import axios from "axios";
 const { Option } = Select;
 const children = [];
+
 
 export const LichLamViet = () => {
   const [data, setData] = useState();
@@ -13,6 +15,8 @@ export const LichLamViet = () => {
   const [agencySelected, setAgencySelected] = useState();
   const [refreshKey, setRefreshKey] = useState(0);
   const [reload, setReload] = useState(0);
+  const { agencyId } = useToken();
+
 
   useEffect(() => {
     axios
@@ -25,22 +29,20 @@ export const LichLamViet = () => {
       .catch((error) => console.log(error));
   }, [refreshKey]);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`${ROUTE.MAIN_URL}/workSlot/agency?agency_id=${agencySelected}`)
-  //     .then((res) => {
-  //       if (res.status === 200) {
-  //         setData(res.data.data);
-  //       }
-  //     })
-  //     .catch((error) => console.log(error));
-  // }, [refreshKey]);
 
   function isChooseAgengy(dom) {
+    
+    let url = ``;
+    if(agencyId()){
+      url = `${ROUTE.MAIN_URL}/workSlot/agency?agency_id=${agencyId()}`;
+    }else{
+      url = `${ROUTE.MAIN_URL}/workSlot/agency?agency_id=${dom}`;
+    }
+
     if (dom != null) {
      
       axios
-        .get(`${ROUTE.MAIN_URL}//workSlot/agency?agency_id=${dom}`)
+        .get(url)
         .then((res) => {
           setData(res.data.data);
           setReload(1);
@@ -48,6 +50,20 @@ export const LichLamViet = () => {
         .catch((error) => console.log(error));
     } 
   }
+  useEffect(()=>{
+    let url = ``;
+    if(agencyId()){
+      url = `${ROUTE.MAIN_URL}/workSlot/agency?agency_id=${agencyId()}`;
+    }
+    axios
+    .get(url)
+    .then((res) => {
+      setData(res.data.data);
+      setReload(1);
+    })
+    .catch((error) => console.log(error));
+  },[agencyId()]);
+
 
   const columns = [
     {
@@ -107,7 +123,7 @@ export const LichLamViet = () => {
     <>
       <div className="title-table">
         Danh sách lich làm việc &nbsp; &nbsp;
-        <Select
+        {!agencyId() && <Select
           placeholder="Chọn chi nhánh"
           value={agency?.id}
           style={{ width: 200 }}
@@ -116,7 +132,7 @@ export const LichLamViet = () => {
           {agency?.map((item) => (
             <Option value={item?.id}>{item?.name}</Option>
           ))}
-        </Select>
+        </Select>}
       </div>
 
       <div className="table">

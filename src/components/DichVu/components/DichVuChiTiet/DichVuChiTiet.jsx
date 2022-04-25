@@ -7,6 +7,7 @@ import { ROUTE } from "../../../../utils/constant";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
+import useToken from "../../../../useToken";
 
 const { Option } = Select;
 const children = [];
@@ -29,7 +30,8 @@ export const DichVuChiTiet = () => {
   const history = useHistory();
   const [currentStatus, setCurrentStatus] = useState("3");
   const [reload, setReload] = useState(0);
-
+  const { agencyId } = useToken();
+  
   // lấy id của chi tiết loại dịch vụ
   let { id } = useParams();
 
@@ -128,6 +130,7 @@ export const DichVuChiTiet = () => {
                 <td>
                   {" "}
                   <Input
+                    disabled={agencyId() !== null}
                     value={name ?? detail?.name}
                     onChange={(dom) => setName(dom?.target.value)}
                   />
@@ -137,6 +140,7 @@ export const DichVuChiTiet = () => {
                 <td width="20%">Mô tả</td>
                 <td>
                   <Input
+                    disabled={agencyId() !== null}
                     value={description ?? detail?.description}
                     onChange={(dom) => setDescription(dom?.target.value)}
                   />
@@ -147,6 +151,7 @@ export const DichVuChiTiet = () => {
                 <td width="20%">Giá (đồng)</td>
                 <td>
                   <Input
+                    disabled={agencyId() !== null}
                     type='number'
                     value={price ?? detail?.price}
                     onChange={(dom) => setPrice(dom?.target.value)}
@@ -158,6 +163,7 @@ export const DichVuChiTiet = () => {
                 <td width="20%">Trạng thái</td>
                 <td>
                   <Select
+                    disabled={agencyId() !== null}
                     placeholder={getStatusName(detail?.status)}
                     style={{ width: 160 }}
                     onChange={(dom) => setStatus(dom)}
@@ -172,9 +178,13 @@ export const DichVuChiTiet = () => {
               <Button type="danger">
                 <Link to={`/dich-vu`}>Đóng</Link>
               </Button>
-              <Button type="primary" onClick={() => sua()}>
+              {
+                agencyId() === null ?  
+                <Button  type="primary" onClick={() => sua()}>
                 Lưu
-              </Button>
+              </Button> : ''
+              }
+             
             </div>
           </table>
         </div>

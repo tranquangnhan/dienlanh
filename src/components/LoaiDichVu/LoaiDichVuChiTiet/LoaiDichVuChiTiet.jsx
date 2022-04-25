@@ -7,6 +7,7 @@ import { ROUTE } from "../../../utils/constant";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
+import useToken from "../../../useToken";
 
 const { Option } = Select;
 const children = [];
@@ -27,6 +28,7 @@ export const LoaiDichVuChiTiet = () => {
   const history = useHistory();
   const [currentStatus, setCurrentStatus] = useState("3");
   const [reload, setReload] = useState(0);
+  const { agencyId } = useToken();
 
   // lấy id của chi tiết loại dịch vụ
   let { id } = useParams();
@@ -124,25 +126,51 @@ export const LoaiDichVuChiTiet = () => {
                 <td width="20%">Tên loại dịch vụ</td>
                 <td>
                   {" "}
-                  <Input
+                  {
+                    agencyId() !== null ?  
+                    <Input disabled
                     value={name ?? detail?.name}
                     onChange={(dom) => setName(dom?.target.value)}
-                  />
+                  /> : 
+                  <Input
+                      value={name ?? detail?.name}
+                      onChange={(dom) => setName(dom?.target.value)}
+                    /> 
+                  }
+                 
                 </td>
               </tr>
               <tr>
                 <td width="20%">Nội dung</td>
                 <td>
-                  <Input
+                {
+                  agencyId() !== null ?  
+                  <Input disabled
                     value={content ?? detail?.content}
                     onChange={(dom) => setContent(dom?.target.value)}
-                  />
+                  /> 
+                    : 
+                      <Input
+                      value={content ?? detail?.content}
+                      onChange={(dom) => setContent(dom?.target.value)}
+                    />
+                  }
                 </td>
               </tr>
               <tr>
                 <td width="20%">Trạng thái</td>
                 <td>
-                  <Select
+                {
+                  agencyId() !== null ?  
+                  <Select disabled
+                    placeholder={getStatusName(detail?.status)}
+                    style={{ width: 160 }}
+                    onChange={(dom) => isActiveLDV(dom)}
+                  >
+                    <Option value="2">Dừng hoạt động</Option>
+                    <Option value="3">Hoạt động </Option>
+                  </Select> :
+                    <Select
                     placeholder={getStatusName(detail?.status)}
                     style={{ width: 160 }}
                     onChange={(dom) => isActiveLDV(dom)}
@@ -150,18 +178,23 @@ export const LoaiDichVuChiTiet = () => {
                     <Option value="2">Dừng hoạt động</Option>
                     <Option value="3">Hoạt động </Option>
                   </Select>
+                  }
                 </td>
               </tr>
             </tbody>
-            <div className="btn-xacnhan">
+          
+          </table>
+          <div className="btn-xacnhan">
               <Button type="danger">
                 <Link to={`/loai-dich-vu`}>Đóng</Link>
               </Button>
+              {
+                  agencyId() === null ?  
               <Button type="primary" onClick={() => sua()}>
                 Lưu
-              </Button>
+              </Button> : ''
+                }
             </div>
-          </table>
         </div>
       </div>
     </>

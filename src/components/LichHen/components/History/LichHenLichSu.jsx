@@ -3,15 +3,21 @@ import React, { useEffect,useState } from "react";
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import { ROUTE } from "../../../../utils/constant";
-
-
+import useToken from "../../../../useToken";
 
 export const LichHenLichSu = () => {
   const [data,setData] = useState();
+  const { agencyId } = useToken();
 
   useEffect(()=>{
+    let url = ``;
+    if(agencyId()){
+      url = `${ROUTE.MAIN_URL}/appointment/${agencyId()}/agency`;
+    }else{
+      url = `https://acsproject.azurewebsites.net/appointment/all`;
+    }
 
-    axios.get(`https://acsproject.azurewebsites.net/appointment/all`)
+    axios.get(url)
       .then(res => {
         if(res.status === 200){
           const item = res.data.data.filter(item=> item.status === 2 || item.status === 4)

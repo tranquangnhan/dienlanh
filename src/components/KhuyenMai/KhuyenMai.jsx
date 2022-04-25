@@ -4,11 +4,11 @@ import "./KhuyenMai.scss";
 import { Link } from "react-router-dom";
 import { ROUTE } from "../../utils/constant";
 import axios from 'axios';
-
+import useToken from "../../useToken";
 export const KhuyenMai = () => {
   const [data,setData] = useState();
   const [refreshKey, setRefreshKey] = useState(0);
-
+  const { agencyId } = useToken();
   
 
   useEffect(()=>{
@@ -94,7 +94,12 @@ export const KhuyenMai = () => {
   return (
     <>
       <div className="title-table">
-        <div>Danh sách khuyến mãi &nbsp; &nbsp;<Button style={{ background: "#5899BA", color: "white", margin:"0 auto" }} shape="round" size="large "><Link to={`/khuyen-mai/add`}>Thêm khuyến mãi</Link></Button></div>
+        <div>Danh sách khuyến mãi &nbsp; &nbsp;
+          { agencyId () === null ? 
+           <Button style={{ background: "#5899BA", color: "white", margin:"0 auto" }} shape="round" size="large "><Link to={`/khuyen-mai/add`}>Thêm khuyến mãi</Link></Button>
+           :''
+        }
+         </div>
         
         </div>
       <div className="table">

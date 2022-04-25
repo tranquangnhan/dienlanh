@@ -7,6 +7,8 @@ import { ROUTE } from "../../../../utils/constant";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
+import useToken from "../../../../useToken";
+
 
 const { Option } = Select;
 const children = [];
@@ -38,7 +40,8 @@ export const ChiNhanhChiTiet = () => {
   const history = useHistory();
   const [currentStatus, setCurrentStatus] = useState("3");
   const [reload, setReload] = useState(0);
-
+  const { agencyId } = useToken();
+  
   // lấy id của chi tiết loại dịch vụ
   let { id } = useParams();
 
@@ -101,10 +104,7 @@ export const ChiNhanhChiTiet = () => {
     }
   }
 
-  
 
-  // const num = (detail?.status);
-  // const str = num.toString(); //> type string "123"
   return (
     <>
       <div className="title-table">Chi tiết chi nhánh</div>
@@ -146,16 +146,25 @@ export const ChiNhanhChiTiet = () => {
               <tr>
                 <td width="20%">Ngày tạo</td>
                 <td>
-                  <Input
+                  {agencyId() === null ? <Input
                     value={created_date ?? detail?.created_date.split(" ")[0]}
                     onChange={(dom) => setCreated_date(dom?.target.value)}
-                  />
+                  /> : <Input
+                      disabled value={created_date ?? detail?.created_date.split(" ")[0]}
+                      onChange={(dom) => setCreated_date(dom?.target.value)}
+                  /> }
+                  
                 </td>
               </tr>
 
               <tr>
                 <td width="20%">Tên quản lý</td>
                 <td>
+                  
+
+
+
+                  {agencyId() === null ? 
                   <Select
                     value={
                       detail?.manager_id === 0
@@ -168,7 +177,22 @@ export const ChiNhanhChiTiet = () => {
                     {manager?.map((item) => (
                       <Option value={item?.id}>{item?.fullName}</Option>
                     ))}
-                  </Select>
+                  </Select> 
+                  :   
+                  <Select
+                     disabled
+                    value={
+                      detail?.manager_id === 0
+                        ? "Chọn quản lý"
+                        : manager_id ?? detail?.manager_id
+                    }
+                    style={{ width: 160 }}
+                    onChange={(dom) => setManagerSelected(dom)}
+                  >
+                    {manager?.map((item) => (
+                      <Option value={item?.id}>{item?.fullName}</Option>
+                    ))}
+                  </Select>  }
                 </td>
               </tr>
 

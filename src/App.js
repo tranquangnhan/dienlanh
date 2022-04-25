@@ -20,10 +20,18 @@ import { LoaiDichVu } from './components/LoaiDichVu/LoaiDichVu';
 import { LoaiDichVuAdd } from './components/LoaiDichVu/LoaiDichVuChiTiet/components/Add/LoaiDichVuAdd';
 import { LoaiDichVuChiTiet } from './components/LoaiDichVu/LoaiDichVuChiTiet/LoaiDichVuChiTiet';
 import { LichLamViet } from './components/NhanVien/components/LichLamViec/LichLamViec';
+import { Login } from './components/Login/Login';
 import { ROUTE } from './utils/constant';
+import useToken from './useToken';
 
 function App() {
-  const [token, setToken] = useState();
+
+  const { token, setToken } = useToken();
+  if(!token) {
+    return <Login setToken={setToken} />
+  }
+
+
   return (
     <Layout>
          <Switch>
@@ -56,8 +64,6 @@ function App() {
             <Route exact path={ROUTE.CHI_NHANH_ADD} component={ChiNhanhAdd} />
             <Route exact path={ROUTE.CHI_NHANH_DETAIL} component={ChiNhanhChiTiet} />
             <Route exact path={ROUTE.HOA_DON_DETAIL_STAFF} component={ViewStaff} />
-            
-
           </Switch>
     </Layout>
   );

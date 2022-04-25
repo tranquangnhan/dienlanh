@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { ROUTE } from "../../../../utils/constant";
 import img1 from "./img/midu.jpg";
 import "./NhanVienAdd.scss";
+import useToken from "../../../../useToken";
 import { useHistory } from "react-router-dom";
 const { Option } = Select;
 const children = [];
@@ -22,19 +23,21 @@ export const NhanVienAdd = () => {
   const [agencySelected, setAgencySelected] = useState();
   const [birthday, setBirthday] = useState();
   const [file, setFile] = useState();
-
+  const { agencyId } = useToken();
   const history = useHistory();
 
   function save() {
+    
+
+    if(agencyId() !== null){
+      setAgencySelected(agencyId())
+    }
 
     if (!fullName) {
       alert("Chưa nhập tên nhân viên");
       return;
     }
-    if (!agencySelected) {
-      alert("Chưa chọn chi nhánh");
-      return;
-    }
+    
     if (!birthday) {
       alert("Chưa nhập ngày sinh");
       return;
@@ -56,13 +59,13 @@ export const NhanVienAdd = () => {
       return;
     }
 
-
     const formData = new FormData();
     formData.append("file", file);
+
     try {
       axios({
         method: "post",
-        url: `${ROUTE.MAIN_URL}/user/staff?address=${address}&agencyId=${agencySelected}&birthday=${birthday}&email=${email}&fullName=${fullName}&phone=${phone}&roleId=3&userId=4`,
+        url: `${ROUTE.MAIN_URL}/user/${agencyId() === null ? 'manager' : 'staff'}?address=${address}&agencyId=${agencySelected}&birthday=${birthday}&email=${email}&fullName=${fullName}&phone=${phone}&roleId=3&userId=4`,
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       }).then((res) => {
@@ -103,18 +106,26 @@ export const NhanVienAdd = () => {
                 </td>
               </tr>
               <tr>
-                <td width="20%">Chi Nhánh</td>
-                <td>
-                  <Select
-                    placeholder="Chọn chi nhánh"
-                    style={{ width: 160 }}
-                    onChange={(dom) => setAgencySelected(dom)}
-                  >
-                    {agency?.map((item) => (
-                      <Option value={item?.id}>{item?.name}</Option>
-                    ))}
-                  </Select>
-                </td>
+               
+                  {
+                    (agencyId() === null) ?
+                    <>
+                    <td width="20%">Chi Nhánh</td>
+                    <td>
+                    <Select
+                        placeholder="Chọn chi nhánh"
+                        style={{ width: 160 }}
+                        onChange={(dom) => setAgencySelected(dom)}
+                      >
+                        {agency?.map((item) => (
+                          <Option value={item?.id}>{item?.name}</Option>
+                        ))}
+                      </Select> 
+                      </td>
+                    </> : ''
+                  }
+                  
+           
               </tr>
 
               <tr>

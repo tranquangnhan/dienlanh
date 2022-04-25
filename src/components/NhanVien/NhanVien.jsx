@@ -4,15 +4,24 @@ import "./NhanVien.scss";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { ROUTE } from "../../utils/constant";
+import useToken from "../../useToken";
 
 export const NhanVien = () => {
   const [data, setData] = useState();
   const [refreshKey, setRefreshKey] = useState(0);
+  const { agencyId } = useToken();
 
   // hàm lấy tất cả cơ sở
   useEffect(() => {
+    let url = ``;
+    if(agencyId()){
+      url = `${ROUTE.MAIN_URL}/staff/agency/${agencyId()}`;
+    }else{
+      url = `https://acsproject.azurewebsites.net/staff/all`;
+    }
+
     axios
-      .get(`${ROUTE.MAIN_URL}/staff/all`)
+      .get(url)
       .then((res) => {
         if (res.status === 200) {
           setData(res.data.data);
@@ -78,64 +87,9 @@ export const NhanVien = () => {
         <>{getStatusName(record?.status)}</>
       ),
     },
-    // {
-    //   title: "",
-    //   key: "action",
-    //   render: (text, record) => (
-    //     <Space size="middle" key={record.id}>
-    //       <a href={record.key}>
-    //         <Button type="primary" shape="round" size="large ">
-    //           Chi tiết
-    //         </Button>
-    //       </a>
-    //       <a>
-    //         <Button type="danger" shape="round" size="large ">
-    //           Xóa
-    //         </Button>
-    //       </a>
-    //     </Space>
-    //   ),
-    // },
+    
   ];
 
-  // hàm lấy cở sở By id
-  // function getAgencyById(ids){
-
-  //   return new Promise(function(resolve){
-  //     const result = dataAgency?.filter(user=>{
-  //       return ids.includes(user.id);
-  //     });
-  //     resolve(result)
-  //   });
-
-  // hàm lấy ra nhân viên
-  // useEffect(()=>{
-
-  //   axios.get(`${ROUTE.MAIN_URL}/staff/all`)
-  //     .then(res => {
-  //       if(res.status === 200){
-  //         // lấy agencyIds
-  //         const agencyIds = res.data.data.map(item=>item.agencyId);
-
-  //         getAgencyById(agencyIds)
-  //           .then(staff=>{
-  //             const final = res.data.data?.map(item=>{
-  //               let agency = staff?.find(u=>u.id === item.agencyId);
-  //               var nameAgency = agency?.name;
-  //               console.log(staff)
-
-  //               return {nameAgency,...item};
-  //             })
-
-  //             setData(final);
-  //           });
-
-  //       }
-  //     })
-
-  //     .catch(error => console.log(error));
-
-  // },[]);
 
   return (
     <>

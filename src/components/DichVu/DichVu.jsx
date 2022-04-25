@@ -4,11 +4,12 @@ import "./DichVu.scss";
 import { Link } from "react-router-dom";
 import { ROUTE } from "../../utils/constant";
 import axios from 'axios';
+import useToken from "../../useToken";
 
 export const DichVu = () => {
   const [data,setData] = useState();
   const [refreshKey, setRefreshKey] = useState(0);
-
+  const { agencyId } = useToken();
   
 
   useEffect(()=>{
@@ -88,13 +89,16 @@ export const DichVu = () => {
     <>
       <div className="title-table">
         Danh sách dịch vụ &nbsp; &nbsp;
+        {agencyId() === null &&
         <Button 
         style={{ background: "#5899BA", color: "white", margin:"0 auto" }} 
         shape="round" size="large ">
-          <Link to={`/dich-vu/add`}>
-            Thêm dịch vụ
+          
+          <Link to={`/loai-dich-vu/add`}>
+            Thêm loại dịch vụ
             </Link>
         </Button>
+        }
       </div>
         
         

@@ -4,12 +4,12 @@ import "./HoaDon.scss";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import { ROUTE } from "../../utils/constant";
-
+import useToken from "../../useToken";
 
 export const HoaDon = () => {
   const [data,setData] = useState();
   const [refreshKey, setRefreshKey] = useState(0);
-
+  const { agencyId } = useToken();
 
   function xet(id,staff_id){
     axios.put(`${ROUTE.MAIN_URL}/appointment/accept/${id}/2`,)
@@ -34,13 +34,17 @@ export const HoaDon = () => {
 
 
   useEffect(()=>{
-
-    axios.get(`${ROUTE.MAIN_URL}/order/all`)
+    let url = ``;
+    if(agencyId()){
+      url = `${ROUTE.MAIN_URL}/order/agency?agencyId=${agencyId()}`;
+    }else{
+      url = `https://acsproject.azurewebsites.net/order/all`;
+    }
+    axios.get(url)
       .then(res => {
         if(res.status === 200){
           const item = res.data.data.filter(item=>item.status === 2 || item.status === 3)
           setData(item.sort((a,b)=>b.id-a.id))
-          // setData(res.data.data.sort((a,b)=>b.id-a.id));
         }
       })
       .catch(error => console.log(error));

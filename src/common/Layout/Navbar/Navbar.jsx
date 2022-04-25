@@ -18,7 +18,7 @@ export const Navbar = ({})=> {
         console.log('click ', e.key);
         switch (e.key) {
             case "2":
-                history.push("/khach-hang");
+                history.push("/");
                 break;
             case "3":
                 history.push("/lich-hen");

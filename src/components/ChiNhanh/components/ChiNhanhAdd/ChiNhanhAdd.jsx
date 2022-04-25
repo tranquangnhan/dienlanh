@@ -53,32 +53,33 @@ export const ChiNhanhAdd = () => {
       })
       .catch((error) => console.log(error));
   }, []);
+  // tp hcm // ha noi
 
- 
 
   useEffect(() => {
     axios
-      .get(`${ROUTE.MAIN_URL}/district/${cityNameSelected?.id}`)
+      .get(`${ROUTE.MAIN_URL}/district/${cityNameSelected}`)
       .then((res) => {
         if (res.status === 200) {
           setDistrictName(res.data.data);
         }
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [cityNameSelected]);
+
+
 
   useEffect(() => {
     axios
-      .get(`${ROUTE.MAIN_URL}/ward/${districtNameSelected?.id}`)
+      .get(`${ROUTE.MAIN_URL}/ward/${districtNameSelected}`)
       .then((res) => {
         if (res.status === 200) {
           setWardName(res.data.data);
         }
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [districtNameSelected]);
 
-  console.log(cityNameSelected);
 
   return (
     <>

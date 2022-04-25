@@ -4,19 +4,30 @@ import "./ChiNhanh.scss";
 import { Link } from "react-router-dom";
 import { ROUTE } from "../../utils/constant";
 import axios from 'axios';
+import useToken from "../../useToken";
 
 export const ChiNhanh = () => {
   const [data,setData] = useState();
   const [refreshKey, setRefreshKey] = useState(0);
-
+  const { agencyId } = useToken();
   
 
   useEffect(()=>{
+    let url = ``;
+    if(agencyId()){
+      url = `${ROUTE.MAIN_URL}/agency/${agencyId()}`;
+    }else{
+      url = `${ROUTE.MAIN_URL}/agency/all`;
+    }
 
-    axios.get(`${ROUTE.MAIN_URL}/agency/all`)
+    axios.get(url)
       .then(res => {
         if(res.status === 200){
-          setData(res.data.data)
+          if(agencyId()){
+            setData([res.data.data])
+          }else{
+            setData(res.data.data)
+          }
         }
       })
       .catch(error => console.log(error));
@@ -68,14 +79,6 @@ export const ChiNhanh = () => {
     }
       ,
     },
-    // {
-    //   title: "Chi tiết",
-    //   render: (text, record) => (
-    //     <Space size="middle">
-    //       <Button type="disable" style={{ background: "#5899BA", color: "white", margin:"0 auto" }} shape="round" size="large "><Link to={`/dich-vu/${record.id}`}>  Chi tiết </Link></Button>
-    //     </Space>
-    //   ),
-    // },
   ];
 
   return (
@@ -85,9 +88,12 @@ export const ChiNhanh = () => {
         <Button 
         style={{ background: "#5899BA", color: "white", margin:"0 auto" }} 
         shape="round" size="large ">
-          <Link to={`/chi-nhanh/add`}>
+          {
+            agencyId() === null && 
+            <Link to={`/chi-nhanh/add`}>
             Thêm chi nhánh
             </Link>
+          } 
         </Button>
       </div>
         
