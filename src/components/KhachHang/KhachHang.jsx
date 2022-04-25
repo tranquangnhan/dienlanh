@@ -36,6 +36,27 @@ export const KhachHang = () => {
     }
   }
 
+  function activeUser(userId){
+    axios.patch(`${ROUTE.MAIN_URL}/user/${userId}/active`,)
+    .then(res => {
+      if(res.status === 200){
+        setRefreshKey(oldKey => oldKey +1)
+      }
+    })
+    .catch(error => console.log(error));
+   
+  }
+
+  function deActiveUser(userId){
+    axios.patch(`${ROUTE.MAIN_URL}/user/${userId}/de-active`,)
+    .then(res => {
+      if(res.status === 200){
+        setRefreshKey(oldKey => oldKey +1)
+      }
+    })
+    .catch(error => console.log(error));
+  }
+
   console.log(data);
 
   const columns = [
@@ -47,7 +68,7 @@ export const KhachHang = () => {
       title: "Tên khách hàng",
       render: (text, record) => (
         <Space size="middle">
-        <Link to={`/khach-hang/${record.id}`}> {record.fullName} </Link>
+        {record.fullName}
       </Space>
         
       ),
@@ -86,14 +107,14 @@ export const KhachHang = () => {
 
         if (record.status === "2") {
           return (
-            <Button key={record.id} style={{background: "green", color: "white", margin:"0 auto"}} shape="round" size="large " >
+            <Button onClick={() => activeUser(record.userId)} style={{background: "green", color: "white", margin:"0 auto"}} shape="round" size="large " >
               Hoạt Động
             </Button>
           )
         }
         if (record.status === "3") {
           return (
-            <Button key={record.id} style={{background: "red", color: "white", margin:"0 auto"}} shape="round" size="large " >
+            <Button onClick={() => deActiveUser(record.userId)} style={{background: "red", color: "white", margin:"0 auto"}} shape="round" size="large " >
               Dừng hoạt Động
             </Button>
           )

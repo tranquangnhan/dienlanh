@@ -153,8 +153,9 @@ export const LichHen = () => {
     <>
       <div className="title-table">
         Danh sách lịch hẹn &nbsp;&nbsp;
-      <Button style={{ background: "orange", color: "white", margin:"0 auto" }} shape="round" size="large "><Link to={`/lich-hen`}>Đang chờ</Link></Button>&nbsp;&nbsp;
-      <Button style={{ background: "green", color: "white", margin:"0 auto" }} shape="round" size="large "><Link to={`/lich-hen/lich-su`}>Đã xác nhận</Link></Button>
+        <Button style={{ background: "orange", color: "white", margin:"0 auto" }} shape="round" size="large "><Link to={`/lich-hen`}>Đang chờ</Link></Button>&nbsp;&nbsp;
+      <Button style={{ background: "green", color: "white", margin:"0 auto" }} shape="round" size="large "><Link to={`/lich-hen/lich-su`}>Đã xác nhận</Link></Button>&nbsp;&nbsp;
+      <Button style={{ background: "red", color: "white", margin:"0 auto" }} shape="round" size="large "><Link to={`/lich-hen/huy`}>Từ chối</Link></Button>&nbsp;&nbsp;
       </div>
       <div className="table">
         <Table columns={columns} dataSource={data} />

@@ -68,14 +68,14 @@ export const ChiNhanh = () => {
     }
       ,
     },
-    {
-      title: "Chi tiết",
-      render: (text, record) => (
-        <Space size="middle">
-          <Button type="disable" style={{ background: "#5899BA", color: "white", margin:"0 auto" }} shape="round" size="large "><Link to={`/dich-vu/${record.id}`}>  Chi tiết </Link></Button>
-        </Space>
-      ),
-    },
+    // {
+    //   title: "Chi tiết",
+    //   render: (text, record) => (
+    //     <Space size="middle">
+    //       <Button type="disable" style={{ background: "#5899BA", color: "white", margin:"0 auto" }} shape="round" size="large "><Link to={`/dich-vu/${record.id}`}>  Chi tiết </Link></Button>
+    //     </Space>
+    //   ),
+    // },
   ];
 
   return (

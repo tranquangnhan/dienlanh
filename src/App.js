@@ -2,21 +2,24 @@ import React,{useState} from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import { Layout } from './common/Layout/Layout';
-import { LichHen,LichHenEdit,LichHenLichSu,NhanVien,NhanVienEdit,NhanVienAdd, LichLamViec, LichLamViecAdd,LichLamViecEdit,LichLamViecChiTiet,DichVu,  HoaDon, HoaDonEdit,   } from './components';
+import { LichHen,LichHenEdit,LichHenLichSu,NhanVien,NhanVienEdit,NhanVienAdd, LichLamViecAdd,LichLamViecEdit,LichLamViecChiTiet,DichVu,  HoaDon, HoaDonEdit,   } from './components';
 import { ChiNhanh } from './components/ChiNhanh/ChiNhanh';
 import { ChiNhanhAdd } from './components/ChiNhanh/components/ChiNhanhAdd/ChiNhanhAdd';
 import { ChiNhanhChiTiet } from './components/ChiNhanh/components/ChiNhanhChiTiet/ChiNhanhChiTiet';
 import { DichVuAdd } from './components/DichVu/components/DichVuAdd/DichVuAdd';
 import { DichVuChiTiet } from './components/DichVu/components/DichVuChiTiet/DichVuChiTiet';
 import { HoaDonLichSu } from './components/HoaDon/components/Edit/History/HoaDonLichSu';
+import { ViewStaff } from './components/HoaDon/components/Edit/ViewStaff/ViewStaff';
 import { KhachHang } from './components/KhachHang/KhachHang';
 import { KhachHangChiTiet } from './components/KhachHang/KhachHangChiTiet/KhachHangChiTiet';
 import { KhuyenMaiAdd } from './components/KhuyenMai/components/KhuyenMaiAdd/KhuyenMaiAdd';
 import { KhuyenMaiChiTiet } from './components/KhuyenMai/components/KhuyenMaiChiTiet/KhuyenMaiChiTiet';
 import { KhuyenMai } from './components/KhuyenMai/KhuyenMai';
+import { LichHenHuy } from './components/LichHen/components/Huy/LichHenLichSu';
 import { LoaiDichVu } from './components/LoaiDichVu/LoaiDichVu';
 import { LoaiDichVuAdd } from './components/LoaiDichVu/LoaiDichVuChiTiet/components/Add/LoaiDichVuAdd';
 import { LoaiDichVuChiTiet } from './components/LoaiDichVu/LoaiDichVuChiTiet/LoaiDichVuChiTiet';
+import { LichLamViet } from './components/NhanVien/components/LichLamViec/LichLamViec';
 import { ROUTE } from './utils/constant';
 
 function App() {
@@ -26,11 +29,12 @@ function App() {
          <Switch>
             <Route exact path={ROUTE.LICH_HEN} component={LichHen} />
             <Route exact path={ROUTE.LICH_HEN_LICH_SU} component={LichHenLichSu} />
+            <Route exact path={ROUTE.LICH_HEN_HUY} component={LichHenHuy} />
             <Route exact path={ROUTE.LICH_HEN_EDIT} component={LichHenEdit} />
             <Route exact path={ROUTE.NHAN_VIEN} component={NhanVien} />
             <Route exact path={ROUTE.NHAN_VIEN_ADD} component={NhanVienAdd} />
             <Route exact path={ROUTE.NHAN_VIEN_EDIT} component={NhanVienEdit} />
-            <Route exact path={ROUTE.LICH_LAM_VIEC} component={LichLamViec} />
+            <Route exact path={ROUTE.LICH_LAM_VIEC} component={LichLamViet} />
             <Route exact path={ROUTE.LICH_LAM_VIEC_ADD} component={LichLamViecAdd} />
             <Route exact path={ROUTE.LICH_LAM_VIEC_EDIT} component={LichLamViecEdit} />
             <Route exact path={ROUTE.LICH_LAM_VIEC_DETAIL} component={LichLamViecChiTiet} />
@@ -51,6 +55,7 @@ function App() {
             <Route exact path={ROUTE.CHI_NHANH} component={ChiNhanh} />
             <Route exact path={ROUTE.CHI_NHANH_ADD} component={ChiNhanhAdd} />
             <Route exact path={ROUTE.CHI_NHANH_DETAIL} component={ChiNhanhChiTiet} />
+            <Route exact path={ROUTE.HOA_DON_DETAIL_STAFF} component={ViewStaff} />
             
 
           </Switch>

@@ -97,7 +97,7 @@ export const Navbar = ({})=> {
                 <SubMenu key="sub2" icon={<UsergroupAddOutlined />} title="Nhân Viên">
                     <Menu.Item key="5">Danh sách nhân viên</Menu.Item>
                     {/* <Menu.Item key="6">Thêm nhân viên</Menu.Item> */}
-                    <Menu.Item key="7">Lịch làm việc</Menu.Item>
+                    {/* <Menu.Item key="7">Lịch làm việc</Menu.Item> */}
                     <Menu.Item key="8">Danh sách lịch làm việc</Menu.Item>
                     {/* <Menu.Item key="9">Thêm lịch Làm Việc</Menu.Item> */}
                 </SubMenu>
@@ -105,7 +105,7 @@ export const Navbar = ({})=> {
                     <Menu.Item key="10">Danh sách chi nhánh</Menu.Item>
                     {/* <Menu.Item key="11">Thêm chi nhánh</Menu.Item> */}
                 </SubMenu>
-                <SubMenu key="sub4" icon={<DollarCircleOutlined />} title="Dịch Vụ">
+                <SubMenu key="sub4" icon={<DollarCircleOutlined />} title="Loại Dịch Vụ / Dịch Vụ">
                     <Menu.Item key="12">Danh sách loại dịch vụ</Menu.Item>
                     {/* <Menu.Item key="13">Thêm loại dịch vụ</Menu.Item> */}
                     <Menu.Item key="14">Danh sách dịch vụ</Menu.Item>

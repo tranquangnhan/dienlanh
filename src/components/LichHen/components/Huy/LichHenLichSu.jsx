@@ -6,7 +6,7 @@ import { ROUTE } from "../../../../utils/constant";
 
 
 
-export const LichHenLichSu = () => {
+export const LichHenHuy = () => {
   const [data,setData] = useState();
 
   useEffect(()=>{
@@ -14,7 +14,7 @@ export const LichHenLichSu = () => {
     axios.get(`https://acsproject.azurewebsites.net/appointment/all`)
       .then(res => {
         if(res.status === 200){
-          const item = res.data.data.filter(item=> item.status === 2 || item.status === 4)
+          const item = res.data.data.filter(item=>item.status === 1)
           setData(item.sort((a,b)=>b.id-a.id))
         }
       })
@@ -64,7 +64,7 @@ export const LichHenLichSu = () => {
   function getStatusName(status) {
     switch (status) {
       case 1:
-        return <p style={{color: "#c82333"}}>Đã hủy</p>;
+        return <p style={{color: "#c82333"}}>Từ chối</p>;
       case 2:
         return <p style={{color: "#28a745"}}>Đã xác nhận</p>;
       case 4:
@@ -78,7 +78,7 @@ export const LichHenLichSu = () => {
     <>
       <div className="title-table">
         Danh sách lịch hẹn &nbsp;&nbsp;
-        <Button style={{ background: "orange", color: "white", margin:"0 auto" }} shape="round" size="large "><Link to={`/lich-hen`}>Đang chờ</Link></Button>&nbsp;&nbsp;
+      <Button style={{ background: "orange", color: "white", margin:"0 auto" }} shape="round" size="large "><Link to={`/lich-hen`}>Đang chờ</Link></Button>&nbsp;&nbsp;
       <Button style={{ background: "green", color: "white", margin:"0 auto" }} shape="round" size="large "><Link to={`/lich-hen/lich-su`}>Đã xác nhận</Link></Button>&nbsp;&nbsp;
       <Button style={{ background: "red", color: "white", margin:"0 auto" }} shape="round" size="large "><Link to={`/lich-hen/huy`}>Từ chối</Link></Button>&nbsp;&nbsp;
       </div>

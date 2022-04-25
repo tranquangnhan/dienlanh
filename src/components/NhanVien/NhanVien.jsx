@@ -1,28 +1,25 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table, Space, Button } from "antd";
 import "./NhanVien.scss";
 import { Link } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 import { ROUTE } from "../../utils/constant";
 
-
-
 export const NhanVien = () => {
-  const [data,setData] = useState();
+  const [data, setData] = useState();
   const [refreshKey, setRefreshKey] = useState(0);
 
   // hàm lấy tất cả cơ sở
-  useEffect(()=>{
-
-    axios.get(`${ROUTE.MAIN_URL}/staff/all`)
-      .then(res => {
-        if(res.status === 200){
-          setData(res.data.data)
+  useEffect(() => {
+    axios
+      .get(`${ROUTE.MAIN_URL}/staff/all`)
+      .then((res) => {
+        if (res.status === 200) {
+          setData(res.data.data);
         }
       })
-      .catch(error => console.log(error));
-
-  },[refreshKey]);
+      .catch((error) => console.log(error));
+  }, [refreshKey]);
 
   function getRoleName(roleId) {
     switch (roleId) {
@@ -35,26 +32,22 @@ export const NhanVien = () => {
       case 4:
         return "Thu ngân";
       case 5:
-        return "Khách hàng";  
+        return "Khách hàng";
       default:
-          break;
+        break;
     }
   }
 
   function getStatusName(status) {
     switch (status) {
       case 1:
-        return "Quản trị viên";
+        return <Space style={{ color: "red" }}>Đã xóa</Space>;
       case 2:
-        return "Quản lý";
+        return <Space style={{ color: "red" }}>Dừng hoạt động</Space>;
       case 3:
-        return "Nhân viên kỹ thuật";
-      case 4:
-        return "Thu ngân";
-      case 5:
-        return "Khách hàng";  
+        return <Space style={{ color: "green" }}>Hoạt động</Space>;
       default:
-          break;
+        break;
     }
   }
 
@@ -67,15 +60,13 @@ export const NhanVien = () => {
       title: "Tên Nhân Viên",
       render: (text, record) => (
         <Space size="middle">
-          <Link to={`/nhan-vien/${record.userId}`}>  {record.fullName} </Link>
+          <Link to={`/nhan-vien/${record.userId}`}> {record.fullName} </Link>
         </Space>
       ),
     },
     {
       title: "Chức Vụ",
-      render: (text, record) => (
-        <>{getRoleName(record.roleId)}</>
-      ),
+      render: (text, record) => <>{getRoleName(record.roleId)}</>,
     },
     {
       title: "Chi Nhánh",
@@ -84,31 +75,28 @@ export const NhanVien = () => {
     {
       title: "Trạng thái",
       render: (text, record) => (
-        <Space style={{color: "green"}}>Hoạt động</Space>
+        <>{getStatusName(record?.status)}</>
       ),
     },
-    {
-      title: "",
-      key: "action",
-      render: (text, record) => (
-        <Space size="middle" key={record.id}>
-          <a href={record.key}>
-            <Button type="primary" shape="round" size="large ">
-              Chi tiết
-            </Button>
-          </a>
-          <a>
-            <Button type="danger" shape="round" size="large ">
-              Xóa
-            </Button>
-          </a>
-        </Space>
-      ),
-    },
+    // {
+    //   title: "",
+    //   key: "action",
+    //   render: (text, record) => (
+    //     <Space size="middle" key={record.id}>
+    //       <a href={record.key}>
+    //         <Button type="primary" shape="round" size="large ">
+    //           Chi tiết
+    //         </Button>
+    //       </a>
+    //       <a>
+    //         <Button type="danger" shape="round" size="large ">
+    //           Xóa
+    //         </Button>
+    //       </a>
+    //     </Space>
+    //   ),
+    // },
   ];
-
-  
-
 
   // hàm lấy cở sở By id
   // function getAgencyById(ids){
@@ -119,9 +107,6 @@ export const NhanVien = () => {
   //     });
   //     resolve(result)
   //   });
-  
-
-            
 
   // hàm lấy ra nhân viên
   // useEffect(()=>{
@@ -147,29 +132,24 @@ export const NhanVien = () => {
 
   //       }
   //     })
-    
+
   //     .catch(error => console.log(error));
 
   // },[]);
-
-
-  
-
 
   return (
     <>
       <div className="title-table">
         Danh sách nhân viên &nbsp; &nbsp;
-        <Button 
-        style={{ background: "#5899BA", color: "white", margin:"0 auto" }} 
-        shape="round" size="large ">
-          <Link to={`/nhan-vien/add`}>
-            Thêm nhân viên
-            </Link>
+        <Button
+          style={{ background: "#5899BA", color: "white", margin: "0 auto" }}
+          shape="round"
+          size="large "
+        >
+          <Link to={`/nhan-vien/add`}>Thêm nhân viên</Link>
         </Button>
       </div>
-        
-        
+
       <div className="table">
         <Table columns={columns} dataSource={data} />
       </div>
