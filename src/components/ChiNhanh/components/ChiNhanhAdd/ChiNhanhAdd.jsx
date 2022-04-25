@@ -19,6 +19,10 @@ export const ChiNhanhAdd = () => {
   const [description, setDescription] = useState();
   const [price, setPrice] = useState();
   const [status, setStatus] = useState();
+  const [cityName, setCityName] = useState();
+  const [cityNameSelected, setCityNameSelected] = useState();
+  const [districtName, setDistrictName] = useState();
+  const [districtNameSelected, setDistrictNameSelected] = useState();
   const [wardName, setWardName] = useState();
   const [wardNameSelected, setWardNameSelected] = useState();
   const history = useHistory();
@@ -37,9 +41,35 @@ export const ChiNhanhAdd = () => {
       .catch((error) => console.log(error));
   }
 
+  
+
   useEffect(() => {
     axios
-      .get(`${ROUTE.MAIN_URL}/ward/all`)
+      .get(`${ROUTE.MAIN_URL}/city/all`)
+      .then((res) => {
+        if (res.status === 200) {
+          setCityName(res.data.data);
+        }
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
+ 
+
+  useEffect(() => {
+    axios
+      .get(`${ROUTE.MAIN_URL}/district/${cityNameSelected?.id}`)
+      .then((res) => {
+        if (res.status === 200) {
+          setDistrictName(res.data.data);
+        }
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`${ROUTE.MAIN_URL}/ward/${districtNameSelected?.id}`)
       .then((res) => {
         if (res.status === 200) {
           setWardName(res.data.data);
@@ -47,6 +77,8 @@ export const ChiNhanhAdd = () => {
       })
       .catch((error) => console.log(error));
   }, []);
+
+  console.log(cityNameSelected);
 
   return (
     <>
@@ -66,16 +98,6 @@ export const ChiNhanhAdd = () => {
               </tr>
 
               <tr>
-                <td width="20%">Địa chỉ</td>
-                <td>
-                  <Input
-                    onChange={(dom) => setAddress(dom.target.value)}
-                    placeholder="Nhập địa chỉ"
-                  />
-                </td>
-              </tr>
-
-              <tr>
                 <td width="20%">Số điện thoại</td>
                 <td>
                   <Input
@@ -86,10 +108,42 @@ export const ChiNhanhAdd = () => {
               </tr>
 
               <tr>
+                <td width="20%">Địa chỉ</td>
+                <td>
+                  <Input
+                    onChange={(dom) => setAddress(dom.target.value)}
+                    placeholder="Nhập địa chỉ"
+                  />
+                </td>
+              </tr>
+
+              <tr>
                 <td width="20%">Khu vực</td>
                 <td>
                   <Select
-                    defaultValue="Quận 1"
+                    placeholder="Chọn Tỉnh/Thành Phố"
+                    style={{ width: 200 }}
+                    onChange={(dom) => setCityNameSelected(dom)}
+                  >
+                    {cityName?.map((item) => (
+                      <Option value={item?.id}>{item?.name}</Option>
+                    ))}
+                  </Select>
+                </td>
+                <td>
+                  <Select
+                    placeholder="Chọn Quận/Huyện"
+                    style={{ width: 200 }}
+                    onChange={(dom) => setDistrictNameSelected(dom)}
+                  >
+                    {districtName?.map((item) => (
+                      <Option value={item?.id}>{item?.name}</Option>
+                    ))}
+                  </Select>
+                </td>
+                <td>
+                  <Select
+                    placeholder="Chọn Phường/Xã"
                     style={{ width: 200 }}
                     onChange={(dom) => setWardNameSelected(dom)}
                   >
@@ -115,9 +169,9 @@ export const ChiNhanhAdd = () => {
               </tr>
             </tbody>
             <div className="btn-xacnhan">
-            <Button type="danger"><Link to={`/chi-nhanh`}>
-                Đóng
-              </Link></Button>
+              <Button type="danger">
+                <Link to={`/chi-nhanh`}>Đóng</Link>
+              </Button>
 
               <Button type="primary" onClick={() => save()}>
                 Lưu

@@ -14,32 +14,55 @@ for (let i = 10; i < 36; i++) {
 }
 
 export const NhanVienAdd = () => {
-  const [username, setUsername] = useState();
   const [fullName, setFullName] = useState();
-  const [password, setPassword] = useState();
   const [address, setAddress] = useState();
   const [phone, setPhone] = useState();
   const [email, setEmail] = useState();
-  const [status, setStatus] = useState();
   const [agency, setAgency] = useState();
   const [agencySelected, setAgencySelected] = useState();
-
-  const [roleId, setRoleId] = useState();
-  const [userId, setUserId] = useState();
   const [birthday, setBirthday] = useState();
   const [file, setFile] = useState();
 
   const history = useHistory();
 
   function save() {
+
+    if (!fullName) {
+      alert("Chưa nhập tên nhân viên");
+      return;
+    }
+    if (!agencySelected) {
+      alert("Chưa chọn chi nhánh");
+      return;
+    }
+    if (!birthday) {
+      alert("Chưa nhập ngày sinh");
+      return;
+    }
+    if (!phone) {
+      alert("Chưa nhập số điện thoại");
+      return;
+    }
+    if (!address) {
+      alert("Chưa nhập địa chỉ");
+      return;
+    }
+    if (!email) {
+      alert("Chưa nhập mail");
+      return;
+    }
+    if (!file) {
+      alert("Chưa chọn hình ảnh");
+      return;
+    }
+
+
     const formData = new FormData();
     formData.append("file", file);
     try {
       axios({
         method: "post",
-        url: `${ROUTE.MAIN_URL}/user/staff?address=${address}&agencyId=${agencySelected}
-          &birthday=${birthday}&email=${email}&fullName=${fullName}
-          &phone=${phone}&roleId=${roleId}&userId=${userId}&username=${username}&valid=${status}`,
+        url: `${ROUTE.MAIN_URL}/user/staff?address=${address}&agencyId=${agencySelected}&birthday=${birthday}&email=${email}&fullName=${fullName}&phone=${phone}&roleId=3&userId=4`,
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       }).then((res) => {
@@ -71,7 +94,7 @@ export const NhanVienAdd = () => {
           <table>
             <tbody>
               <tr>
-                <td width="20%">Tên Đầy Đủ</td>
+                <td width="20%">Tên Nhan Viên</td>
                 <td>
                   <Input
                     onChange={(dom) => setFullName(dom.target.value)}
@@ -83,7 +106,7 @@ export const NhanVienAdd = () => {
                 <td width="20%">Chi Nhánh</td>
                 <td>
                   <Select
-                    defaultValue="Cơ Sở Quận 12"
+                    placeholder="Chọn chi nhánh"
                     style={{ width: 160 }}
                     onChange={(dom) => setAgencySelected(dom)}
                   >
@@ -93,20 +116,12 @@ export const NhanVienAdd = () => {
                   </Select>
                 </td>
               </tr>
-              <tr>
-                <td width="20%">Tên tài khoản</td>
-                <td>
-                  <Input
-                    onChange={(dom) => setUsername(dom.target.value)}
-                    placeholder="Nhập tên tài khoản"
-                  />{" "}
-                </td>
-              </tr>
 
               <tr>
                 <td width="20%">Ngày Sinh</td>
                 <td>
                   <Input
+                    type="date"
                     onChange={(dom) => setBirthday(dom.target.value)}
                     placeholder="Nhập ngày sinh"
                   />
@@ -134,48 +149,13 @@ export const NhanVienAdd = () => {
                 <td width="20%">Mail</td>
                 <td>
                   <Input
+                    type='email'
                     onChange={(dom) => setEmail(dom.target.value)}
                     placeholder="Nhập Email"
                   />
                 </td>
               </tr>
-              <tr>
-                <td width="20%">UserId</td>
-                <td>
-                  <Input
-                    onChange={(dom) => setUserId(dom.target.value)}
-                    placeholder="Nhập UserId"
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td width="20%">Chức Vụ</td>
-                <td>
-                  <Select
-                    defaultValue="1"
-                    style={{ width: 160 }}
-                    onChange={(dom) => setRoleId(dom)}
-                  >
-                    <Option value="1">Quản Trị Viên</Option>
-                    <Option value="2">Quản Lý</Option>
-                    <Option value="3">Nhân Viên Kỹ Thuật</Option>
-                    <Option value="4">Nhân Viên Thu Ngân</Option>
-                  </Select>
-                </td>
-              </tr>
-              <tr>
-                <td width="20%">Trạng thái</td>
-                <td>
-                  <Select
-                    style={{ width: 160 }}
-                    defaultValue="Hoạt động"
-                    onChange={(dom) => setStatus(dom)}
-                  >
-                    <Option value="true">Hoạt động</Option>
-                    <Option value="false">Dừng hoạt động</Option>
-                  </Select>
-                </td>
-              </tr>
+
               <tr>
                 <td>Hình ảnh</td>
                 <td>

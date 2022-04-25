@@ -9,6 +9,7 @@ import { ChiNhanhChiTiet } from './components/ChiNhanh/components/ChiNhanhChiTie
 import { DichVuAdd } from './components/DichVu/components/DichVuAdd/DichVuAdd';
 import { DichVuChiTiet } from './components/DichVu/components/DichVuChiTiet/DichVuChiTiet';
 import { HoaDonLichSu } from './components/HoaDon/components/Edit/History/HoaDonLichSu';
+import { ViewStaff } from './components/HoaDon/components/Edit/ViewStaff/ViewStaff';
 import { KhachHang } from './components/KhachHang/KhachHang';
 import { KhachHangChiTiet } from './components/KhachHang/KhachHangChiTiet/KhachHangChiTiet';
 import { KhuyenMaiAdd } from './components/KhuyenMai/components/KhuyenMaiAdd/KhuyenMaiAdd';
@@ -53,6 +54,7 @@ function App() {
             <Route exact path={ROUTE.CHI_NHANH} component={ChiNhanh} />
             <Route exact path={ROUTE.CHI_NHANH_ADD} component={ChiNhanhAdd} />
             <Route exact path={ROUTE.CHI_NHANH_DETAIL} component={ChiNhanhChiTiet} />
+            <Route exact path={ROUTE.HOA_DON_DETAIL_STAFF} component={ViewStaff} />
             
 
           </Switch>

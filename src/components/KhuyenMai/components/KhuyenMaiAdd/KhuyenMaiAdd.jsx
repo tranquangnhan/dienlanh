@@ -26,6 +26,35 @@ export const KhuyenMaiAdd = () => {
   const [reload, setReload] = useState(0);
 
   function save() {
+    if (!title) {
+      alert("Chưa nhập tên khuyến mãi");
+      return;
+    }
+    if (!description) {
+      alert("Chưa nhập nội dung");
+      return;
+    }
+    if (!discount) {
+      alert("Chưa nhập giảm giá");
+      return;
+    }
+    if (discount < 0) {
+      alert("Giảm giá phải lớn hơn 0");
+      return;
+    }
+    if (!start_date) {
+      alert("Chưa chon ngày bắt đầu");
+      return;
+    }
+    if (!end_date) {
+      alert("Chưa chon ngày kết thúc");
+      return;
+    }
+    if (!status) {
+      alert("Chưa chọn trạng thái hoạt động");
+      return;
+    }
+
     axios
       .post(
         `${ROUTE.MAIN_URL}/promotion/create?description=${description}&discount=${discountStr}&end_date=${end_date}&start_date=${start_date}&status=${status}&title=${title}`
@@ -76,6 +105,7 @@ export const KhuyenMaiAdd = () => {
                 <td width="20%">Giảm giá (%)</td>
                 <td>
                   <Input
+                    type="number"
                     onChange={(dom) => setDiscount(dom.target.value)}
                     placeholder="Nhập giảm giá"
                   />{" "}
@@ -86,6 +116,8 @@ export const KhuyenMaiAdd = () => {
                 <td width="20%">Ngày bắt đầu</td>
                 <td>
                   <Input
+                    type="date"
+                    // onChange={(dom) => setStart_date(dom.target.value)}
                     onChange={(dom) => setStart_date(dom.target.value)}
                     placeholder="Nhập ngày bắt đầu"
                   />{" "}
@@ -96,6 +128,7 @@ export const KhuyenMaiAdd = () => {
                 <td width="20%">Ngày kết thúc</td>
                 <td>
                   <Input
+                    type="date"
                     onChange={(dom) => setEnd_date(dom.target.value)}
                     placeholder="Nhập ngày kết thúc"
                   />{" "}
@@ -106,7 +139,7 @@ export const KhuyenMaiAdd = () => {
                 <td width="20%">Trạng thái</td>
                 <td>
                   <Select
-                    defaultValue="1"
+                    placeholder="Chon trạng thái"
                     style={{ width: 160 }}
                     onChange={(dom) => setStatus(dom)}
                   >

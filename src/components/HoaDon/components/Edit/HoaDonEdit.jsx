@@ -17,6 +17,7 @@ for (let i = 10; i < 36; i++) {
 export const HoaDonEdit = () => {
   const [detail, setDetail] = useState();
   const [detailOrder, setDetailOrder] = useState();
+  const [staffMakeDetail, setStaffMakeDetail] = useState();
   const [order, setOrder] = useState();
   const [staffWorkSlot, setStaffWorkSlot] = useState();
   const [idStaffWorkSlot, setIdStaffWorkSlot] = useState();
@@ -131,8 +132,16 @@ export const HoaDonEdit = () => {
             .then((res) => {
               if (res.status === 200) {
                 setDetailOrder(res.data.data);
+                return res.data.data?.id;
               }
             });
+        })
+        .then((res) => {
+          axios.get(`${ROUTE.MAIN_URL}/workSlot/${res}/staff`).then((res) => {
+            if (res.status === 200) {
+              setStaffMakeDetail(res.data.data);
+            }
+          });
         })
         .catch((error) => console.log(error));
     }
@@ -179,7 +188,7 @@ export const HoaDonEdit = () => {
     }
   }
 
-  console.log(detailOrder);
+  console.log(staffMakeDetail);
 
   return (
     <>
@@ -229,7 +238,7 @@ export const HoaDonEdit = () => {
               <>
                 <tr>
                   {res?.image_url == null ? (
-                    <td>Chưa có hình</td>
+                    <td></td>
                   ) : (
                     <td>
                       <img
@@ -323,7 +332,22 @@ export const HoaDonEdit = () => {
                   )}
 
                   {order?.status === 4 ? (
-                    ""
+                    <td>
+                      <Link to={`/hoa-don/${id}/${res?.id}`}>
+                        <Button
+                          type="primary"
+                          style={{
+                            background: "#5899BA",
+                            color: "white",
+                            margin: "0 auto",
+                          }}
+                          shape="round"
+                          size="small"
+                        >
+                          Xem nhân viên
+                        </Button>
+                      </Link>
+                    </td>
                   ) : (
                     <td>
                       <Button
@@ -337,8 +361,22 @@ export const HoaDonEdit = () => {
                         size="small"
                         onClick={() => showModal(res?.id)}
                       >
-                        Thêm nhân viên 
-                      </Button>
+                        Thêm nhân viên
+                      </Button >
+                      <Link style={{paddingLeft: "10px"}} to={`/hoa-don/${id}/${res?.id}`}>
+                        <Button
+                          type="primary"
+                          style={{
+                            background: "#5899BA",
+                            color: "white",
+                            margin: "0 auto",
+                          }}
+                          shape="round"
+                          size="small"
+                        >
+                          Xem nhân viên
+                        </Button>
+                      </Link>
                     </td>
                   )}
                 </tr>

@@ -43,6 +43,15 @@ export const LoaiDichVuChiTiet = () => {
   }, [detail, reload]);
 
   function sua() {
+    if (!(name ?? detail?.name)) {
+      alert("Chưa nhập tên dịch vụ");
+      return;
+    }
+    if (!(content ?? detail?.content)) {
+      alert("Chưa nhập nội dung");
+      return;
+    }
+
     axios
       .patch(
         `${ROUTE.MAIN_URL}/service-type/${id}?content=${
@@ -82,31 +91,22 @@ export const LoaiDichVuChiTiet = () => {
   function getStatusName(status) {
     switch (status) {
       case 1:
-        return "Đã xóa";
+        return <Space style={{ color: "red" }}>Đã xóa</Space>;
       case 2:
-        return "Dừng hoạt động";
+        return <Space style={{ color: "red" }}>Dừng hoạt động</Space>;
       case 3:
-        return "Hoạt động";
-      // case 1:
-      //   return <Space style={{color: "red"}}>Đã xóa</Space>;
-      // case 2:
-      //   return <Space style={{color: "red"}}>Dừng hoạt động</Space>;
-      // case 3:
-      //   return <Space style={{color: "green"}}>Hoạt động</Space>;
+        return <Space style={{ color: "green" }}>Hoạt động</Space>;
       default:
         break;
     }
   }
 
-  console.log(currentStatus);
-  // const num = (detail?.status);
-  // const str = num.toString(); //> type string "123"
   return (
     <>
       <div className="title-table">Chi tiết loại dịch vụ</div>
       <div className="boxEdit">
         {detail?.imageUrl == null ? (
-          ""
+          <div className="img"></div>
         ) : (
           <div className="img">
             <img
@@ -131,7 +131,7 @@ export const LoaiDichVuChiTiet = () => {
                 </td>
               </tr>
               <tr>
-                <td width="20%">Mô tả</td>
+                <td width="20%">Nội dung</td>
                 <td>
                   <Input
                     value={content ?? detail?.content}
@@ -143,10 +143,7 @@ export const LoaiDichVuChiTiet = () => {
                 <td width="20%">Trạng thái</td>
                 <td>
                   <Select
-                    value={
-                      getStatusName(detail?.status) ??
-                      getStatusName(currentStatus)
-                    }
+                    placeholder={getStatusName(detail?.status)}
                     style={{ width: 160 }}
                     onChange={(dom) => isActiveLDV(dom)}
                   >

@@ -73,11 +73,11 @@ export const NhanVienEdit = () => {
   function getStatusName(status) {
     switch (status) {
       case 1:
-        return "Đã xóa";
+        return <Space style={{ color: "red" }}>Đã xóa</Space>;
       case 2:
-        return "Dừng hoạt động";
+        return <Space style={{ color: "red" }}>Dừng hoạt động</Space>;
       case 3:
-        return "Hoạt động";
+        return <Space style={{ color: "green" }}>Hoạt động</Space>;
       // case 1:
       //   return <Space style={{color: "red"}}>Đã xóa</Space>;
       // case 2:
@@ -118,13 +118,18 @@ export const NhanVienEdit = () => {
     <>
       <div className="title-table">Chi tiết nhân viên</div>
       <div className="boxEdit">
-        <div className="img">
-          <img
-            width="300"
-            height="300"
-            src={detail?.imageUrl ?? "No image"}
-          ></img>
-        </div>
+        {detail?.imageUrl == null ? (
+          <div className="img"></div>
+        ) : (
+          <div className="img">
+            <img
+              width="300"
+              height="300"
+              src={detail?.imageUrl ?? "No image"}
+            ></img>
+          </div>
+        )}
+
         <div className="table">
           <table>
             <tbody>
@@ -160,10 +165,7 @@ export const NhanVienEdit = () => {
                 <td width="20%">Trạng thái</td>
                 <td>
                   <Select
-                    value={
-                      getStatusName(detail?.status) ??
-                      getStatusName(currentStatus)
-                    }
+                    placeholder={getStatusName(status ?? detail?.status)}
                     style={{ width: 160 }}
                     onChange={(dom) => isActiveLDV(dom)}
                   >
