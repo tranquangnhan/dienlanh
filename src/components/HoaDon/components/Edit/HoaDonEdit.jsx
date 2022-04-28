@@ -223,7 +223,6 @@ export const HoaDonEdit = () => {
 
             <tr>
               <td width="100%" colSpan={2}>
-                {" "}
                 <hr />
               </td>
             </tr>

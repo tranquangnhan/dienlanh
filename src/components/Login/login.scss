@@ -1,5 +1,19 @@
+@import "../../styles/variable.scss";
 .login-wrapper {
+    width: 100vw;
+    height: 100vh;
+    background-color: $color-pink;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 90px;
+}
+.form-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    height: 300px;
+    width: 320px;
+    
 }

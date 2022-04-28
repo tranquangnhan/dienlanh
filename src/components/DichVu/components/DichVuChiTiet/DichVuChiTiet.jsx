@@ -31,7 +31,7 @@ export const DichVuChiTiet = () => {
   const [currentStatus, setCurrentStatus] = useState("3");
   const [reload, setReload] = useState(0);
   const { agencyId } = useToken();
-  
+
   // lấy id của chi tiết loại dịch vụ
   let { id } = useParams();
 
@@ -107,9 +107,9 @@ export const DichVuChiTiet = () => {
   function getStatusName(status) {
     switch (status) {
       case 1:
-        return <Space style={{color: "red"}}>Dừng hoạt động</Space>;
+        return <Space style={{ color: "red" }}>Dừng hoạt động</Space>;
       case 2:
-        return <Space style={{color: "green"}}>Hoạt động</Space>;
+        return <Space style={{ color: "green" }}>Hoạt động</Space>;
       default:
         break;
     }
@@ -125,66 +125,91 @@ export const DichVuChiTiet = () => {
         <div className="table">
           <table>
             <tbody>
-              <tr>
-                <td width="20%">Tên dịch vụ</td>
-                <td>
-                  {" "}
-                  <Input
-                    disabled={agencyId() !== null}
-                    value={name ?? detail?.name}
-                    onChange={(dom) => setName(dom?.target.value)}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td width="20%">Mô tả</td>
-                <td>
-                  <Input
-                    disabled={agencyId() !== null}
-                    value={description ?? detail?.description}
-                    onChange={(dom) => setDescription(dom?.target.value)}
-                  />
-                </td>
-              </tr>
+              {agencyId() !== null ? (
+                <tr>
+                  <td width="20%">Tên dịch vụ</td>
+                  <td>{name ?? detail?.name}</td>
+                </tr>
+              ) : (
+                <tr>
+                  <td width="20%">Tên dịch vụ</td>
+                  <td>
+                    {" "}
+                    <Input
+                      value={name ?? detail?.name}
+                      onChange={(dom) => setName(dom?.target.value)}
+                    />
+                  </td>
+                </tr>
+              )}
 
-              <tr>
-                <td width="20%">Giá (đồng)</td>
-                <td>
-                  <Input
-                    disabled={agencyId() !== null}
-                    type='number'
-                    value={price ?? detail?.price}
-                    onChange={(dom) => setPrice(dom?.target.value)}
-                  />
-                </td>
-              </tr>
+              {agencyId() !== null ? (
+                <tr>
+                  <td width="20%">Mô tả</td>
+                  <td>{description ?? detail?.description}</td>
+                </tr>
+              ) : (
+                <tr>
+                  <td width="20%">Mô tả</td>
+                  <td>
+                    <Input
+                      value={description ?? detail?.description}
+                      onChange={(dom) => setDescription(dom?.target.value)}
+                    />
+                  </td>
+                </tr>
+              )}
 
-              <tr>
-                <td width="20%">Trạng thái</td>
-                <td>
-                  <Select
-                    disabled={agencyId() !== null}
-                    placeholder={getStatusName(detail?.status)}
-                    style={{ width: 160 }}
-                    onChange={(dom) => setStatus(dom)}
-                  >
-                    <Option value="1">Dừng hoạt động</Option>
-                    <Option value="2">Hoạt động </Option>
-                  </Select>
-                </td>
-              </tr>
+              {agencyId() !== null ? (
+                <tr>
+                  <td width="20%">Giá (đồng)</td>
+                  <td>{price ?? detail?.price}</td>
+                </tr>
+              ) : (
+                <tr>
+                  <td width="20%">Giá (đồng)</td>
+                  <td>
+                    <Input
+                      type="number"
+                      value={price ?? detail?.price}
+                      onChange={(dom) => setPrice(dom?.target.value)}
+                    />
+                  </td>
+                </tr>
+              )}
+
+              {agencyId() !== null ? (
+                <tr>
+                  <td width="20%">Trạng thái</td>
+                  <td>{getStatusName(detail?.status)}</td>
+                </tr>
+              ) : (
+                <tr>
+                  <td width="20%">Trạng thái</td>
+                  <td>
+                    <Select
+                      placeholder={getStatusName(detail?.status)}
+                      style={{ width: 160 }}
+                      onChange={(dom) => setStatus(dom)}
+                    >
+                      <Option value="1">Dừng hoạt động</Option>
+                      <Option value="2">Hoạt động </Option>
+                    </Select>
+                  </td>
+                </tr>
+              )}
             </tbody>
             <div className="btn-xacnhan">
               <Button type="danger">
                 <Link to={`/dich-vu`}>Đóng</Link>
               </Button>
-              {
-                agencyId() === null ?  
-                <Button  type="primary" onClick={() => sua()}>
-                Lưu
-              </Button> : ''
-              }
-             
+              {agencyId() === null ? (
+                <Button type="primary" onClick={() => sua()}>
+                  Lưu
+                </Button>
+              ) : (
+                ""
+              )}
             </div>
           </table>
         </div>

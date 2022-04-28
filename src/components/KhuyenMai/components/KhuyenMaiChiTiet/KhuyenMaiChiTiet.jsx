@@ -95,13 +95,12 @@ export const KhuyenMaiChiTiet = () => {
       .catch((error) => console.log(error));
   }
 
-
   function getStatusName(status) {
     switch (status) {
       case 1:
-        return <Space style={{color: "red"}}>Dừng hoạt động</Space>;
+        return <Space style={{ color: "red" }}>Dừng hoạt động</Space>;
       case 2:
-        return <Space style={{color: "green"}}>Hoạt động</Space>;
+        return <Space style={{ color: "green" }}>Hoạt động</Space>;
       default:
         break;
     }
@@ -114,90 +113,128 @@ export const KhuyenMaiChiTiet = () => {
         <div className="table">
           <table>
             <tbody>
-              <tr>
-                <td width="20%">Tên khuyến mãi</td>
-                <td>
-                  {" "}
-                  <Input
-                   disabled={agencyId() !== null}
-                    value={title ?? detail?.title}
-                    onChange={(dom) => setTitle(dom?.target.value)}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td width="20%">Nội dung</td>
-                <td>
-                  <Input
-                   disabled={agencyId() !== null}
-                    value={description ?? detail?.description}
-                    onChange={(dom) => setDescription(dom?.target.value)}
-                  />
-                </td>
-              </tr>
+              {agencyId() !== null ? (
+                <tr>
+                  <td width="20%">Tên khuyến mãi</td>
+                  <td>{title ?? detail?.title}</td>
+                </tr>
+              ) : (
+                <tr>
+                  <td width="20%">Tên khuyến mãi</td>
+                  <td>
+                    {" "}
+                    <Input
+                      value={title ?? detail?.title}
+                      onChange={(dom) => setTitle(dom?.target.value)}
+                    />
+                  </td>
+                </tr>
+              )}
 
-              <tr>
-                <td width="20%">Giảm giá (%)</td>
-                <td>
-                  <Input
-                    disabled={agencyId() !== null}
-                    type="number"
-                    value={discount ?? parseFloat(detail?.discount) * 100}
-                    onChange={(dom) => setDiscount(dom?.target.value)}
-                  />
-                </td>
-              </tr>
+              {agencyId() !== null ? (
+                <tr>
+                  <td width="20%">Nội dung</td>
+                  <td>{description ?? detail?.description}</td>
+                </tr>
+              ) : (
+                <tr>
+                  <td width="20%">Nội dung</td>
+                  <td>
+                    <Input
+                      value={description ?? detail?.description}
+                      onChange={(dom) => setDescription(dom?.target.value)}
+                    />
+                  </td>
+                </tr>
+              )}
 
-              <tr>
-                <td width="20%">Ngày bắt đầu</td>
-                <td>
-                  <Input
-                    disabled={agencyId() !== null}
-                    type="date"
-                    value={start_date ?? detail?.start_date.split(" ")[0]}
-                    onChange={(dom) => setStart_date(dom?.target.value)}
-                  />
-                </td>
-              </tr>
+              {agencyId() !== null ? (
+                <tr>
+                  <td width="20%">Giảm giá (%)</td>
+                  <td>{discount ?? parseFloat(detail?.discount) * 100}</td>
+                </tr>
+              ) : (
+                <tr>
+                  <td width="20%">Giảm giá (%)</td>
+                  <td>
+                    <Input
+                      type="number"
+                      value={discount ?? parseFloat(detail?.discount) * 100}
+                      onChange={(dom) => setDiscount(dom?.target.value)}
+                    />
+                  </td>
+                </tr>
+              )}
 
-              <tr>
-                <td width="20%">Ngày kết thúc</td>
-                <td>
-                  <Input
-                     disabled={agencyId() !== null}
-                    type="date"
-                    value={end_date ?? detail?.end_date.split(" ")[0]}
-                    onChange={(dom) => setEnd_date(dom?.target.value)}
-                  />
-                </td>
-              </tr>
+              {agencyId() !== null ? (
+                <tr>
+                  <td width="20%">Ngày bắt đầu</td>
+                  <td>{detail?.start_date.split(" ")[0]}</td>
+                </tr>
+              ) : (
+                <tr>
+                  <td width="20%">Ngày bắt đầu</td>
+                  <td>
+                    <Input
+                      type="date"
+                      value={start_date ?? detail?.start_date.split(" ")[0]}
+                      onChange={(dom) => setStart_date(dom?.target.value)}
+                    />
+                  </td>
+                </tr>
+              )}
 
-              <tr>
-                <td width="20%">Trạng thái</td>
-                <td>
-                  <Select
-                    disabled={agencyId() !== null}
-                    placeholder={getStatusName(detail?.status)}
-                    // value={getStatusName(status ?? detail?.status)}
-                    style={{ width: 160 }}
-                    onChange={(dom) => setStatus(dom)}
-                  >
-                    <Option value="1">Dừng hoạt động</Option>
-                    <Option value="2">Hoạt động </Option>
-                  </Select>
-                </td>
-              </tr>
+              {agencyId() !== null ? (
+                <tr>
+                  <td width="20%">Ngày kết thúc</td>
+                  <td>{detail?.end_date.split(" ")[0]}</td>
+                </tr>
+              ) : (
+                <tr>
+                  <td width="20%">Ngày kết thúc</td>
+                  <td>
+                    <Input
+                      type="date"
+                      value={end_date ?? detail?.end_date.split(" ")[0]}
+                      onChange={(dom) => setEnd_date(dom?.target.value)}
+                    />
+                  </td>
+                </tr>
+              )}
+
+              {agencyId() !== null ? (
+                <tr>
+                  <td width="20%">Trạng thái</td>
+                  <td>{getStatusName(detail?.status)}</td>
+                </tr>
+              ) : (
+                <tr>
+                  <td width="20%">Trạng thái</td>
+                  <td>
+                    <Select
+                      placeholder={getStatusName(detail?.status)}
+                      // value={getStatusName(status ?? detail?.status)}
+                      style={{ width: 160 }}
+                      onChange={(dom) => setStatus(dom)}
+                    >
+                      <Option value="1">Dừng hoạt động</Option>
+                      <Option value="2">Hoạt động </Option>
+                    </Select>
+                  </td>
+                </tr>
+              )}
             </tbody>
             <div className="btn-xacnhan">
               <Button type="danger">
                 <Link to={`/khuyen-mai`}>Đóng</Link>
               </Button>
-              {
-                agencyId() === null ?  
-                <Button  type="primary" onClick={() => sua()}>
-                Lưu
-              </Button> : ''
-              }
+              {agencyId() === null ? (
+                <Button type="primary" onClick={() => sua()}>
+                  Lưu
+                </Button>
+              ) : (
+                ""
+              )}
             </div>
           </table>
         </div>

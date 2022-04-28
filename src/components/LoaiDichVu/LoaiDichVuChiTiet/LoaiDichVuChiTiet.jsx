@@ -126,75 +126,60 @@ export const LoaiDichVuChiTiet = () => {
                 <td width="20%">Tên loại dịch vụ</td>
                 <td>
                   {" "}
-                  {
-                    agencyId() !== null ?  
-                    <Input disabled
-                    value={name ?? detail?.name}
-                    onChange={(dom) => setName(dom?.target.value)}
-                  /> : 
-                  <Input
+                  {agencyId() !== null ? (
+                    <>{name ?? detail?.name}</>
+                  ) : (
+                    <Input
                       value={name ?? detail?.name}
                       onChange={(dom) => setName(dom?.target.value)}
-                    /> 
-                  }
-                 
+                    />
+                  )}
                 </td>
               </tr>
               <tr>
                 <td width="20%">Nội dung</td>
                 <td>
-                {
-                  agencyId() !== null ?  
-                  <Input disabled
-                    value={content ?? detail?.content}
-                    onChange={(dom) => setContent(dom?.target.value)}
-                  /> 
-                    : 
-                      <Input
+                  {agencyId() !== null ? (
+                    <>{content ?? detail?.content}</>
+                  ) : (
+                    <Input
                       value={content ?? detail?.content}
                       onChange={(dom) => setContent(dom?.target.value)}
                     />
-                  }
+                  )}
                 </td>
               </tr>
               <tr>
                 <td width="20%">Trạng thái</td>
                 <td>
-                {
-                  agencyId() !== null ?  
-                  <Select disabled
-                    placeholder={getStatusName(detail?.status)}
-                    style={{ width: 160 }}
-                    onChange={(dom) => isActiveLDV(dom)}
-                  >
-                    <Option value="2">Dừng hoạt động</Option>
-                    <Option value="3">Hoạt động </Option>
-                  </Select> :
+                  {agencyId() !== null ? (
+                    <>{getStatusName(detail?.status)}</>
+                  ) : (
                     <Select
-                    placeholder={getStatusName(detail?.status)}
-                    style={{ width: 160 }}
-                    onChange={(dom) => isActiveLDV(dom)}
-                  >
-                    <Option value="2">Dừng hoạt động</Option>
-                    <Option value="3">Hoạt động </Option>
-                  </Select>
-                  }
+                      placeholder={getStatusName(detail?.status)}
+                      style={{ width: 160 }}
+                      onChange={(dom) => isActiveLDV(dom)}
+                    >
+                      <Option value="2">Dừng hoạt động</Option>
+                      <Option value="3">Hoạt động </Option>
+                    </Select>
+                  )}
                 </td>
               </tr>
             </tbody>
-          
           </table>
           <div className="btn-xacnhan">
-              <Button type="danger">
-                <Link to={`/loai-dich-vu`}>Đóng</Link>
-              </Button>
-              {
-                  agencyId() === null ?  
+            <Button type="danger">
+              <Link to={`/loai-dich-vu`}>Đóng</Link>
+            </Button>
+            {agencyId() === null ? (
               <Button type="primary" onClick={() => sua()}>
                 Lưu
-              </Button> : ''
-                }
-            </div>
+              </Button>
+            ) : (
+              ""
+            )}
+          </div>
         </div>
       </div>
     </>

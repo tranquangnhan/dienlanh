@@ -16,6 +16,7 @@ for (let i = 10; i < 36; i++) {
 
 export const NhanVienAdd = () => {
   const [fullName, setFullName] = useState();
+  const [userId, setUserId] = useState();
   const [address, setAddress] = useState();
   const [phone, setPhone] = useState();
   const [email, setEmail] = useState();
@@ -27,17 +28,15 @@ export const NhanVienAdd = () => {
   const history = useHistory();
 
   function save() {
-    
-
-    if(agencyId() !== null){
-      setAgencySelected(agencyId())
+    if (agencyId() !== null) {
+      setAgencySelected(agencyId());
     }
 
     if (!fullName) {
       alert("Chưa nhập tên nhân viên");
       return;
     }
-    
+
     if (!birthday) {
       alert("Chưa nhập ngày sinh");
       return;
@@ -65,7 +64,9 @@ export const NhanVienAdd = () => {
     try {
       axios({
         method: "post",
-        url: `${ROUTE.MAIN_URL}/user/${agencyId() === null ? 'manager' : 'staff'}?address=${address}&agencyId=${agencySelected}&birthday=${birthday}&email=${email}&fullName=${fullName}&phone=${phone}&roleId=3&userId=4`,
+        url: `${ROUTE.MAIN_URL}/user/${
+          agencyId() === null ? "manager" : "staff"
+        }?address=${address}&agencyId=${agencySelected}&birthday=${birthday}&email=${email}&fullName=${fullName}&phone=${phone}&roleId=3&userId=${userId}`,
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       }).then((res) => {
@@ -89,6 +90,17 @@ export const NhanVienAdd = () => {
       .catch((error) => console.log(error));
   }, []);
 
+  useEffect(() => {
+    axios
+      .get(`${ROUTE.MAIN_URL}/agency/${agencyId()}`)
+      .then((res) => {
+        if (res.status === 200) {
+          setUserId(res.data.data.manager_id);
+        }
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
   return (
     <>
       <div className="title-table">Thêm nhân viên</div>
@@ -97,22 +109,20 @@ export const NhanVienAdd = () => {
           <table>
             <tbody>
               <tr>
-                <td width="20%">Tên Nhan Viên</td>
+                <td width="20%">Tên Nhân Viên</td>
                 <td>
                   <Input
                     onChange={(dom) => setFullName(dom.target.value)}
-                    placeholder="Nhập tên tài khoản"
+                    placeholder="Nhập tên nhân viên"
                   />{" "}
                 </td>
               </tr>
               <tr>
-               
-                  {
-                    (agencyId() === null) ?
-                    <>
+                {agencyId() === null ? (
+                  <>
                     <td width="20%">Chi Nhánh</td>
                     <td>
-                    <Select
+                      <Select
                         placeholder="Chọn chi nhánh"
                         style={{ width: 160 }}
                         onChange={(dom) => setAgencySelected(dom)}
@@ -120,12 +130,12 @@ export const NhanVienAdd = () => {
                         {agency?.map((item) => (
                           <Option value={item?.id}>{item?.name}</Option>
                         ))}
-                      </Select> 
-                      </td>
-                    </> : ''
-                  }
-                  
-           
+                      </Select>
+                    </td>
+                  </>
+                ) : (
+                  ""
+                )}
               </tr>
 
               <tr>
@@ -160,7 +170,7 @@ export const NhanVienAdd = () => {
                 <td width="20%">Mail</td>
                 <td>
                   <Input
-                    type='email'
+                    type="email"
                     onChange={(dom) => setEmail(dom.target.value)}
                     placeholder="Nhập Email"
                   />

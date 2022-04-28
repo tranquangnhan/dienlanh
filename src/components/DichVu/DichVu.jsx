@@ -94,8 +94,8 @@ export const DichVu = () => {
         style={{ background: "#5899BA", color: "white", margin:"0 auto" }} 
         shape="round" size="large ">
           
-          <Link to={`/loai-dich-vu/add`}>
-            Thêm loại dịch vụ
+          <Link to={`/dich-vu/add`}>
+            Thêm dịch vụ
             </Link>
         </Button>
         }

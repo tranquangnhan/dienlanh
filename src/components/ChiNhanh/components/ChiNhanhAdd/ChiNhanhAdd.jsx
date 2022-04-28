@@ -30,7 +30,7 @@ export const ChiNhanhAdd = () => {
   function save() {
     axios
       .post(
-        `${ROUTE.MAIN_URL}/agency/createAgency?address=${address}&manager_id=0&name=${name}&phone=${phone}&status=${status}&updated_by=1&ward_id=${wardNameSelected}`
+        `${ROUTE.MAIN_URL}/agency/createAgency?address=${address}&name=${name}&phone=${phone}&status=${status}&updated_by=1&ward_id=${wardNameSelected}`
       )
       .then((res) => {
         console.log(res?.data?.success);
@@ -40,8 +40,6 @@ export const ChiNhanhAdd = () => {
       })
       .catch((error) => console.log(error));
   }
-
-  
 
   useEffect(() => {
     axios
@@ -55,7 +53,6 @@ export const ChiNhanhAdd = () => {
   }, []);
   // tp hcm // ha noi
 
-
   useEffect(() => {
     axios
       .get(`${ROUTE.MAIN_URL}/district/${cityNameSelected}`)
@@ -67,8 +64,6 @@ export const ChiNhanhAdd = () => {
       .catch((error) => console.log(error));
   }, [cityNameSelected]);
 
-
-
   useEffect(() => {
     axios
       .get(`${ROUTE.MAIN_URL}/ward/${districtNameSelected}`)
@@ -79,7 +74,6 @@ export const ChiNhanhAdd = () => {
       })
       .catch((error) => console.log(error));
   }, [districtNameSelected]);
-
 
   return (
     <>

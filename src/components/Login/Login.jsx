@@ -1,66 +1,81 @@
-import React, { useState } from 'react';
-import './Login.scss';
-import PropTypes from 'prop-types';
-import {ROUTE} from '../../utils/constant';
-
+import React, { useState } from "react";
+import "./Login.scss";
+import PropTypes from "prop-types";
+import { ROUTE } from "../../utils/constant";
+import { Button, Input, Space } from "antd";
 
 async function loginUser(credentials) {
-
   return fetch(`${ROUTE.MAIN_URL}/user/authenticate`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify(credentials)
-  })
-    .then(data => data.json())
- }
+    body: JSON.stringify(credentials),
+  }).then((data) => data.json());
+}
 
-export  function Login({ setToken }) {
-
+export function Login({ setToken }) {
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const token = await loginUser({
       username,
-      password
+      password,
     });
-    if(token.success === true){
-      if(token.data === 1){
+    if (token.success === true) {
+      if (token.data === 1) {
         setToken(token.data);
-        localStorage.setItem('name', JSON.stringify('ADMIN'));
-      }else{
+        localStorage.setItem("name", JSON.stringify("ADMIN"));
+      } else {
         setToken(token.data.roleId);
-        localStorage.setItem('name', JSON.stringify(token.data.fullName));
-        localStorage.setItem('agencyId', JSON.stringify(token.data.agencyId));
+        localStorage.setItem("name", JSON.stringify(token.data.fullName));
+        localStorage.setItem("agencyId", JSON.stringify(token.data.agencyId));
       }
-    }else{
-      alert('sai Tài khoản hoặc mật khẩu!')
+    } else {
+      alert("sai Tài khoản hoặc mật khẩu!");
     }
-  }
+  };
 
-  return(
+  return (
     <div className="login-wrapper">
-      <h1>Please Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          <p>Username</p>
-          <input type="text" onChange={e => setUserName(e.target.value)}/>
-        </label>
-        <label>
-          <p>Password</p>
-          <input type="password" onChange={e => setPassword(e.target.value)}/>
-        </label>
-        <div>
-          <button type="submit">Submit</button>
-        </div>
-      </form>
+      <div className="form-box">
+        <h1>Đăng Nhập</h1>
+        <form onSubmit={handleSubmit}>
+          <label>
+            <Space>Tên tài khoản</Space>
+            <Input type="text" onChange={(e) => setUserName(e.target.value)} />
+          </label>
+          <br />
+          <br />
+          <label>
+            <Space>Mật khẩu</Space>
+            <Input
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </label>
+          <br />
+          <br />
+          <div>
+            <button
+              style={{
+                background: "#5899BA",
+                color: "white",
+                margin: "0 auto",
+              }}
+              type="submit"
+            >
+              Đăng nhập
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
-  )
+  );
 }
 
 Login.propTypes = {
-  setToken: PropTypes.func.isRequired
-}
+  setToken: PropTypes.func.isRequired,
+};

@@ -80,9 +80,9 @@ export const Navbar = ({})=> {
                 defaultOpenKeys={['sub1']}
                 mode="inline"
             >
-                 <Menu.Item key="1" icon={<HomeOutlined />}>
+                 {/* <Menu.Item key="1" icon={<HomeOutlined />}>
                    Trang Chủ
-                </Menu.Item>
+                </Menu.Item> */}
                 <Menu.Item key="2" icon={<UserOutlined />}>
                    Khách Hàng
                 </Menu.Item>
