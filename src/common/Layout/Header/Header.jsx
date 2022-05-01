@@ -13,9 +13,9 @@ export const Header = () => {
   return (
     <div className="headerWrapper">
       <div className="title"></div>
-      <div className="searchBox">
+      {/* <div className="searchBox">
         <input type="text" placeholder="Tìm Kiếm" />
-      </div>
+      </div> */}
       <div className="boxAvt">
         <img src={avt} alt="" />
         <div className="text">

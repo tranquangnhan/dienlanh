@@ -17,8 +17,11 @@ export const Navbar = ({})=> {
     const handleClick = e => {
         console.log('click ', e.key);
         switch (e.key) {
-            case "2":
+            case "1":
                 history.push("/");
+                break;
+            case "2":
+                history.push("/khach-hang");
                 break;
             case "3":
                 history.push("/lich-hen");
@@ -80,9 +83,9 @@ export const Navbar = ({})=> {
                 defaultOpenKeys={['sub1']}
                 mode="inline"
             >
-                 {/* <Menu.Item key="1" icon={<HomeOutlined />}>
+                 <Menu.Item key="1" icon={<HomeOutlined />}>
                    Trang Chủ
-                </Menu.Item> */}
+                </Menu.Item>
                 <Menu.Item key="2" icon={<UserOutlined />}>
                    Khách Hàng
                 </Menu.Item>

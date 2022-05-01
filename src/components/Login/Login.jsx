@@ -39,32 +39,35 @@ export function Login({ setToken }) {
   };
 
   return (
-    <div className="login-wrapper">
+    <div className="form-bg">
       <div className="form-box">
-        <h1>Đăng Nhập</h1>
+        <h1 style={{color: "#F5F0F0"}}>Đăng Nhập</h1>
         <form onSubmit={handleSubmit}>
-          <label>
-            <Space>Tên tài khoản</Space>
-            <Input type="text" onChange={(e) => setUserName(e.target.value)} />
-          </label>
-          <br />
-          <br />
-          <label>
-            <Space>Mật khẩu</Space>
-            <Input
-              type="password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </label>
-          <br />
-          <br />
-          <div>
+          <div className="div1">
+            <label>
+              <b style={{color: "#F5F0F0"}}>Tên tài khoản</b><br/>
+              <Input
+                className="ipbox"
+                type="text"
+                onChange={(e) => setUserName(e.target.value)}
+              /><br/>
+            </label>
+          </div>
+          <div className="div1">
+            <label>
+              <b style={{color: "#F5F0F0"}}>Mật khẩu</b><br/>
+              <Input
+                className="ipbox"
+                type="password"
+                onChange={(e) => setPassword(e.target.value)}
+              /><br/>
+            </label>
+          </div>
+          <br/>
+          <div >
             <button
-              style={{
-                background: "#5899BA",
-                color: "white",
-                margin: "0 auto",
-              }}
+            
+              className="btnSub"
               type="submit"
             >
               Đăng nhập

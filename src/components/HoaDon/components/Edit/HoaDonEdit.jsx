@@ -19,9 +19,10 @@ export const HoaDonEdit = () => {
   const [detailOrder, setDetailOrder] = useState();
   const [staffMakeDetail, setStaffMakeDetail] = useState();
   const [order, setOrder] = useState();
+  const [slot, setSlot] = useState();
   const [staffWorkSlot, setStaffWorkSlot] = useState();
   const [idStaffWorkSlot, setIdStaffWorkSlot] = useState();
-
+  const [data, setData] = useState();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [reload, setReload] = useState(0);
   const [time, setTime] = useState();
@@ -31,6 +32,12 @@ export const HoaDonEdit = () => {
     setIdOrderDetail(id);
     setIsModalVisible(true);
     getFreeStaff();
+  };
+
+  const showModal1 = (id1) => {
+    setIdOrderDetail(id1);
+    setIsModalVisible(true);
+    getStaffMakeDetail();
   };
 
   useEffect(() => {
@@ -173,6 +180,17 @@ export const HoaDonEdit = () => {
       .catch((error) => console.log(error));
   }
 
+  function getStaffMakeDetail() {
+    axios
+      .get(`${ROUTE.MAIN_URL}//workSlot/${id}/staff`)
+      .then((res) => {
+        if (res.status === 200) {
+          setData(res.data.data);
+        }
+      })
+      .catch((error) => console.log(error));
+  }
+
   function getStatusName(status) {
     switch (status) {
       case 1:
@@ -188,7 +206,16 @@ export const HoaDonEdit = () => {
     }
   }
 
-  console.log(staffMakeDetail);
+  useEffect(() => {
+    axios
+      .get(`${ROUTE.MAIN_URL}/slot/all`)
+      .then((res) => {
+        if (res.status === 200) {
+          setSlot(res.data.data);
+        }
+      })
+      .catch((error) => console.log(error));
+  });
 
   return (
     <>
@@ -361,8 +388,26 @@ export const HoaDonEdit = () => {
                         onClick={() => showModal(res?.id)}
                       >
                         Thêm nhân viên
-                      </Button >
-                      <Link style={{paddingLeft: "10px"}} to={`/hoa-don/${id}/${res?.id}`}>
+                      </Button>
+
+                      <Button
+                        type="primary"
+                        style={{
+                          background: "#5899BA",
+                          color: "white",
+                          margin: "0 auto",
+                        }}
+                        shape="round"
+                        size="small"
+                        onClick={() => showModal1(res?.id)}
+                      >
+                        Xem nhân viên
+                      </Button>
+
+                      {/* <Link
+                        style={{ paddingLeft: "10px" }}
+                        to={`/hoa-don/${id}/${res?.id}`}
+                      >
                         <Button
                           type="primary"
                           style={{
@@ -375,7 +420,7 @@ export const HoaDonEdit = () => {
                         >
                           Xem nhân viên
                         </Button>
-                      </Link>
+                      </Link> */}
                     </td>
                   )}
                 </tr>
@@ -406,15 +451,15 @@ export const HoaDonEdit = () => {
       >
         <div>Chọn Thời Gian </div>
         <Select
-          defaultValue="07h30"
-          style={{ width: 120 }}
+          placeholder="Chọn thời gian"
+          style={{ width: 145 }}
           onChange={changeTime}
         >
-          <Option value="07h30"> 07h30</Option>
-          <Option value="09h30"> 09h30</Option>
-          <Option value="13h30"> 13h30</Option>
-          <Option value="15h30"> 15h30</Option>
+          {slot?.map((item) => (
+            <Option value={item?.slotStart}>{item?.slotStart}</Option>
+          ))}
         </Select>
+
         <br></br>
         <br></br>
 

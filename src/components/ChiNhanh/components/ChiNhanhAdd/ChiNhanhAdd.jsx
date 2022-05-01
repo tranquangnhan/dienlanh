@@ -16,11 +16,10 @@ export const ChiNhanhAdd = () => {
   const [name, setName] = useState();
   const [address, setAddress] = useState();
   const [phone, setPhone] = useState();
-  const [description, setDescription] = useState();
-  const [price, setPrice] = useState();
   const [status, setStatus] = useState();
   const [cityName, setCityName] = useState();
   const [cityNameSelected, setCityNameSelected] = useState();
+  const [cityNameAddress, setCityNameAddress] = useState();
   const [districtName, setDistrictName] = useState();
   const [districtNameSelected, setDistrictNameSelected] = useState();
   const [wardName, setWardName] = useState();
@@ -47,6 +46,8 @@ export const ChiNhanhAdd = () => {
       .then((res) => {
         if (res.status === 200) {
           setCityName(res.data.data);
+          // const item = res.data.data.filter((item) => item.id === cityNameSelected);
+          // setCityNameAddress(item);
         }
       })
       .catch((error) => console.log(error));
@@ -74,6 +75,8 @@ export const ChiNhanhAdd = () => {
       })
       .catch((error) => console.log(error));
   }, [districtNameSelected]);
+
+ 
 
   return (
     <>

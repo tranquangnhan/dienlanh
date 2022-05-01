@@ -10,13 +10,14 @@ export const NhanVien = () => {
   const [data, setData] = useState();
   const [refreshKey, setRefreshKey] = useState(0);
   const { agencyId } = useToken();
+  const [reload, setReload] = useState(0);
 
   // hàm lấy tất cả cơ sở
   useEffect(() => {
     let url = ``;
-    if(agencyId()){
+    if (agencyId()) {
       url = `${ROUTE.MAIN_URL}/staff/agency/${agencyId()}`;
-    }else{
+    } else {
       url = `https://acsproject.azurewebsites.net/staff/all`;
     }
 
@@ -29,6 +30,35 @@ export const NhanVien = () => {
       })
       .catch((error) => console.log(error));
   }, [refreshKey]);
+
+  function isSearchValue(dom) {
+    if (dom) {
+      axios
+        .get(`${ROUTE.MAIN_URL}/staff/name?value=${dom}`)
+        .then((res) => {
+          setData(res.data.data);
+          setReload(1);
+        })
+        .catch((error) => console.log(error));
+    } else {
+      let url = ``;
+      if (agencyId()) {
+        url = `${ROUTE.MAIN_URL}/staff/agency/${agencyId()}`;
+      } else {
+        url = `https://acsproject.azurewebsites.net/staff/all`;
+      }
+
+      axios
+        .get(url)
+        .then((res) => {
+          if (res.status === 200) {
+            setData(res.data.data);
+            setReload(1);
+          }
+        })
+        .catch((error) => console.log(error));
+    }
+  }
 
   function getRoleName(roleId) {
     switch (roleId) {
@@ -83,13 +113,9 @@ export const NhanVien = () => {
     },
     {
       title: "Trạng thái",
-      render: (text, record) => (
-        <>{getStatusName(record?.status)}</>
-      ),
+      render: (text, record) => <>{getStatusName(record?.status)}</>,
     },
-    
   ];
-
 
   return (
     <>
@@ -104,6 +130,14 @@ export const NhanVien = () => {
         </Button>
       </div>
 
+      <div className="sBox">
+        <input
+          className="searchInput"
+          placeholder="Tìm kiếm ..."
+          type="text"
+          onChange={(dom) => isSearchValue(dom.target.value)}
+        />
+      </div>
       <div className="table">
         <Table columns={columns} dataSource={data} />
       </div>
