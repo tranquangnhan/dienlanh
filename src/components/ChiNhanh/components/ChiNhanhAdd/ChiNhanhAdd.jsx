@@ -20,6 +20,8 @@ export const ChiNhanhAdd = () => {
   const [cityName, setCityName] = useState();
   const [cityNameSelected, setCityNameSelected] = useState();
   const [cityNameAddress, setCityNameAddress] = useState();
+  const [districtNameAddress, setDistrictNameAddress] = useState();
+  const [wardNameAddress, setWardNameAddress] = useState();
   const [districtName, setDistrictName] = useState();
   const [districtNameSelected, setDistrictNameSelected] = useState();
   const [wardName, setWardName] = useState();
@@ -29,7 +31,15 @@ export const ChiNhanhAdd = () => {
   function save() {
     axios
       .post(
-        `${ROUTE.MAIN_URL}/agency/createAgency?address=${address}&name=${name}&phone=${phone}&status=${status}&updated_by=1&ward_id=${wardNameSelected}`
+        `${ROUTE.MAIN_URL}/agency/createAgency?address=${
+          address +
+          ", " +
+          wardNameAddress[0]?.name +
+          ", " +
+          districtNameAddress[0]?.name +
+          ", " +
+          cityNameAddress[0]?.name
+        }&name=${name}&phone=${phone}&status=${status}&updated_by=1&ward_id=${wardNameSelected}`
       )
       .then((res) => {
         console.log(res?.data?.success);
@@ -45,9 +55,11 @@ export const ChiNhanhAdd = () => {
       .get(`${ROUTE.MAIN_URL}/city/all`)
       .then((res) => {
         if (res.status === 200) {
+          const item = res.data.data.filter(
+            (item) => item.id === cityNameSelected
+          );
+          setCityNameAddress(item);
           setCityName(res.data.data);
-          // const item = res.data.data.filter((item) => item.id === cityNameSelected);
-          // setCityNameAddress(item);
         }
       })
       .catch((error) => console.log(error));
@@ -67,6 +79,20 @@ export const ChiNhanhAdd = () => {
 
   useEffect(() => {
     axios
+      .get(`${ROUTE.MAIN_URL}/district/all`)
+      .then((res) => {
+        if (res.status === 200) {
+          const item = res.data.data.filter(
+            (item) => item.id === districtNameSelected
+          );
+          setDistrictNameAddress(item);
+        }
+      })
+      .catch((error) => console.log(error));
+  }, [districtNameSelected]);
+
+  useEffect(() => {
+    axios
       .get(`${ROUTE.MAIN_URL}/ward/${districtNameSelected}`)
       .then((res) => {
         if (res.status === 200) {
@@ -76,7 +102,23 @@ export const ChiNhanhAdd = () => {
       .catch((error) => console.log(error));
   }, [districtNameSelected]);
 
- 
+  useEffect(() => {
+    axios
+      .get(`${ROUTE.MAIN_URL}/ward/all`)
+      .then((res) => {
+        if (res.status === 200) {
+          const item = res.data.data.filter(
+            (item) => item.id === wardNameSelected
+          );
+          setWardNameAddress(item);
+        }
+      })
+      .catch((error) => console.log(error));
+  }, [wardNameSelected]);
+
+  // console.log("TP: ", cityNameAddress[0].name);
+  // console.log("quận: ", districtNameAddress[0].name);
+  // console.log("phường: ", wardNameAddress[0].name);
 
   return (
     <>

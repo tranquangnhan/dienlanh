@@ -46,7 +46,11 @@ export const HoaDon = () => {
       .then((res) => {
         if (res.status === 200) {
           const item = res.data.data.filter(
-            (item) => item.status === 2 || item.status === 3
+            (item) =>
+              item.status === 2 ||
+              item.status === 3 ||
+              item.status === 5 ||
+              item.status === 6
           );
           setData(item.sort((a, b) => b.id - a.id));
         }
@@ -75,7 +79,11 @@ export const HoaDon = () => {
         .then((res) => {
           if (res.status === 200) {
             const item = res.data.data.filter(
-              (item) => item.status === 2 || item.status === 3
+              (item) =>
+                item.status === 2 ||
+                item.status === 3 ||
+                item.status === 5 ||
+                item.status === 6
             );
             setData(item.sort((a, b) => b.id - a.id));
           }
@@ -94,6 +102,10 @@ export const HoaDon = () => {
         return <Space style={{ color: "orange" }}>Đang tiến hành</Space>;
       case 4:
         return <Space style={{ color: "green" }}>Đã hoàn thành</Space>;
+      case 5:
+        return <Space style={{ color: "orange" }}>Đang tiến hành</Space>;
+      case 6:
+        return <Space style={{ color: "orange" }}>Đang tiến hành</Space>;
       default:
         break;
     }

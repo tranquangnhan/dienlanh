@@ -51,7 +51,7 @@ export const ChiNhanh = () => {
     {
       title: "Địa chỉ",
       render: (text, record) => (
-         <p> {record.address} </p>
+         <Space> {record.address} </Space>
         
       ),
     },

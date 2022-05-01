@@ -91,7 +91,7 @@ export const ChiNhanhChiTiet = () => {
       .get(`${ROUTE.MAIN_URL}/staff/all`)
       .then((res) => {
         if (res.status === 200) {
-          const item = res.data.data.filter((item) => item.roleId === 2);
+          const item = res.data.data.filter((item) => item.roleId === 2 && item.agencyId === 0);
           setManager(item);
         }
       })

@@ -66,6 +66,8 @@ function App() {
             <Route exact path={ROUTE.CHI_NHANH_DETAIL} component={ChiNhanhChiTiet} />
             <Route exact path={ROUTE.HOA_DON_DETAIL_STAFF} component={ViewStaff} />
             <Route exact path={ROUTE.TRANG_CHU} component={ThongKe} />
+            
+            
           </Switch>
     </Layout>
   );

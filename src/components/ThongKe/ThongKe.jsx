@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Table, Space, Button } from "antd";
+import { Table, Space, Button, Input, DatePicker } from "antd";
 import "./ThongKe.scss";
 import { Link } from "react-router-dom";
 import { ROUTE } from "../../utils/constant";
@@ -15,14 +15,27 @@ import serviceImg from "./img/service.png";
 import promotionImg from "./img/promotion.png";
 import revenueImg from "./img/revenue.png";
 
+const { RangePicker } = DatePicker;
+
 export const ThongKe = () => {
   const [data, setData] = useState();
   const [refreshKey, setRefreshKey] = useState(0);
   const { agencyId } = useToken();
+  const [start_date, setStart_date] = useState();
+  const [end_date, setEnd_date] = useState();
+  const [reload, setReload] = useState(0);
 
   useEffect(() => {
+    let url = ``;
+    if (agencyId()) {
+      url = `${
+        ROUTE.MAIN_URL
+      }/statistic/range/${agencyId()}?end_date=&start_date=`;
+    } else {
+      url = `${ROUTE.MAIN_URL}/statistic/range?end_date=&start_date=`;
+    }
     axios
-      .get(`${ROUTE.MAIN_URL}/statistic`)
+      .get(url)
       .then((res) => {
         if (res.status === 200) {
           setData(res.data.data);
@@ -31,17 +44,58 @@ export const ThongKe = () => {
       .catch((error) => console.log(error));
   }, [refreshKey]);
 
+  useEffect(() => {
+    let url = ``;
+    if (agencyId()) {
+      url = `${
+        ROUTE.MAIN_URL
+      }/statistic/range/${agencyId()}?end_date=${end_date}&start_date=${start_date}`;
+    } else {
+      url = `${ROUTE.MAIN_URL}/statistic/range?end_date=${end_date}&start_date=${start_date}`;
+    }
+    axios
+      .get(url)
+      .then((res) => {
+        if (res.status === 200) {
+          setData(res.data.data);
+        }
+      })
+      .catch((error) => console.log(error));
+  }, [start_date, end_date]);
+
+  console.log(start_date, end_date);
+
   return (
     <>
       <div className="title-table">Thống kê</div>
 
-      <div className="boxbg">
-        <div className="box2">
+      <div className="boxbgTK">
+        <div className="box2TK">
           <img src={revenueImg} style={{ height: "45px", width: "45px" }} />
         </div>
-        <div className="box1">Tổng doanh thu</div>
-        <div className="box3">{data?.totalRevenue} VNĐ</div>
+        <div className="box1TK">Tổng doanh thu</div>
+        <div className="box3TK">{data?.totalRevenue} VNĐ</div>
+        <div className="box4TK">
+          <div className="box4TKInput">
+            <td>Theo mốc thời gian: &nbsp;</td>
+            <td style={{ paddingRight: "10px" }}>
+              <Input
+                type="date"
+                onChange={(dom) => setStart_date(dom.target.value)}
+              />
+            </td>
+            <td style={{ paddingRight: "10px" }}>-</td>
+            <td>
+              <Input
+                type="date"
+                onChange={(dom) => setEnd_date(dom.target.value)}
+              />
+            </td>
+            <td></td>
+          </div>
+        </div>
       </div>
+
       <Link style={{ color: "black" }} to={`/khach-hang`}>
         <div className="boxbg">
           <div className="box2">
@@ -104,7 +158,7 @@ export const ThongKe = () => {
             />
           </div>
           <div className="box1">Loại dịch vụ</div>
-          <div className="box3">{data?.service_typeCount}</div>
+          <div className="box3">{data?.serviceTypeCount}</div>
         </div>
       </Link>
 

@@ -8,7 +8,6 @@ import axios from "axios";
 const { Option } = Select;
 const children = [];
 
-
 export const LichLamViet = () => {
   const [data, setData] = useState();
   const [agency, setAgency] = useState();
@@ -16,7 +15,6 @@ export const LichLamViet = () => {
   const [refreshKey, setRefreshKey] = useState(0);
   const [reload, setReload] = useState(0);
   const { agencyId } = useToken();
-
 
   useEffect(() => {
     axios
@@ -29,18 +27,15 @@ export const LichLamViet = () => {
       .catch((error) => console.log(error));
   }, [refreshKey]);
 
-
   function isChooseAgengy(dom) {
-    
     let url = ``;
-    if(agencyId()){
+    if (agencyId()) {
       url = `${ROUTE.MAIN_URL}/workSlot/agency?agency_id=${agencyId()}`;
-    }else{
+    } else {
       url = `${ROUTE.MAIN_URL}/workSlot/agency?agency_id=${dom}`;
     }
 
     if (dom != null) {
-     
       axios
         .get(url)
         .then((res) => {
@@ -48,22 +43,21 @@ export const LichLamViet = () => {
           setReload(1);
         })
         .catch((error) => console.log(error));
-    } 
+    }
   }
-  useEffect(()=>{
+  useEffect(() => {
     let url = ``;
-    if(agencyId()){
+    if (agencyId()) {
       url = `${ROUTE.MAIN_URL}/workSlot/agency?agency_id=${agencyId()}`;
     }
     axios
-    .get(url)
-    .then((res) => {
-      setData(res.data.data);
-      setReload(1);
-    })
-    .catch((error) => console.log(error));
-  },[agencyId()]);
-
+      .get(url)
+      .then((res) => {
+        setData(res.data.data);
+        setReload(1);
+      })
+      .catch((error) => console.log(error));
+  }, [agencyId()]);
 
   const columns = [
     {
@@ -72,27 +66,43 @@ export const LichLamViet = () => {
     },
     {
       title: "Tên nhân viên",
+      render: (text, record) => <>{record?.full_name}</>,
+    },
+    {
+      title: "Thời gian làm việc",
       render: (text, record) => (
-        <>{record?.full_name}</>
+        <>
+          {record?.slot_start} - {record?.slot_end}
+        </>
       ),
     },
     {
       title: "Thời gian bắt đầu",
       render: (text, record) => (
-        <>{record?.slot_start}</>
+        <>
+          {record?.started_at == null ? (
+            <Space>-</Space>
+          ) : (
+            record?.started_at.split(" ")[1].split(".")[0]
+          )}
+        </>
       ),
     },
     {
       title: "Thời gian kết thúc",
       render: (text, record) => (
-        <>{record?.slot_end}</>
+        <>
+          {record?.ended_at == null ? (
+            <Space>-</Space>
+          ) : (
+            record?.ended_at.split(" ")[1].split(".")[0]
+          )}
+        </>
       ),
     },
     {
       title: "Ngày đăng ký",
-      render: (text, record) => (
-        <>{record?.register_date.split(" ")[0]}</>
-      ),
+      render: (text, record) => <>{record?.register_date.split(" ")[0]}</>,
     },
     {
       title: "Trạng thái",
@@ -114,25 +124,26 @@ export const LichLamViet = () => {
         }
       },
     },
-    
   ];
 
-  console.log(agencySelected);
+  // console.log("Giờ bắt đầu: ", data?.started_at);
 
   return (
     <>
       <div className="title-table">
         Danh sách lich làm việc &nbsp; &nbsp;
-        {!agencyId() && <Select
-          placeholder="Chọn chi nhánh"
-          value={agency?.id}
-          style={{ width: 200 }}
-          onChange={(dom) => isChooseAgengy(dom)}
-        >
-          {agency?.map((item) => (
-            <Option value={item?.id}>{item?.name}</Option>
-          ))}
-        </Select>}
+        {!agencyId() && (
+          <Select
+            placeholder="Chọn chi nhánh"
+            value={agency?.id}
+            style={{ width: 200 }}
+            onChange={(dom) => isChooseAgengy(dom)}
+          >
+            {agency?.map((item) => (
+              <Option value={item?.id}>{item?.name}</Option>
+            ))}
+          </Select>
+        )}
       </div>
 
       <div className="table">

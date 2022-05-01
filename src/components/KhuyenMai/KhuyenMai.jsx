@@ -16,7 +16,8 @@ export const KhuyenMai = () => {
     axios.get(`${ROUTE.MAIN_URL}/promotion/all`)
       .then(res => {
         if(res.status === 200){
-          setData(res.data.data)
+          const item = res.data.data.filter((item) => item.id !== 1);
+          setData(item)
         }
       })
       .catch(error => console.log(error));

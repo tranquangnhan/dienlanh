@@ -201,6 +201,10 @@ export const HoaDonEdit = () => {
         return <Space style={{ color: "orange" }}>Đang tiến hành</Space>;
       case 4:
         return <Space style={{ color: "green" }}>Đã hoàn thành</Space>;
+        case 5:
+        return <Space style={{ color: "orange" }}>Đang tiến hành</Space>;
+      case 6:
+        return <Space style={{ color: "orange" }}>Đang tiến hành</Space>;
       default:
         break;
     }
