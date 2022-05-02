@@ -34,6 +34,7 @@ export const ChiNhanhChiTiet = () => {
   const [updated_by, setUpdated_by] = useState();
   const [wardName, setWardName] = useState();
   const [manager, setManager] = useState();
+  const [managerName, setManagerName] = useState();
   const [managerSelected, setManagerSelected] = useState();
   const [wardNameSelected, setWardNameSelected] = useState();
   const history = useHistory();
@@ -91,7 +92,9 @@ export const ChiNhanhChiTiet = () => {
       .get(`${ROUTE.MAIN_URL}/staff/all`)
       .then((res) => {
         if (res.status === 200) {
-          const item = res.data.data.filter((item) => item.roleId === 2 && item.agencyId === 0);
+          const item = res.data.data.filter(
+            (item) => item.roleId === 2 && item.agencyId === 0
+          );
           setManager(item);
         }
       })
@@ -108,6 +111,22 @@ export const ChiNhanhChiTiet = () => {
         break;
     }
   }
+
+  // function getManagerName(){
+  //   axios
+  //     .get(`${ROUTE.MAIN_URL}/staff/all`)
+  //     .then((res) => {
+  //       if (res.status === 200) {
+  //         const item = res.data.data.filter(
+  //           (item) => item.id === detail?.manager_id
+  //         );
+  //         setManagerName(item);
+  //       }
+  //     })
+  //     .catch((error) => console.log(error));
+  // }
+
+
 
   return (
     <>
@@ -169,7 +188,7 @@ export const ChiNhanhChiTiet = () => {
                       value={
                         detail?.manager_id === 0
                           ? "Chọn quản lý"
-                          : manager_id ?? detail?.manager_id
+                          : (manager_id ?? detail?.manager_id)
                       }
                       style={{ width: 180 }}
                       onChange={(dom) => setManagerSelected(dom)}
